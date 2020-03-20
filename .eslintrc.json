@@ -3,5 +3,9 @@
     "plugins": ["prettier"],
     "rules": {
         "no-unused-vars": "warn"
+    },
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "ecmaFeatures": { "classes": true }
     }
 }

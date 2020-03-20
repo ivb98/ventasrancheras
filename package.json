@@ -6,5 +6,8 @@
     "private": true,
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "scripts": {
+        "dev:server": "yarn workspace @vranch/server dev"
+    }
 }
