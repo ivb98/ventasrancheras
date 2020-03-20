@@ -4,9 +4,13 @@
     "main": "index.js",
     "license": "MIT",
     "dependencies": {
-        "@vranch/common": "^1.0.0"
+        "@vranch/common": "^1.0.0",
+        "express": "^4.17.1",
+        "intuit-oauth": "^2.0.2",
+        "node-quickbooks": "^2.0.33"
     },
     "devDependencies": {
+        "dotenv": "^8.2.0",
         "eslint": "^6.8.0",
         "eslint-config-airbnb": "^18.0.1",
         "eslint-config-node": "^4.0.0",

@@ -1,3 +1,8 @@
-const { test } = require("@vranch/common");
+const express = require("express");
+const { consumerKey, consumerSecret, port } = require("./config/index");
 
-test();
+const app = express();
+app.listen(port);
+app.get("/", (req, res) => {
+    res.send("hello world");
+});
