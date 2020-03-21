@@ -1,7 +1,11 @@
 const Quickbooks = require("node-quickbooks");
+const OAuthClient = require("intuit-oauth");
+
 const {
-    quickBooks: { clientID, clientSecret },
+    quickBooks: { clientID, clientSecret, appUrl },
 } = require("../../../config/index");
+
+const TokenCacheManager = require("../cache/tokenCache");
 
 const DEFAULT_ACCESS_TOKEN_EXP = 3600; // 3600 seconds = 1hr
 const DEFAULT_REFRESH_TOKEN_EXP = 8600000; // 8,600,000 = 100days
@@ -9,39 +13,40 @@ const DEFAULT_REFRESH_TOKEN_EXP = 8600000; // 8,600,000 = 100days
 let accessToken = null;
 let refreshToken = null;
 let realmId = null;
+const oauthClient = new OAuthClient({
+    clientId: clientID,
+    clientSecret,
+    environment: "sandbox",
+    redirectUri: `${appUrl}/redirect`,
+});
 
 class QBOAuth {
-    /**
-     * Receives an initialized OAuthClient.
-     * This OAuthClient will be used to validate the access token
-     * and to renew it once it is expired.
-     * @param {OAuthClient} oauthClient
-     */
-    constructor(oauthClient) {
-        this.oauthClient = oauthClient;
-    }
-
     /**
      * Sets the access token for the OAuthClient.
      * @param {string} token
      */
-    setAccessToken(token) {
-        const accessTokenParams = {
-            token_type: "bearer",
-            accessToken: token,
-            expires_in: DEFAULT_ACCESS_TOKEN_EXP,
-            refresh_token: refreshToken,
-            x_refresh_token_expires_in: DEFAULT_REFRESH_TOKEN_EXP,
-        };
-        this.oauthClient.setToken(accessTokenParams);
-        accessToken = token;
+    static setAccessToken(token, cachedToken = null) {
+        let accessTokenParams;
+        if (!cachedToken) {
+            accessTokenParams = {
+                token_type: "bearer",
+                access_token: token,
+                expires_in: DEFAULT_ACCESS_TOKEN_EXP,
+                refresh_token: refreshToken,
+                x_refresh_token_expires_in: DEFAULT_REFRESH_TOKEN_EXP,
+                createdAt: new Date().getTime(),
+            };
+            TokenCacheManager.save({ ...accessTokenParams, realmId });
+        }
+        oauthClient.setToken(cachedToken || accessTokenParams);
+        accessToken = token || cachedToken.access_token;
     }
 
-    setRefreshToken(token) {
+    static setRefreshToken(token) {
         refreshToken = token;
     }
 
-    setRealmId(newRealmId) {
+    static setRealmId(newRealmId) {
         realmId = newRealmId;
     }
 
@@ -50,8 +55,8 @@ class QBOAuth {
      * If the access token is expired it will be refresed before building
      * the node-quickbooks object.
      */
-    getQbo() {
-        if (!this.oauthClient.isAccessTokenValid()) {
+    static getQbo() {
+        if (oauthClient.isAccessTokenValid()) {
             this.refreshToken();
         }
         const qbo = this.buildQbo();
@@ -61,7 +66,7 @@ class QBOAuth {
     /**
      * Builds a node-quickbooks object.
      */
-    buildQbo() {
+    static buildQbo() {
         const qbo = new Quickbooks(
             clientID,
             clientSecret,
@@ -81,8 +86,8 @@ class QBOAuth {
     /**
      * Refreshes the access token.
      */
-    refreshToken() {
-        const oauthClientCopy = this.oauthClient;
+    static refreshToken() {
+        const oauthClientCopy = oauthClient;
         return new Promise((resolve, reject) => {
             oauthClientCopy
                 .refreshUsingToken(refreshToken)
@@ -93,6 +98,10 @@ class QBOAuth {
                     reject(e);
                 });
         });
+    }
+
+    static getOAuthClient() {
+        return oauthClient;
     }
 }
 
