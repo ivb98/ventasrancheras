@@ -13,13 +13,11 @@ async function loadCachedToken() {
         QBO.setRealmId(cachedToken.realmId);
         QBO.setRefreshToken(cachedToken.refresh_token);
         QBO.setAccessToken(null, cachedToken);
-        const qbo = await QBO.getQbo();
-        getInventory();
-        // qbo.createAttachable({ Note: "My File" }, (err, attachable) => {
-        //     if (err) {
-        //         console.log(err.fault.error);
-        //     } else console.log(attachable.Id);
-        // });
+        try {
+            await getInventory();
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 async function main() {

@@ -36,7 +36,6 @@ class QBOAuth {
                 x_refresh_token_expires_in: DEFAULT_REFRESH_TOKEN_EXP,
                 createdAt: new Date().getTime(),
             };
-            console.log(accessTokenParams);
             TokenCacheManager.save({ ...accessTokenParams, realmId });
         }
         oauthClient.setToken(cachedToken || accessTokenParams);
@@ -57,7 +56,7 @@ class QBOAuth {
      * the node-quickbooks object.
      */
     static async getQbo() {
-        if (oauthClient.isAccessTokenValid() || true) {
+        if (!oauthClient.isAccessTokenValid()) {
             accessToken = await this.refreshToken();
         }
         const qbo = this.buildQbo();
@@ -96,7 +95,6 @@ class QBOAuth {
                     resolve(authResponse.json.access_token);
                 })
                 .catch(e => {
-                    console.log(e);
                     reject(e);
                 });
         });
