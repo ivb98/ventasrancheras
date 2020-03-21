@@ -28,7 +28,7 @@ function setItemsByCategory(items) {
 module.exports.getInventory = async () => {
     const qbo = await QBO.getQbo();
     return new Promise((resolve, reject) => {
-        qbo.findItems({ Active: true, Typpe: "Inventory" }, (err, items) => {
+        qbo.findItems({ Active: true, Type: "Inventory" }, (err, items) => {
             if (err) {
                 const parsedErr = QBOUtils.parseError(err);
                 return reject(parsedErr);
