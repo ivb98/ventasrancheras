@@ -3,7 +3,8 @@ const AuthTokenRoutes = require("./erp/OAuth2/auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/auth/QBOAuth");
 const { port } = require("./config/index");
-const { getInventory } = require("./erp/Inventory/Inventory");
+// const { getInventory } = require("./erp/Inventory/Inventory");
+const { getCustomers } = require("./erp/Customer/Customer");
 
 const app = express();
 
@@ -14,7 +15,8 @@ async function loadCachedToken() {
         QBO.setRefreshToken(cachedToken.refresh_token);
         QBO.setAccessToken(null, cachedToken);
         try {
-            await getInventory();
+            // const cust = await getCustomers();
+            // console.log(cust);
         } catch (e) {
             console.log(e);
         }
