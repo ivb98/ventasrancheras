@@ -1,6 +1,6 @@
 const express = require("express");
-const Auth = require("./Auth/authToken.controller");
-const { quickBooks } = require("../../config/index");
+const Auth = require("./authToken.controller");
+const { quickBooks } = require("../../../config/index");
 
 const router = express.Router();
 

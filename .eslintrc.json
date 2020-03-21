@@ -2,7 +2,8 @@
     "extends": ["airbnb", "prettier"],
     "plugins": ["prettier"],
     "rules": {
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "class-methods-use-this": "off"
     },
     "parserOptions": {
         "ecmaVersion": 11,
