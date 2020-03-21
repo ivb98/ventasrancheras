@@ -25,6 +25,6 @@
     "scripts": {
         "lint": "eslint .",
         "start": "node src/index",
-        "dev": "nodemon src/index"
+        "dev": "nodemon --ignore *.json src/index"
     }
 }
