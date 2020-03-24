@@ -1,8 +1,8 @@
 const fs = require("fs");
 const express = require("express");
-const AuthTokenRoutes = require("./erp/OAuth2/auth/authToken.routes");
+const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
-const QBO = require("./erp/OAuth2/auth/QBOAuth");
+const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
 // const { getInventory } = require("./erp/Inventory/Inventory");
 const { getCustomers } = require("./erp/Customer/Customer");
