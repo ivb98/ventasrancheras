@@ -8,6 +8,7 @@ const { port } = require("./config/index");
 const { getCustomers } = require("./erp/Customer/Customer");
 const { getPackages, getPdf } = require("./erp/Packages/Packages");
 const { uploadSignature, addNote } = require("./erp/Signature/Signature");
+const { createSalesOrder } = require("./erp/Estimate/Estimate");
 
 const app = express();
 
@@ -21,8 +22,6 @@ async function loadCachedToken() {
             // const cust = await getCustomers();
             // console.log(cust);
             // const pdf = await getPdf();
-            const pkgs = await getPackages();
-            console.log(pkgs);
             // const base64 = fs.createReadStream("./img/mytest.jpg");
             // const updated = await uploadSignature(base64, {
             //     note: "Firma de delivery al recibir",
