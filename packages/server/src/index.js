@@ -6,15 +6,15 @@ const { port } = require("./config/index");
 
 const app = express();
 
-function loadCachedToken() {
+async function loadCachedToken() {
     const cachedToken = CachedToken.get();
     if (cachedToken) {
         QBO.setRealmId(cachedToken.realmId);
         QBO.setRefreshToken(cachedToken.refresh_token);
         QBO.setAccessToken(null, cachedToken);
-        const qbo = QBO.getQbo();
+        const qbo = await QBO.getQbo();
         qbo.createAttachable({ Note: "My File" }, function(err, attachable) {
-            if (err) console.log(err);
+            if (err) console.log(err.fault.error);
             else console.log(attachable.Id);
         });
     }
