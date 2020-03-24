@@ -5,6 +5,7 @@
  * @param {Error} err
  */
 module.exports.parseError = err => {
+    console.log(err);
     const parsedErr = JSON.parse(JSON.stringify(err).toLocaleLowerCase());
     return parsedErr.fault.error[0];
 };

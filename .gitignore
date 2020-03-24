@@ -3,3 +3,4 @@ node_modules/
 codealike.json
 *.cache.json
 /examples/**
+**/test_img/**
