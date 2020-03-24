@@ -1,4 +1,4 @@
-const QBO = require("../OAuth2/auth/QBOAuth");
+const QBO = require("../OAuth2/Auth/QBOAuth");
 const QBOUtils = require("../ErpUtils");
 
 /**

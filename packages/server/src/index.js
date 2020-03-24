@@ -1,15 +1,14 @@
-const fs = require("fs");
 const express = require("express");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
 // const { getInventory } = require("./erp/Inventory/Inventory");
-const { getCustomers } = require("./erp/Customer/Customer");
-const { getPackages, getPdf } = require("./erp/Packages/Packages");
-const { uploadSignature, addNote } = require("./erp/Signature/Signature");
-const { createSalesOrder } = require("./erp/Estimate/Estimate");
-const { createEmployee } = require("./erp/Employee/Employee");
+// const { getCustomers } = require("./erp/Customer/Customer");
+// const { getPackages, getPdf } = require("./erp/Packages/Packages");
+// const { uploadSignature, addNote } = require("./erp/Signature/Signature");
+// const { createSalesOrder } = require("./erp/Estimate/Estimate");
+// const { createEmployee } = require("./erp/Employee/Employee");
 
 const app = express();
 
@@ -33,7 +32,7 @@ async function loadCachedToken() {
             // });
             // console.log(updated);
         } catch (e) {
-            console.log(e);
+            // console.log(e);
         }
     }
 }

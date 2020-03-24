@@ -23,7 +23,8 @@ const oauthClient = new OAuthClient({
 class QBOAuth {
     /**
      * Sets the access token for the OAuthClient.
-     * @param {string} token
+     * @param {string} token access token
+     * @param {object} [cachedToken=null] if passed this will be used instead.
      */
     static setAccessToken(token, cachedToken = null) {
         let accessTokenParams;
@@ -57,7 +58,7 @@ class QBOAuth {
      */
     static async getQbo() {
         if (!oauthClient.isAccessTokenValid()) {
-            accessToken = await this.refreshToken();
+            await this.refreshToken();
         }
         const qbo = this.buildQbo();
         return qbo;
@@ -92,6 +93,8 @@ class QBOAuth {
             oauthClientCopy
                 .refreshUsingToken(refreshToken)
                 .then(authResponse => {
+                    this.setRefreshToken(authResponse.json.refresh_token);
+                    this.setAccessToken(authResponse.json.access_token);
                     resolve(authResponse.json.access_token);
                 })
                 .catch(e => {
