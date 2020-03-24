@@ -1,3 +1,6 @@
 node_modules/
 .env
 codealike.json
+*.cache.json
+**/test_img/**
+**/examples/**
