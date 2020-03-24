@@ -9,6 +9,7 @@ const { getCustomers } = require("./erp/Customer/Customer");
 const { getPackages, getPdf } = require("./erp/Packages/Packages");
 const { uploadSignature, addNote } = require("./erp/Signature/Signature");
 const { createSalesOrder } = require("./erp/Estimate/Estimate");
+const { createEmployee } = require("./erp/Employee/Employee");
 
 const app = express();
 
