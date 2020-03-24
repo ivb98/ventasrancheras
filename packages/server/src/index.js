@@ -1,3 +1,4 @@
+const { createConnection } = require("typeorm");
 const express = require("express");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
@@ -38,6 +39,12 @@ async function loadCachedToken() {
 }
 async function main() {
     loadCachedToken();
+    try {
+        // connects to postgres
+        await createConnection();
+    } catch (err) {
+        console.log(err);
+    }
     app.listen(port);
     app.use("/", AuthTokenRoutes);
 }
