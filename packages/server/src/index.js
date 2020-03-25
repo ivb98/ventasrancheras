@@ -1,9 +1,13 @@
-const { createConnection } = require("typeorm");
+const { createConnection, getConnectionOptions } = require("typeorm");
+const { SnakeNamingStrategy } = require("typeorm-naming-strategies");
 const express = require("express");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
+const Employee = require("./entities/Employee/Employee");
+const SO = require("./entities/SalesVisit/SalesVisit");
+const EntityRepository = require("./entities/EntityRepository");
 // const { getInventory } = require("./erp/Inventory/Inventory");
 // const { getCustomers } = require("./erp/Customer/Customer");
 // const { getPackages, getPdf } = require("./erp/Packages/Packages");
@@ -40,8 +44,8 @@ async function loadCachedToken() {
 async function main() {
     loadCachedToken();
     try {
-        // connects to postgres
-        await createConnection();
+        const opts = await getConnectionOptions();
+        await createConnection({ ...opts, namingStrategy: new SnakeNamingStrategy() });
     } catch (err) {
         console.log(err);
     }

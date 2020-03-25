@@ -10,7 +10,8 @@
         "node-quickbooks": "^2.0.33",
         "pg": "^7.18.2",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.2.24"
+        "typeorm": "^0.2.24",
+        "typeorm-naming-strategies": "^1.1.0"
     },
     "devDependencies": {
         "dotenv": "^8.2.0",
