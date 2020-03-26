@@ -1,0 +1,51 @@
+post:
+    summary: Logs an employee in and returns their information.
+    description: Checks if the user is registered and returns it along with an access token.
+        The access token must be used for future requests.
+    security: []
+    tags:
+        - Auth
+    requestBody:
+        description: Credentials of the employee
+        content:
+            application/json:
+                schema:
+                    $ref: "#/components/x-generic/loggedEmployee"
+    responses:
+        200:
+            description: The employee's information.
+            content:
+                application/json:
+                    schema:
+                        allOf:
+                            - $ref: "#/components/x-generic/loggedEmployee"
+                            - type: object
+                              properties:
+                                  accessToken:
+                                      type: string
+                                      example: abcd1234abcd1234kldnzfklnsedkjnfkndsjnf
+                                  role:
+                                      type: string
+                                      example: Delivery
+        401:
+            $ref: "#/components/responses/WrongCredentialsError"
+get:
+    summary: Returns the currently logged employee.
+    description: Returns the currently logged employee based on the access token.
+    tags:
+        - Auth
+    responses:
+        200:
+            description: The employee's information.
+            content:
+                application/json:
+                    schema:
+                        allOf:
+                            - $ref: "#/components/x-generic/loggedEmployee"
+                            - type: object
+                              properties:
+                                  role:
+                                      type: string
+                                      example: Delivery
+        403:
+            $ref: "#/components/responses/UnauthorizedError"

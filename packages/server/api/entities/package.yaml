@@ -1,0 +1,22 @@
+type: object
+description: An active product in Quickbooks.
+properties:
+    id:
+        $ref: "#/components/x-generic/id"
+    items:
+        type: array
+        items:
+            $ref: "#/components/schemas/Item"
+    customer:
+        type: object
+        properties:
+            id:
+                $ref: "#/components/x-generic/id"
+            name:
+                type: string
+                description: Name of the customer
+                example: John's Autoservice
+    delivered:
+        type: boolean
+        description: Has the package been delivered or not.
+        example: true

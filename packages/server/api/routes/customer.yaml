@@ -1,0 +1,15 @@
+get:
+    summary: Returns all the customers.
+    tags:
+        - Customer
+    responses:
+        200:
+            description: Array of all customers.
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/Customer"
+        400:
+            $ref: "#/components/responses/GenericError"

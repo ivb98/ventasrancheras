@@ -1,0 +1,15 @@
+get:
+    summary: Returns all the packages.
+    tags:
+        - Package
+    responses:
+        200:
+            description: Array of all packages.
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/Package"
+        400:
+            $ref: "#/components/responses/GenericError"

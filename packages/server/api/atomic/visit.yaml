@@ -1,0 +1,14 @@
+type: object
+description: An object representing a visit to a customer.
+properties:
+    id:
+        type: integer
+        example: 39
+        description: Id that represents this visit in the database
+    customer:
+        $ref: "#/components/schemas/Customer"
+    date:
+        type: integer
+        example: 1585202417296
+        description: Date when the client was visited. This value is given in miliseconds.
+        nullable: true

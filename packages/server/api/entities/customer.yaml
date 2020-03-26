@@ -1,0 +1,19 @@
+type: object
+description: An active customer in Quickbooks.
+properties:
+    id:
+        $ref: "#/components/x-generic/id"
+    address:
+        $ref: "#/components/x-generic/location"
+    balance:
+        type: number
+        description: Amount of money in debt from the user to the company.
+        example: 250.29
+    displayName:
+        type: string
+        description: Name that is displayed on Quickbooks for this user.
+        example: John's CD Store
+    assigned:
+        type: boolean
+        description: Is this client assigned to someone?
+        example: false

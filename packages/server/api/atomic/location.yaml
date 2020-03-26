@@ -1,0 +1,15 @@
+type: object
+description: The address where the products must be shipped.
+properties:
+    lat:
+        type: number
+        example: 10.93
+        description: Latitude of the user.
+    long:
+        type: number
+        example: -109.33
+        description: Longitude of the user.
+    stringified:
+        type: string
+        example: Madrid, Spain Street 8th No.33
+        description: Stringified version of the user's address.

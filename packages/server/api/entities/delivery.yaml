@@ -1,0 +1,20 @@
+type: object
+description: An employee with the role of delivery.
+properties:
+    id:
+        type: string
+        example: 6
+        description: Id of the delivery in the database
+    name:
+        type: string
+        example: Bob Bobson
+        description: Full name of the delivery
+    packages:
+        type: array
+        description: Array of packages assigned to this delivery
+        items:
+            $ref: "#/components/schemas/Package"
+    email:
+        type: string
+        example: delivery@email.com
+        description: Email of the delivery.

@@ -1,0 +1,16 @@
+type: object
+description: An active customer in Quickbooks.
+properties:
+    customer:
+        type: object
+        properties:
+            value:
+                $ref: "#/components/x-generic/id"
+            name:
+                type: string
+                description: Name of the customer as displayed on Quickbooks.
+                example: Johnny's Minimarket
+    items:
+        type: array
+        items:
+            $ref: "#/components/schemas/Item"

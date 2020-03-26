@@ -1,0 +1,57 @@
+Crud:
+    get:
+        summary: Returns all the deliveries.
+        tags:
+            - Delivery
+        responses:
+            200:
+                description: Array of all deliveries.
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Delivery"
+            400:
+                $ref: "#/components/responses/GenericError"
+    post:
+        summary: Creates a new delivery employee.
+        tags:
+            - Delivery
+        requestBody:
+            description: Information of the employee.
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Employee"
+        responses:
+            200:
+                description: The created employee.
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Delivery"
+            400:
+                $ref: "#/components/responses/GenericError"
+Assign:
+    post:
+        summary: Assigns a package to a delivery
+        tags:
+            - Delivery
+        requestBody:
+            description: Id of the delivery and id of the package.
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            deliveryId:
+                                type: integer
+                                example: 8
+                            packageId:
+                                $ref: "#/components/x-generic/id"
+        responses:
+            200:
+                description: Package assigned.
+            400:
+                $ref: "#/components/responses/GenericError"

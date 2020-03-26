@@ -1,0 +1,57 @@
+Crud:
+    get:
+        summary: Returns all the sales managers.
+        tags:
+            - Sales
+        responses:
+            200:
+                description: Array of all sales managers.
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/SalesManager"
+            400:
+                $ref: "#/components/responses/GenericError"
+    post:
+        summary: Creates a new Sales Manager employee.
+        tags:
+            - Sales
+        requestBody:
+            description: Information of the employee.
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/Employee"
+        responses:
+            200:
+                description: The created employee.
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SalesManager"
+            400:
+                $ref: "#/components/responses/GenericError"
+Assign:
+    post:
+        summary: Assigns a customer to the Sales Manager.
+        tags:
+            - Sales
+        requestBody:
+            description: Id of the sales manager and id of the customer.
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            salesManagerId:
+                                type: integer
+                                example: 8
+                            customerId:
+                                $ref: "#/components/x-generic/id"
+        responses:
+            200:
+                description: Visit assigned.
+            400:
+                $ref: "#/components/responses/GenericError"

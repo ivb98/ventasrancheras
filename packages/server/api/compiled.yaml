@@ -1,0 +1,421 @@
+openapi: 3.0.2
+info:
+  title: Ventas Rancheras
+  version: 1.0.4
+  description: Software Engineering project
+servers:
+  - url: 'http://localhost:3000/'
+    description: Dev Server
+security:
+  - BearerAuth: []
+tags:
+  - name: Auth
+    description: Auth related routes.
+  - name: Customer
+    description: Customer related routes.
+  - name: Item
+    description: Route related routes. An item is defined as a product sold by the company.
+  - name: Sales Orders
+    description: >-
+      Routes related to sales orders. A sales order is what the sales manager
+      creates once he visits a client.
+  - name: Package
+    description: Package related routes
+  - name: Sales
+    description: Routes related to Sales Managers.
+  - name: Delivery
+    description: Routes related to Deliveries.
+paths:
+  /auth:
+    post:
+      summary: Logs an employee in and returns their information.
+      description: >-
+        Checks if the user is registered and returns it along with an access
+        token. The access token must be used for future requests.
+      security: []
+      tags:
+        - Auth
+      requestBody:
+        description: Credentials of the employee
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/x-generic/loggedEmployee'
+      responses:
+        '200':
+          description: The employee's information.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/x-generic/loggedEmployee'
+                  - type: object
+                    properties:
+                      accessToken:
+                        type: string
+                        example: abcd1234abcd1234kldnzfklnsedkjnfkndsjnf
+                      role:
+                        type: string
+                        example: Delivery
+        '401':
+          $ref: '#/components/responses/WrongCredentialsError'
+    get:
+      summary: Returns the currently logged employee.
+      description: Returns the currently logged employee based on the access token.
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: The employee's information.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/x-generic/loggedEmployee'
+                  - type: object
+                    properties:
+                      role:
+                        type: string
+                        example: Delivery
+        '403':
+          $ref: '#/components/responses/UnauthorizedError'
+  /delivery:
+    get:
+      summary: Returns all the deliveries.
+      tags:
+        - Delivery
+      responses:
+        '200':
+          description: Array of all deliveries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+        '400':
+          $ref: '#/components/responses/GenericError'
+    post:
+      summary: Creates a new delivery employee.
+      tags:
+        - Delivery
+      requestBody:
+        description: Information of the employee.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: The created employee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /delivery/assign: &ref_0
+    post:
+      summary: Assigns a package to a delivery
+      tags:
+        - Delivery
+      requestBody:
+        description: Id of the delivery and id of the package.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                deliveryId:
+                  type: integer
+                  example: 8
+                packageId:
+                  $ref: '#/components/x-generic/id'
+      responses:
+        '200':
+          description: Package assigned.
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /sales:
+    get:
+      summary: Returns all the sales managers.
+      tags:
+        - Sales
+      responses:
+        '200':
+          description: Array of all sales managers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesManager'
+        '400':
+          $ref: '#/components/responses/GenericError'
+    post:
+      summary: Creates a new Sales Manager employee.
+      tags:
+        - Sales
+      requestBody:
+        description: Information of the employee.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: The created employee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesManager'
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /sales/assign: *ref_0
+  /package:
+    get:
+      summary: Returns all the packages.
+      tags:
+        - Package
+      responses:
+        '200':
+          description: Array of all packages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Package'
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /customer:
+    get:
+      summary: Returns all the customers.
+      tags:
+        - Customer
+      responses:
+        '200':
+          description: Array of all customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/GenericError'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Item:
+      type: object
+      description: An active product in Quickbooks.
+      properties:
+        id:
+          $ref: '#/components/x-generic/id'
+        name:
+          type: string
+          description: Name of the item in Quickbooks.
+          example: Smartphone
+        description:
+          type: string
+          description: Description of the item in Quickbooks.
+          example: Latest model smartphone with very large screen.
+        unitPrice:
+          type: number
+          description: Price of a single unit of this item.
+          example: 299.95
+        qty:
+          type: integer
+          description: Available amount of this item.
+          example: 42
+        category:
+          type: string
+          description: >-
+            Category this item belongs to in Quickbooks. If none is shown in
+            Quickbooks a default value will be given.
+          example: Electronics
+    Customer:
+      type: object
+      description: An active customer in Quickbooks.
+      properties:
+        id:
+          $ref: '#/components/x-generic/id'
+        address:
+          $ref: '#/components/x-generic/location'
+        balance:
+          type: number
+          description: Amount of money in debt from the user to the company.
+          example: 250.29
+        displayName:
+          type: string
+          description: Name that is displayed on Quickbooks for this user.
+          example: John's CD Store
+        assigned:
+          type: boolean
+          description: Is this client assigned to someone?
+          example: false
+    Package:
+      type: object
+      description: An active product in Quickbooks.
+      properties:
+        id:
+          $ref: '#/components/x-generic/id'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        customer:
+          type: object
+          properties:
+            id:
+              $ref: '#/components/x-generic/id'
+            name:
+              type: string
+              description: Name of the customer
+              example: John's Autoservice
+        delivered:
+          type: boolean
+          description: Has the package been delivered or not.
+          example: true
+    Delivery:
+      type: object
+      description: An employee with the role of delivery.
+      properties:
+        id:
+          type: string
+          example: 6
+          description: Id of the delivery in the database
+        name:
+          type: string
+          example: Bob Bobson
+          description: Full name of the delivery
+        packages:
+          type: array
+          description: Array of packages assigned to this delivery
+          items:
+            $ref: '#/components/schemas/Package'
+        email:
+          type: string
+          example: delivery@email.com
+          description: Email of the delivery.
+    Employee:
+      allOf:
+        - $ref: '#/components/x-generic/loggedEmployee'
+        - type: object
+          properties:
+            name:
+              type: string
+              description: Name of the employee.
+              example: Billy Bob
+    SalesManager:
+      type: object
+      description: A sales manager employee.
+      properties:
+        id:
+          type: string
+          example: 7
+          description: Id of the sales manager in the database
+        name:
+          type: string
+          example: Bob Bobson
+          description: Full name of the sales manager
+        visits:
+          type: array
+          description: Array of visits assigned to this sales manager.
+          items:
+            $ref: '#/components/schemas/Visit'
+        email:
+          type: string
+          example: sales@email.com
+          description: Email of the sales manager.
+    Visit:
+      type: object
+      description: An object representing a visit to a customer.
+      properties:
+        id:
+          type: integer
+          example: 39
+          description: Id that represents this visit in the database
+        customer:
+          $ref: '#/components/schemas/Customer'
+        date:
+          type: integer
+          example: 1585202417296
+          description: >-
+            Date when the client was visited. This value is given in
+            miliseconds.
+          nullable: true
+  responses:
+    WrongCredentialsError:
+      description: Wrong credentials
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Message error
+                example: Wrong credentials
+    GenericError:
+      description: Error thrown to report something went wrong.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Message error
+                example: One or more parameters missing
+    UnauthorizedError:
+      description: Error thrown when the access token is missing or has expired.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Message error
+                example: Not Authorized
+  x-generic:
+    id:
+      type: string
+      description: >-
+        Quickbooks id. Not sure if its always a number, therefore assigning it
+        to a string meanwhile.
+      example: '3'
+    location:
+      type: object
+      description: The address where the products must be shipped.
+      properties:
+        lat:
+          type: number
+          example: 10.93
+          description: Latitude of the user.
+        long:
+          type: number
+          example: -109.33
+          description: Longitude of the user.
+        stringified:
+          type: string
+          example: 'Madrid, Spain Street 8th No.33'
+          description: Stringified version of the user's address.
+    loggedEmployee:
+      type: object
+      description: User logged in credentials
+      properties:
+        email:
+          type: string
+          description: The employee's email address.
+          example: test@example.com
+        password:
+          type: string
+          description: The employee's password
+          example: mysecurepassword123
+

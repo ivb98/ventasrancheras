@@ -1,0 +1,75 @@
+openapi: "3.0.2"
+info:
+    title: Ventas Rancheras
+    version: "1.0.4"
+    description: Software Engineering project
+servers:
+    - url: http://localhost:3000/
+      description: Dev Server
+security:
+    - BearerAuth: []
+
+tags:
+    - name: Auth
+      description: Auth related routes.
+    - name: Customer
+      description: Customer related routes.
+    - name: Item
+      description: Route related routes. An item is defined as a product sold by the company.
+    - name: Sales Orders
+      description: Routes related to sales orders. A sales order is what the sales manager creates once he visits a client.
+    - name: Package
+      description: Package related routes
+    - name: Sales
+      description: Routes related to Sales Managers.
+    - name: Delivery
+      description: Routes related to Deliveries.
+paths:
+    /auth:
+        $ref: "./routes/auth.yaml"
+    /delivery:
+        $ref: "./routes/delivery.yaml#/Crud"
+    /delivery/assign:
+        $ref: "./routes/delivery.yaml#/Assign"
+    /sales:
+        $ref: "./routes/sales.yaml#/Crud"
+    /sales/assign:
+        $ref: "./routes/delivery.yaml#/Assign"
+    /package:
+        $ref: "./routes/package.yaml"
+    /customer:
+        $ref: "./routes/customer.yaml"
+components:
+    securitySchemes:
+        BearerAuth:
+            type: http
+            scheme: bearer
+    schemas:
+        Item:
+            $ref: "./entities/item.yaml"
+        Customer:
+            $ref: "./entities/customer.yaml"
+        Package:
+            $ref: "./entities/package.yaml"
+        Delivery:
+            $ref: "./entities/delivery.yaml"
+        Employee:
+            $ref: "./entities/employee.yaml"
+        SalesManager:
+            $ref: "./entities/salesManager.yaml"
+        Visit:
+            $ref: "./atomic/visit.yaml"
+    responses:
+        WrongCredentialsError:
+            $ref: "./responses/errors.yaml#/WrongCredentialsError"
+        GenericError:
+            $ref: "./responses/errors.yaml#/GenericError"
+        UnauthorizedError:
+            $ref: "./responses/errors.yaml#/UnauthorizedError"
+    x-generic:
+        id:
+            $ref: "./atomic/qbo_id.yaml"
+        location:
+            $ref: "./atomic/location.yaml"
+        loggedEmployee:
+            $ref: "./entities/loggedEmployee.yaml"

@@ -1,0 +1,34 @@
+WrongCredentialsError:
+    description: Wrong credentials
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    error:
+                        type: string
+                        description: Message error
+                        example: Wrong credentials
+
+UnauthorizedError:
+    description: Error thrown when the access token is missing or has expired.
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    error:
+                        type: string
+                        description: Message error
+                        example: Not Authorized
+GenericError:
+    description: Error thrown to report something went wrong.
+    content:
+        application/json:
+            schema:
+                type: object
+                properties:
+                    error:
+                        type: string
+                        description: Message error
+                        example: One or more parameters missing

@@ -24,11 +24,13 @@
         "eslint-plugin-node": "^11.0.0",
         "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-react": "^7.18.3",
+        "multi-file-swagger": "^2.3.0",
         "prettier": "^1.19.1"
     },
     "scripts": {
         "lint": "eslint .",
         "start": "node src/index",
-        "dev": "nodemon --ignore *.json src/index"
+        "dev": "nodemon --ignore *.json src/index",
+        "build:api": "cd ./api && multi-file-swagger -o yaml ./index.yaml > compiled.yaml && cd ../"
     }
 }

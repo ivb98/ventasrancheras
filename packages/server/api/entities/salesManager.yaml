@@ -1,0 +1,20 @@
+type: object
+description: A sales manager employee.
+properties:
+    id:
+        type: string
+        example: 7
+        description: Id of the sales manager in the database
+    name:
+        type: string
+        example: Bob Bobson
+        description: Full name of the sales manager
+    visits:
+        type: array
+        description: Array of visits assigned to this sales manager.
+        items:
+            $ref: "#/components/schemas/Visit"
+    email:
+        type: string
+        example: sales@email.com
+        description: Email of the sales manager.

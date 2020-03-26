@@ -1,0 +1,11 @@
+type: object
+description: User logged in credentials
+properties:
+    email:
+        type: string
+        description: The employee's email address.
+        example: test@example.com
+    password:
+        type: string
+        description: The employee's password
+        example: mysecurepassword123

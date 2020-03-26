@@ -1,0 +1,8 @@
+allOf:
+    - $ref: "#/components/x-generic/loggedEmployee"
+    - type: object
+      properties:
+          name:
+              type: string
+              description: Name of the employee.
+              example: Billy Bob

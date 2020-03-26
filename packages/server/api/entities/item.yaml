@@ -1,0 +1,25 @@
+type: object
+description: An active product in Quickbooks.
+properties:
+    id:
+        $ref: "#/components/x-generic/id"
+    name:
+        type: string
+        description: Name of the item in Quickbooks.
+        example: Smartphone
+    description:
+        type: string
+        description: Description of the item in Quickbooks.
+        example: Latest model smartphone with very large screen.
+    unitPrice:
+        type: number
+        description: Price of a single unit of this item.
+        example: 299.95
+    qty:
+        type: integer
+        description: Available amount of this item.
+        example: 42
+    category:
+        type: string
+        description: Category this item belongs to in Quickbooks. If none is shown in Quickbooks a default value will be given.
+        example: Electronics
