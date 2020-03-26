@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   title: Ventas Rancheras
-  version: 1.0.4
+  version: 1.1.0
   description: Software Engineering project
 servers:
   - url: 'http://localhost:3000/'
@@ -17,12 +17,12 @@ tags:
     description: Route related routes. An item is defined as a product sold by the company.
   - name: Sales Orders
     description: >-
-      Routes related to sales orders. A sales order is what the sales manager
-      creates once he visits a client.
+      Routes related to sales orders. A sales order is what the Salesman creates
+      once he visits a client.
   - name: Package
     description: Package related routes
   - name: Sales
-    description: Routes related to Sales Managers.
+    description: Routes related to Salesman.
   - name: Delivery
     description: Routes related to Deliveries.
 paths:
@@ -114,7 +114,7 @@ paths:
                 $ref: '#/components/schemas/Delivery'
         '400':
           $ref: '#/components/responses/GenericError'
-  /delivery/assign: &ref_0
+  /delivery/assign:
     post:
       summary: Assigns a package to a delivery
       tags:
@@ -136,14 +136,90 @@ paths:
           description: Package assigned.
         '400':
           $ref: '#/components/responses/GenericError'
+  /delivery/me:
+    get:
+      summary: >-
+        Returns all the packages assigned to the logged delivery. To determine
+        who the logged delivery is the token is read from the server.
+      tags:
+        - Delivery
+      responses:
+        '200':
+          description: Array of all assigned packages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Package'
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /delivery/receive:
+    post:
+      summary: >-
+        Sends a notification to the server declaring that the package has been
+        received by the delivery and is now on its way to the client.
+      tags:
+        - Delivery
+      requestBody:
+        description: Signature of the delivery and the id of the package he received
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - signature
+                - packageId
+              properties:
+                signature:
+                  type: string
+                  format: base64
+                  description: Signature of the delivery as a base64 string
+                packageId:
+                  $ref: '#/components/x-generic/id'
+      responses:
+        '200':
+          description: >-
+            Notifies the server that a package has been received by this
+            delivery.
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /deleivery/deliver:
+    post:
+      summary: Notifies the server that a package has been delivered to its customer.
+      tags:
+        - Delivery
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - signature
+                - packageId
+                - customerId
+              properties:
+                signature:
+                  type: string
+                  format: base64
+                  description: Signature of the customer as a base64 string
+                packageId:
+                  $ref: '#/components/x-generic/id'
+                customerId:
+                  $ref: '#/components/x-generic/id'
+      responses:
+        '200':
+          description: The deliver of the package has been registered successfully.
+        '400':
+          $ref: '#/components/responses/GenericError'
   /sales:
     get:
-      summary: Returns all the sales managers.
+      summary: Returns all the salesmans.
       tags:
         - Sales
       responses:
         '200':
-          description: Array of all sales managers.
+          description: Array of all salesmans.
           content:
             application/json:
               schema:
@@ -153,7 +229,7 @@ paths:
         '400':
           $ref: '#/components/responses/GenericError'
     post:
-      summary: Creates a new Sales Manager employee.
+      summary: Creates a new salesman employee.
       tags:
         - Sales
       requestBody:
@@ -171,7 +247,46 @@ paths:
                 $ref: '#/components/schemas/SalesManager'
         '400':
           $ref: '#/components/responses/GenericError'
-  /sales/assign: *ref_0
+  /sales/assign:
+    post:
+      summary: Assigns a customer to the salesman.
+      tags:
+        - Sales
+      requestBody:
+        description: Id of the salesman and id of the customer.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                salesManagerId:
+                  type: integer
+                  example: 8
+                customerId:
+                  $ref: '#/components/x-generic/id'
+      responses:
+        '200':
+          description: Visit assigned.
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /sales/me:
+    get:
+      summary: >-
+        Returns all the visits assigned to the logged salesman. To determine who
+        the logged salesman is the token is read from the server.
+      tags:
+        - Sales
+      responses:
+        '200':
+          description: Array of all assigned customers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Visit'
+        '400':
+          $ref: '#/components/responses/GenericError'
   /package:
     get:
       summary: Returns all the packages.
@@ -204,6 +319,62 @@ paths:
                   $ref: '#/components/schemas/Customer'
         '400':
           $ref: '#/components/responses/GenericError'
+  /item:
+    get:
+      summary: Returns all the items.
+      tags:
+        - Item
+      responses:
+        '200':
+          description: Array of all items.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Item'
+        '400':
+          $ref: '#/components/responses/GenericError'
+  /payment:
+    post:
+      summary: >-
+        Sends a payment to the server. This payment is then registered into
+        Quickbooks.
+      tags:
+        - Payment
+      requestBody:
+        description: Information about this payment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          description: >-
+            A 200 response will be sent indicating that the payment was
+            registered successfully..
+        '401':
+          $ref: '#/components/responses/WrongCredentialsError'
+  /salesOrder:
+    post:
+      summary: >-
+        Sends a sales order to the server. This will be registered as an
+        Estimate in Quickbooks.
+      tags:
+        - Sales Orders
+      requestBody:
+        description: Information about this request order
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SalesOrder'
+      responses:
+        '200':
+          description: >-
+            A 200 response will be sent indicating that the sales order was
+            registered successfully..
+        '401':
+          $ref: '#/components/responses/WrongCredentialsError'
 components:
   securitySchemes:
     BearerAuth:
@@ -213,6 +384,10 @@ components:
     Item:
       type: object
       description: An active product in Quickbooks.
+      required:
+        - id
+        - unitPrice
+        - qty
       properties:
         id:
           $ref: '#/components/x-generic/id'
@@ -313,25 +488,25 @@ components:
               example: Billy Bob
     SalesManager:
       type: object
-      description: A sales manager employee.
+      description: A salesman employee.
       properties:
         id:
           type: string
           example: 7
-          description: Id of the sales manager in the database
+          description: Id of the salesman in the database
         name:
           type: string
           example: Bob Bobson
-          description: Full name of the sales manager
+          description: Full name of the salesman
         visits:
           type: array
-          description: Array of visits assigned to this sales manager.
+          description: Array of visits assigned to this salesman.
           items:
             $ref: '#/components/schemas/Visit'
         email:
           type: string
           example: sales@email.com
-          description: Email of the sales manager.
+          description: Email of the salesman.
     Visit:
       type: object
       description: An object representing a visit to a customer.
@@ -349,6 +524,47 @@ components:
             Date when the client was visited. This value is given in
             miliseconds.
           nullable: true
+    Payment:
+      type: object
+      properties:
+        totalAmt:
+          type: number
+          description: Amount of money received.
+          example: 1290.5
+        customerId:
+          $ref: '#/components/x-generic/id'
+    SalesOrder:
+      type: object
+      description: An active customer in Quickbooks.
+      required:
+        - customer
+        - items
+        - signature
+        - id
+      properties:
+        id:
+          type: integer
+          example: 8
+          description: Database id for the visit related to this order.
+        customer:
+          type: object
+          properties:
+            value:
+              $ref: '#/components/x-generic/id'
+            name:
+              type: string
+              description: Name of the customer as displayed on Quickbooks.
+              example: Johnny's Minimarket
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        signature:
+          type: string
+          format: base64
+          description: >-
+            The customer's signature after receiving the order. Should be sent
+            as a base64 string.
   responses:
     WrongCredentialsError:
       description: Wrong credentials
@@ -397,11 +613,11 @@ components:
         lat:
           type: number
           example: 10.93
-          description: Latitude of the user.
+          description: Latitude of this address.
         long:
           type: number
           example: -109.33
-          description: Longitude of the user.
+          description: Longitude of this address.
         stringified:
           type: string
           example: 'Madrid, Spain Street 8th No.33'
@@ -409,6 +625,9 @@ components:
     loggedEmployee:
       type: object
       description: User logged in credentials
+      required:
+        - email
+        - password
       properties:
         email:
           type: string

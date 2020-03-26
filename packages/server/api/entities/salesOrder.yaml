@@ -1,6 +1,15 @@
 type: object
 description: An active customer in Quickbooks.
+required:
+    - customer
+    - items
+    - signature
+    - id
 properties:
+    id:
+        type: integer
+        example: 8
+        description: Database id for the visit related to this order.
     customer:
         type: object
         properties:
@@ -14,3 +23,7 @@ properties:
         type: array
         items:
             $ref: "#/components/schemas/Item"
+    signature:
+        type: string
+        format: base64
+        description: The customer's signature after receiving the order. Should be sent as a base64 string.

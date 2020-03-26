@@ -1,5 +1,9 @@
 type: object
 description: An active product in Quickbooks.
+required:
+    - id
+    - unitPrice
+    - qty
 properties:
     id:
         $ref: "#/components/x-generic/id"

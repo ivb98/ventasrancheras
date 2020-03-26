@@ -1,0 +1,15 @@
+post:
+    summary: Sends a sales order to the server. This will be registered as an Estimate in Quickbooks.
+    tags:
+        - Sales Orders
+    requestBody:
+        description: Information about this request order
+        content:
+            multipart/form-data:
+                schema:
+                    $ref: "#/components/schemas/SalesOrder"
+    responses:
+        200:
+            description: A 200 response will be sent indicating that the sales order was registered successfully..
+        401:
+            $ref: "#/components/responses/WrongCredentialsError"

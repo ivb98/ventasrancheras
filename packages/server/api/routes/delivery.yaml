@@ -55,3 +55,73 @@ Assign:
                 description: Package assigned.
             400:
                 $ref: "#/components/responses/GenericError"
+Me:
+    get:
+        summary: Returns all the packages assigned to the logged delivery. To determine who the logged delivery is the token is read from the server.
+        tags:
+            - Delivery
+        responses:
+            200:
+                description: Array of all assigned packages.
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Package"
+            400:
+                $ref: "#/components/responses/GenericError"
+Receive:
+    post:
+        summary: Sends a notification to the server declaring that the package has been received by the delivery and is now on its way to the client.
+        tags:
+            - Delivery
+        requestBody:
+            description: Signature of the delivery and the id of the package he received
+            content:
+                multipart/form-data:
+                    schema:
+                        type: object
+                        required:
+                            - signature
+                            - packageId
+                        properties:
+                            signature:
+                                type: string
+                                format: base64
+                                description: Signature of the delivery as a base64 string
+                            packageId:
+                                $ref: "#/components/x-generic/id"
+        responses:
+            200:
+                description: Notifies the server that a package has been received by this delivery.
+            400:
+                $ref: "#/components/responses/GenericError"
+DeliverPackage:
+    post:
+        summary: Notifies the server that a package has been delivered to its customer.
+        tags:
+            - Delivery
+        requestBody:
+            content:
+                multipart/form-data:
+                    schema:
+                        type: object
+                        required:
+                            - signature
+                            - packageId
+                            - customerId
+                        properties:
+                            signature:
+                                type: string
+                                format: base64
+                                description: Signature of the customer as a base64 string
+                            packageId:
+                                $ref: "#/components/x-generic/id"
+                            customerId:
+                                $ref: "#/components/x-generic/id"
+        responses:
+            200:
+                description: The deliver of the package has been registered successfully.
+            400:
+                $ref: "#/components/responses/GenericError"

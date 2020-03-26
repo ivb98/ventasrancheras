@@ -1,5 +1,8 @@
 type: object
 description: User logged in credentials
+required:
+    - email
+    - password
 properties:
     email:
         type: string

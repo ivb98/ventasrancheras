@@ -1,0 +1,8 @@
+type: object
+properties:
+    totalAmt:
+        type: number
+        description: Amount of money received.
+        example: 1290.5
+    customerId:
+        $ref: "#/components/x-generic/id"

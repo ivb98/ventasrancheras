@@ -1,11 +1,11 @@
 Crud:
     get:
-        summary: Returns all the sales managers.
+        summary: Returns all the salesmans.
         tags:
             - Sales
         responses:
             200:
-                description: Array of all sales managers.
+                description: Array of all salesmans.
                 content:
                     application/json:
                         schema:
@@ -15,7 +15,7 @@ Crud:
             400:
                 $ref: "#/components/responses/GenericError"
     post:
-        summary: Creates a new Sales Manager employee.
+        summary: Creates a new salesman employee.
         tags:
             - Sales
         requestBody:
@@ -35,11 +35,11 @@ Crud:
                 $ref: "#/components/responses/GenericError"
 Assign:
     post:
-        summary: Assigns a customer to the Sales Manager.
+        summary: Assigns a customer to the salesman.
         tags:
             - Sales
         requestBody:
-            description: Id of the sales manager and id of the customer.
+            description: Id of the salesman and id of the customer.
             content:
                 application/json:
                     schema:
@@ -53,5 +53,21 @@ Assign:
         responses:
             200:
                 description: Visit assigned.
+            400:
+                $ref: "#/components/responses/GenericError"
+Me:
+    get:
+        summary: Returns all the visits assigned to the logged salesman. To determine who the logged salesman is the token is read from the server.
+        tags:
+            - Sales
+        responses:
+            200:
+                description: Array of all assigned customers.
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Visit"
             400:
                 $ref: "#/components/responses/GenericError"

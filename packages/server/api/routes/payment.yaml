@@ -1,0 +1,15 @@
+post:
+    summary: Sends a payment to the server. This payment is then registered into Quickbooks.
+    tags:
+        - Payment
+    requestBody:
+        description: Information about this payment
+        content:
+            application/json:
+                schema:
+                    $ref: "#/components/schemas/Payment"
+    responses:
+        200:
+            description: A 200 response will be sent indicating that the payment was registered successfully..
+        401:
+            $ref: "#/components/responses/WrongCredentialsError"

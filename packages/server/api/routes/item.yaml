@@ -1,0 +1,15 @@
+get:
+    summary: Returns all the items.
+    tags:
+        - Item
+    responses:
+        200:
+            description: Array of all items.
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/Item"
+        400:
+            $ref: "#/components/responses/GenericError"
