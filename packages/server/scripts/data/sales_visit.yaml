@@ -1,0 +1,32 @@
+---
+fixtures:
+    - id: 1
+      qbo_estimate_id: 1
+      visited: true
+      emp_id: 1
+      address: 474 Raven Plaza
+      qbo_client_id: 1
+    - id: 2
+      qbo_estimate_id: 2
+      visited: false
+      emp_id: 7
+      address: 2366 Westerfield Parkway
+      qbo_client_id: 2
+    - id: 3
+      qbo_estimate_id: 3
+      visited: false
+      emp_id: 11
+      address: 2366 Westerfield Parkway
+      qbo_client_id: 3
+    - id: 4
+      qbo_estimate_id: 4
+      visited: false
+      emp_id: 14
+      address: 2366 Westerfield Parkway
+      qbo_client_id: 4
+    - id: 5
+      qbo_estimate_id: 5
+      visited: false
+      emp_id: 15
+      address: 2366 Westerfield Parkway
+      qbo_client_id: 5
