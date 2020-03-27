@@ -31,24 +31,24 @@ a.link-unstyled:hover {
 
 .btn.btn-primary {
   color: #fff;
-  background-color: #7DCD40;
-  border-color: #7DCD40;
+  background-color: #42BFF4;
+  border-color: #26B5F2;
 }
 
 .btn.btn-primary:not(:disabled):not(.disabled):hover {
   color: #fff;
-  background-color: #7DCD40;
-  border-color: #7DCD40;
+  background-color: #28A9DF;
+  border-color: #28A9DF;
 }
 
 .btn.btn-primary:not(:disabled):not(.disabled):active {
   color: #fff;
-  background-color: #7DCD40;
-  border-color: #7DCD40;
+  background-color: rgb(37, 142, 187);
+  border-color: rgb(37, 142, 187);;
 }
 
 .btn.btn-primary:not(:disabled):not(.disabled):focus {
-  box-shadow: 0 0 0 0.2rem rgba(125, 205, 64, 0.5);
+  box-shadow: 0 0 0 0.2rem rgb(93, 167, 199);
 }
 
 .btn.btn-danger {

@@ -24,6 +24,9 @@ class Login extends React.Component {
                       name="password"
                     />
                 </div>
+                <button onClick={this.handleClick} className="btn btn-primary">
+            Iniciar Sesión
+          </button>
            </form>
         </div>
         )

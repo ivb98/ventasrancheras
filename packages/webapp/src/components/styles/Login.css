@@ -25,6 +25,8 @@
 
 
 .loginContent form{
+    display: flex;
+    flex-direction: column;
     width: 375px;
     position: absolute;
     top: 50%;
