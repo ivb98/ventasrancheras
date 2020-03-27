@@ -11,4 +11,5 @@ module.exports = {
         appUrl: production ? process.env.URL : `http://localhost:${port}`,
         redirectEndpoint: process.env.REDIRECT_ENDPOINT,
     },
+    jwtSecret: process.env.JWT_SECRET,
 };

@@ -6,6 +6,7 @@ const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
+const { defaultError } = require("./middlewares/error.middleware");
 
 const app = express();
 
@@ -13,6 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/auth", require("./Auth/routes"));
+
+app.use(defaultError);
 
 async function loadCachedToken() {
     const cachedToken = CachedToken.get();
