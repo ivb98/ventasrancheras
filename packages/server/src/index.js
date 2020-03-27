@@ -14,6 +14,7 @@ const EntityRepository = require("./entities/EntityRepository");
 // const { uploadSignature, addNote } = require("./erp/Signature/Signature");
 // const { createSalesOrder } = require("./erp/Estimate/Estimate");
 // const { createEmployee } = require("./erp/Employee/Employee");
+const { createPayment } = require("./erp/Payment/Payment");
 
 const app = express();
 
@@ -24,6 +25,7 @@ async function loadCachedToken() {
         QBO.setRefreshToken(cachedToken.refresh_token);
         QBO.setAccessToken(null, cachedToken);
         try {
+            console.log("test");
             // const cust = await getCustomers();
             // console.log(cust);
             // const pdf = await getPdf();

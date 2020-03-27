@@ -17,16 +17,24 @@ post:
             content:
                 application/json:
                     schema:
-                        allOf:
-                            - $ref: "#/components/x-generic/loggedEmployee"
-                            - type: object
-                              properties:
-                                  accessToken:
-                                      type: string
-                                      example: abcd1234abcd1234kldnzfklnsedkjnfkndsjnf
-                                  role:
-                                      type: string
-                                      example: Delivery
+                        type: object
+                        properties:
+                            accessToken:
+                                type: string
+                                example: abcd1234abcd1234kldnzfklnsedkjnfkndsjnf
+                            role:
+                                type: string
+                                example: Delivery
+                                description: Role of the employee in the system.
+                            email:
+                                type: string
+                                example: test@example.com
+                                description: Same email the employee used to log in.
+                            name:
+                                type: string
+                                example: Billy Bob
+                                description: Name of the employee in the system.
+
         401:
             $ref: "#/components/responses/WrongCredentialsError"
 get:
