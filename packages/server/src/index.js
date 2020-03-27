@@ -1,21 +1,18 @@
 const { createConnection, getConnectionOptions } = require("typeorm");
 const { SnakeNamingStrategy } = require("typeorm-naming-strategies");
 const express = require("express");
+const cors = require("cors");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
-const Employee = require("./entities/Employee/Employee");
-const SO = require("./entities/SalesVisit/SalesVisit");
-const EntityRepository = require("./entities/EntityRepository");
-// const { getInventory } = require("./erp/Inventory/Inventory");
-// const { getCustomers } = require("./erp/Customer/Customer");
-// const { getPackages, getPdf } = require("./erp/Packages/Packages");
-// const { uploadSignature, addNote } = require("./erp/Signature/Signature");
-// const { createSalesOrder } = require("./erp/Estimate/Estimate");
-// const { createEmployee } = require("./erp/Employee/Employee");
 
 const app = express();
+
+// middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 async function loadCachedToken() {
     const cachedToken = CachedToken.get();
