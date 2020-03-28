@@ -11,10 +11,18 @@ module.exports.getCustomers = async () => {
             if (err) {
                 reject(QBOUtils.parseError(err));
             } else {
-                const myCustomers = customers.QueryResponse.Customer.map(customer => {
+                let myCustomers = customers.QueryResponse.Customer.filter(
+                    customer => !!customer.BillAddr === true
+                );
+                myCustomers = myCustomers.map(customer => {
                     return {
-                        Id: customer.Id,
-                        shipAddr: customer.ShipAddr,
+                        id: customer.Id,
+                        shipAddr: {
+                            lat: 0,
+                            long: 0,
+                            stringified: `${customer.BillAddr.City}, ${customer.BillAddr.CountrySubDivisionCode}, ${customer.BillAddr.Line1}`,
+                        },
+                        balance: customer.Balance,
                         displayName: customer.DisplayName,
                     };
                 });

@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", require("./Auth/routes"));
+app.use("/customer", require("./routes/customer/routes"));
 
 app.use(defaultError);
 

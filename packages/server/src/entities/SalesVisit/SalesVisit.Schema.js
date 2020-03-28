@@ -10,7 +10,7 @@ module.exports = new EntitySchema({
             type: "int",
             generated: true,
         },
-        qboClientId: {
+        qbo_client_id: {
             type: "varchar",
         },
         visited: {
