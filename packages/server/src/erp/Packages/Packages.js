@@ -3,18 +3,23 @@ const QBOUtils = require("../ErpUtils");
 
 const cleanPackages = packages => {
     const cleanedPackages = packages.map(pkg => {
-        return {
-            id: pkg.Id,
-            docNumber: pkg.DocNumber,
-            currency: pkg.CurrencyRef.value,
-            items: pkg.Line,
-            customer: {
-                id: pkg.CustomerRef.value,
-                name: pkg.CustomerRef.name,
-            },
-            address: pkg.ShipAddr,
-            total: pkg.TotalAmt,
-        };
+        try {
+            return {
+                id: pkg.Id,
+                currency: pkg.CurrencyRef.value,
+                items: pkg.Line.filter(
+                    item => item.DetailType === "SalesItemLineDetail"
+                ).map(item => QBOUtils.clearItem(item)),
+                customer: {
+                    id: pkg.CustomerRef.value,
+                    name: pkg.CustomerRef.name,
+                },
+                address: pkg.ShipAddr,
+                total: pkg.TotalAmt,
+            };
+        } catch (er) {
+            console.log(pkg);
+        }
     });
 
     return cleanedPackages;
@@ -23,8 +28,9 @@ const cleanPackages = packages => {
 module.exports.getPackages = async () => {
     const qbo = await QBO.getQbo();
     return new Promise((resolve, reject) => {
-        qbo.findInvoices((err, invoices) => {
+        qbo.findInvoices({}, (err, invoices) => {
             if (err) {
+                console.log(err);
                 reject(QBOUtils.parseError(err));
             } else {
                 resolve(cleanPackages(invoices.QueryResponse.Invoice));

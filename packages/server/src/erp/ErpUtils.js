@@ -8,3 +8,13 @@ module.exports.parseError = err => {
     const parsedErr = JSON.parse(JSON.stringify(err).toLocaleLowerCase());
     return parsedErr.fault.error[0];
 };
+
+module.exports.clearItem = item => {
+    return {
+        id: item.Id,
+        description: item.Description,
+        name: item.SalesItemLineDetail.ItemRef.name,
+        unitPrice: item.SalesItemLineDetail.UnitPrice,
+        qty: item.SalesItemLineDetail.Qty,
+    };
+};
