@@ -12,7 +12,7 @@ const { getRepository } = require("typeorm");
  * @return {object[]} array of objects found.
  */
 module.exports.findAll = async (criteria, entity) => {
-    const found = await getRepository(entity).find(criteria);
+    const found = await getRepository(entity).find(criteria); 
     return found;
 };
 
