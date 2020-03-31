@@ -2,8 +2,6 @@
 const { expect } = require('chai');
 const jwt = require('../Auth/jwt/index');
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6MSwiaWF0IjoxNTg1NjE2MTE3LCJleHAiOjE2NDg3MzEzMTd9.IA-RtNtkHRSC1jlo6T78SdJAz0v1TPNTVou-phJoJ38';
-
 describe('Testing the module jwt', () => {
     it('Test for the function createToken',(done) => {
         const result = jwt.createToken(1,1);
@@ -13,6 +11,7 @@ describe('Testing the module jwt', () => {
         done();
     });
     it('Test for the function ValidateToken',(done) => {
+        const token = jwt.createToken(1,1);
         const result = jwt.validateToken(token);
         expect(result)
             .to.be.an('Object');
