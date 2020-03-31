@@ -1,7 +1,6 @@
 const { createConnection, getConnectionOptions } = require("typeorm");
 const { SnakeNamingStrategy } = require("typeorm-naming-strategies");
 const express = require("express");
-const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
@@ -15,16 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload());
 
 app.use("/auth", require("./Auth/routes"));
 app.use("/customer", require("./routes/customer/routes"));
-app.use("/package", require("./routes/package/routes"));
-app.use("/item", require("./routes/item/routes"));
-app.use("/sales", require("./routes/sales/router"));
-app.use("/payment", require("./routes/payment/routes"));
-app.use("/delivery", require("./routes/delivery/routes"));
-app.use("/salesorder", require("./routes/salesOrder/routes"));
 
 app.use(defaultError);
 

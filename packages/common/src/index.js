@@ -1,4 +1,5 @@
-const VRError = require("./utils/VRError");
-const RolesConstants = require("./constants/roles");
+function test() {
+    console.log("hello world");
+}
 
-module.exports = { VRError, RolesConstants };
+module.exports = { test };

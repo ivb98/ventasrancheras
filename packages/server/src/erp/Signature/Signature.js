@@ -34,7 +34,7 @@ const addNote = async (data, note) => {
  */
 module.exports.uploadSignature = async (
     signatureStream,
-    { note, imgName, imgType = "image/png", type, id }
+    { note, imgName, imgType = "image/jpg", type, id }
 ) => {
     const qbo = await QBO.getQbo();
     return new Promise((resolve, reject) => {

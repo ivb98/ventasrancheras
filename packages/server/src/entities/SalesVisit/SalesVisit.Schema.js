@@ -19,7 +19,7 @@ module.exports = new EntitySchema({
         address: {
             type: "varchar",
         },
-        qbo_estimate_id: {
+        qboEstimateId: {
             type: "varchar",
         },
     },
