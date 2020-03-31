@@ -17,8 +17,8 @@ const cleanPackages = packages => {
                 address: pkg.ShipAddr,
                 total: pkg.TotalAmt,
             };
-        } catch (er) {
-            console.log(pkg);
+        } catch (err) {
+            return err;
         }
     });
 
@@ -30,7 +30,6 @@ module.exports.getPackages = async () => {
     return new Promise((resolve, reject) => {
         qbo.findInvoices({}, (err, invoices) => {
             if (err) {
-                console.log(err);
                 reject(QBOUtils.parseError(err));
             } else {
                 resolve(cleanPackages(invoices.QueryResponse.Invoice));
