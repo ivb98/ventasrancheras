@@ -59,3 +59,12 @@ module.exports.delete = async (criteria, entity) => {
     const deleted = await getRepository(entity).delete(criteria);
     return deleted;
 };
+
+module.exports.innerJoin = async (entity, innerJoin, where) => {
+    const found = await getRepository(entity)
+        .createQueryBuilder("sales")
+        .innerJoin(innerJoin[0], innerJoin[1])
+        .where(where)
+        .getMany();
+    return found;
+};

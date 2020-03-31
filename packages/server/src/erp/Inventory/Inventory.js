@@ -36,16 +36,14 @@ module.exports.getInventory = async () => {
             const itemsMapped = items.QueryResponse.Item.map(item => {
                 return {
                     name: item.Name,
-                    sku: item.Sku,
+                    id: item.Id,
                     description: item.Description,
                     category: item.ParentRef ? item.ParentRef.name : "Uncategorized",
                     unitPrice: item.UnitPrice,
-                    qtyOnHand: item.QtyOnHand,
-                    invStartDate: item.InvStartDate,
+                    qty: item.QtyOnHand,
                 };
             });
-            const categories = setItemsByCategory(itemsMapped);
-            return resolve(categories);
+            return resolve(itemsMapped);
         });
     });
 };
