@@ -15,6 +15,9 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import {PRIMARY_COLOR} from './styles/theme.style';
+
+import Button from './base/Button/index';
 
 const App: () => React$Node = () => {
   return (
@@ -22,9 +25,7 @@ const App: () => React$Node = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View>
-            <Text>Hello World</Text>
-          </View>
+          <Text>Hello World</Text>
         </ScrollView>
       </SafeAreaView>
     </>
