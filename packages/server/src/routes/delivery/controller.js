@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const { RolesConstants } = require("@vranch/common");
+const { RolesConstants, StatusConstants } = require("@vranch/common");
 const Repository = require("../../entities/EntityRepository");
 const Employee = require("../../entities/Employee/Employee");
 const PackageDelivery = require("../../entities/PackageDelivery/PackageDelivery");
@@ -80,7 +80,11 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.assign = async (req, res, next) => {
     const { deliveryId, packageId } = req.body;
-    const packageDelivery = new PackageDelivery(deliveryId, packageId, false, "");
+    const packageDelivery = new PackageDelivery(
+        deliveryId,
+        packageId,
+        StatusConstants.NOT_PICKED_UP
+    );
     await Repository.create(packageDelivery, PackageDelivery);
     res.sendStatus(200);
 };
@@ -98,6 +102,11 @@ module.exports.receive = async (req, res, next) => {
             type: "Invoice",
             id: packageId,
         });
+        await Repository.update(
+            { qboReceiptId: packageId },
+            { status: StatusConstants.PICKED_UP },
+            PackageDelivery
+        );
         return res.sendStatus(200);
     } catch (err) {
         return next(err);
@@ -110,7 +119,11 @@ module.exports.deliver = async (req, res, next) => {
     const { signature } = req.files;
     if (!packageId || !signature) return next(new Error("Missing parameteres"));
     try {
-        await Repository.update({ qboReceiptId: packageId }, { delivered: true }, PackageDelivery);
+        await Repository.update(
+            { qboReceiptId: packageId },
+            { status: StatusConstants.DELIVERED },
+            PackageDelivery
+        );
         await Signature.uploadSignature(signature.data, {
             note: "Customer received signature",
             imgName: `customerSignature.jpg`,

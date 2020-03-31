@@ -80,7 +80,7 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.assign = async (req, res, next) => {
     const { salesmanId, customerId } = req.body;
-    const salesVisit = new SalesVisit(salesmanId, customerId, false, "address", 4);
+    const salesVisit = new SalesVisit(salesmanId, customerId, false);
     await Repository.create(salesVisit, SalesVisit);
-    res.send(200);
+    res.sendStatus(200);
 };

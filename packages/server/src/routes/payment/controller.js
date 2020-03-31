@@ -9,7 +9,7 @@ module.exports.createPayment = async (req, res, next) => {
                 value: customerId,
             },
         });
-        res.send(200);
+        res.sendStatus(200);
     } catch (err) {
         next(new Error("There was an error processing the payment."));
     }

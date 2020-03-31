@@ -50,7 +50,7 @@ module.exports.create = async (req, res, next) => {
         });
         await Repository.update(
             { id: visitId },
-            { qbo_estimate_id: estimate.Id, visited: true },
+            { qbo_estimate_id: estimate.Id, visited: true, date: new Date().getTime() },
             SalesVisit
         );
         return res.sendStatus(200);

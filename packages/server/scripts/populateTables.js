@@ -44,10 +44,14 @@ async function main() {
     const conf = await getConnectionOptions();
     const con = await createConnection({ ...conf, namingStrategy: new SnakeNamingStrategy() });
 
-    await deleteData("package_delivery", con);
-    await deleteData("sales_visit", con);
-    await deleteData("manager", con);
-    await deleteData("employee", con);
+    try {
+        await deleteData("package_delivery", con);
+        await deleteData("sales_visit", con);
+        await deleteData("manager", con);
+        await deleteData("employee", con);
+    } catch (err) {
+        // purposedly left empty
+    }
 
     await loadFixtures("employee", con);
     await loadFixtures("manager", con);

@@ -16,11 +16,13 @@ module.exports = new EntitySchema({
         visited: {
             type: "boolean",
         },
-        address: {
-            type: "varchar",
-        },
         qbo_estimate_id: {
             type: "varchar",
+            default: null,
+        },
+        date: {
+            type: "numeric",
+            default: null,
         },
     },
     relations: {

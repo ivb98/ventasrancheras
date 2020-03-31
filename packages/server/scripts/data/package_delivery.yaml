@@ -2,21 +2,13 @@
 fixtures:
     - id: 1
       qbo_receipt_id: 1
-      delivered: false
       emp_id: 2
-      address: 25 Calypso Avenue
     - id: 2
       qbo_receipt_id: 2
-      delivered: false
       emp_id: 3
-      address: 93757 Scott Street
     - id: 3
       qbo_receipt_id: 3
-      delivered: false
       emp_id: 4
-      address: 9950 Leroy Point
     - id: 4
       qbo_receipt_id: 4
-      delivered: true
       emp_id: 5
-      address: 4846 Huxley Street

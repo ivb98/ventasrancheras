@@ -1,3 +1,4 @@
+const { StatusConstants } = require("@vranch/common");
 const { EntitySchema } = require("typeorm");
 const PackageDelivery = require("./PackageDelivery");
 
@@ -13,11 +14,9 @@ module.exports = new EntitySchema({
         qboReceiptId: {
             type: "varchar",
         },
-        delivered: {
-            type: "boolean",
-        },
-        address: {
+        status: {
             type: "varchar",
+            default: StatusConstants.NOT_PICKED_UP,
         },
     },
     relations: {
