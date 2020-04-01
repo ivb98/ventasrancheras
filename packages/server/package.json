@@ -36,6 +36,6 @@
         "start": "node src/index",
         "dev": "nodemon --ignore *.json src/index",
         "populateDb": "cd ./scripts && node ./populateTables.js && cd ../",
-        "test": "mocha src/test/*.js"
+        "test": "mocha test/*.js"
     }
 }

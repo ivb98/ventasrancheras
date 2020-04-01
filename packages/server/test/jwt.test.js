@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const { expect } = require('chai');
-const jwt = require('../Auth/jwt/index');
+const jwt = require('../src/Auth/jwt/index');
 
 describe('Testing the module jwt', () => {
     it('Test for the function createToken',(done) => {
