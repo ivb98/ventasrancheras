@@ -32,6 +32,7 @@
         "prettier": "^1.19.1"
     },
     "scripts": {
+        "test": "mocha",
         "lint": "eslint .",
         "start": "node src/index",
         "dev": "nodemon --ignore *.json src/index"

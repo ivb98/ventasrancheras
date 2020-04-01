@@ -9,9 +9,9 @@ const Employee = require("./entities/Employee/Employee");
 const SO = require("./entities/SalesVisit/SalesVisit");
 const EntityRepository = require("./entities/EntityRepository");
 // const { getInventory } = require("./erp/Inventory/Inventory");
-// const { getCustomers } = require("./erp/Customer/Customer");
-// const { getPackages, getPdf } = require("./erp/Packages/Packages");
-// const { uploadSignature, addNote } = require("./erp/Signature/Signature");
+const { getCustomers } = require("./erp/Customer/Customer");
+const { getPackages, getPdf } = require("./erp/Packages/Packages");
+const { uploadSignature, addNote } = require("./erp/Signature/Signature");
 // const { createSalesOrder } = require("./erp/Estimate/Estimate");
 // const { createEmployee } = require("./erp/Employee/Employee");
 
@@ -24,20 +24,19 @@ async function loadCachedToken() {
         QBO.setRefreshToken(cachedToken.refresh_token);
         QBO.setAccessToken(null, cachedToken);
         try {
-            // const cust = await getCustomers();
-            // console.log(cust);
-            // const pdf = await getPdf();
-            // const base64 = fs.createReadStream("./img/mytest.jpg");
-            // const updated = await uploadSignature(base64, {
-            //     note: "Firma de delivery al recibir",
-            //     imgName: "firmadelivery.jpg",
-            //     id: "159",
-            //     type: "Invoice",
-            //     imgType: "image/jpg",
-            // });
-            // console.log(updated);
+            const cust = await getCustomers();
+             console.log(cust);
+             const base64 = fs.createReadStream("./img/mytest.jpg");
+             const updated = await uploadSignature(base64, {
+                 note: "Firma de delivery al recibir",
+                 imgName: "firmadelivery.jpg",
+                 id: "159",
+                 type: "Invoice",
+                imgType: "image/jpg",
+             });
+             console.log(updated);
         } catch (e) {
-            // console.log(e);
+            console.log(e);
         }
     }
 }
