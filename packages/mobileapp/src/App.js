@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import {PRIMARY_COLOR} from './styles/theme.style';
 
@@ -22,6 +23,9 @@ import Button from './base/Button/index';
 import Select from './base/Form/Select/index';
 import InputField from './base/Form/InputField/index';
 import ProductPicker from './base/Form/ProductPicker/index';
+import LoginForm from './pages/Login/LoginForm/index';
+import useRequest from './hooks/useRequest';
+import LoginPage from './pages/Login/container';
 
 const App: () => React$Node = () => {
   return (
@@ -30,6 +34,7 @@ const App: () => React$Node = () => {
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <Text>Hello World </Text>
+          <LoginPage />
           <Select />
           <Formik
             initialValues={{

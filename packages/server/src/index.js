@@ -62,6 +62,9 @@ async function main() {
     }
     app.listen(port);
     app.use("/", AuthTokenRoutes);
+    app.get("/ping", (req, res) => {
+        res.send({ ok: true });
+    });
 }
 
 main();
