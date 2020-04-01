@@ -11,9 +11,17 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
+    "@react-native-community/masked-view": "^0.1.7",
+    "@react-navigation/native": "^5.1.4",
+    "@react-navigation/stack": "^5.2.9",
     "formik": "^2.1.4",
+    "jetifier": "^1.6.5",
     "react": "16.11.0",
-    "react-native": "0.62.0"
+    "react-native": "0.62.0",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.7.1",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -35,7 +43,23 @@
       "react",
       "react/**",
       "formik",
-      "formik/**"
+      "formik/**",
+      "@react-navigation/native",
+      "@react-navigation/native/**",
+      "@react-navigation/stack",
+      "@react-navigation/stack/**",
+      "react-native-reanimated",
+      "react-native-reanimated/**",
+      "react-native-gesture-handler",
+      "react-native-gesture-handler/**",
+      "react-native-screens",
+      "react-native-screens/**",
+      "react-native-safe-area-context",
+      "react-native-safe-area-context/**",
+      "@react-native-community/masked-view",
+      "@react-native-community/masked-view/**",
+      "jetifier",
+      "jetifier/**"
     ]
   }
 }

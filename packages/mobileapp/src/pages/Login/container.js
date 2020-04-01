@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {makeJsonRequest} from '../../lib/request';
 import {View, StyleSheet} from 'react-native';
 import LoginForm from './LoginForm/index';
 import Title from '../../base/Title/index';
+import {UserContext} from '../../contexts/userContext';
 
 const Container = () => {
   const [state, setState] = useState({loading: false, error: null});
+  const [userData, setUserData] = useContext(UserContext);
   async function handleSubmit(values, {setSubmitting, setFieldValue}) {
     let {email, password} = values;
     setState({error: null, loading: true});
@@ -16,6 +18,12 @@ const Container = () => {
     });
     if (!error) {
       setState({error: null, loading: false});
+      setUserData(prev => {
+        return {
+          ...prev,
+          user: {role: data.role, email: data.email, name: data.name},
+        };
+      });
     } else {
       setState({error, loading: false});
       setFieldValue('password', '');
@@ -23,7 +31,7 @@ const Container = () => {
   }
   return (
     <View style={styles.container}>
-      <Title>Login Form</Title>
+      <Title>Login</Title>
       <LoginForm onSubmit={handleSubmit} loading={state.loading} />
     </View>
   );
@@ -32,6 +40,8 @@ const Container = () => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 30,
+    flex: 1,
+    marginTop: 90,
   },
 });
 export default Container;
