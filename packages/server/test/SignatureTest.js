@@ -1,4 +1,4 @@
-/*const fs = require('fs');
+const fs = require('fs');
 const CachedToken = require("../src/erp/OAuth2/cache/tokenCache");
 const QBO = require("../src/erp/OAuth2/Auth/QBOAuth");
 const { uploadSignature, addNote } = require("../src/erp/Signature/Signature");
@@ -21,23 +21,20 @@ describe('Test for uploadSignature', function() {
         const signature =  {
 
             note: "Firma de delivery al recibir",
-            imgName: "firmadelivery.jpg",
-            id: "1041",
+            imgName: "mytest.jpg",
+            id: 1041,
             type: "Invoice",
            imgType: "image/jpg",
 
         };
 
-        try {
-            const base64 = fs.createWriteStream("./img/mytest.jpg");
-        } catch (e) {
-            base64.on('error', cb);
-        }
         
-        /*return uploadSignature(base64, signature).then(function(updated) {
+        const base64 = fs.createReadStream('./mytest.jpg');
+        
+        return uploadSignature(base64, signature).then(function(updated) {
             console.log(updated);
             expect(updated).to.have.keys(expectedKeys);
-        })*/
+        })
         
-  //  })
-//});
+   })
+});

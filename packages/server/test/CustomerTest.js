@@ -10,11 +10,13 @@ beforeEach(function() {
     QBO.setAccessToken(null, cachedToken);
   });
 
-describe('Test for Payment', function() {
-    it('returns with all possible records', function () {
+  const expectedKeys = ['Id', 'shipAddr', 'displayName'];
+
+describe('Test for getCustomers', function() {
+    it('Returns all matched cases with expected keys', function () {
         return getCustomers().then(function(customer) {
             console.log(customer);
-            expect(customer[1].displayName).to.equal('Test Prueba Testeado');
+            expect(customer[0]).to.have.keys(expectedKeys);
         })
         
     })

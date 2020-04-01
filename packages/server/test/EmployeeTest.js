@@ -9,7 +9,7 @@ beforeEach(function() {
     QBO.setRefreshToken(cachedToken.refresh_token);
     QBO.setAccessToken(null, cachedToken);
   });
-
+//
 const expectedKeys = ['GivenName','FamilyName' , 'PrimaryAddr', 'Id','Active','BillableTime','MetaData', 'PrintOnCheckName',
                         'SyncToken', 'domain', 'sparse', 'DisplayName'];
 

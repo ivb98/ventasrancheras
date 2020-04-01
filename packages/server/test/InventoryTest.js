@@ -10,7 +10,7 @@ beforeEach(function() {
     QBO.setAccessToken(null, cachedToken);
   });
 
-const expectedKeys = [''];
+const expectedKeys = ['./mytest.jpg'];
 
 describe('Test for getInventory', function() {
     it('Check for items found uncategorized', function () {
