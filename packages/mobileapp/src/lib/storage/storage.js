@@ -15,3 +15,7 @@ export const get = async key => {
 export const remove = async key => {
   await AsyncStorage.removeItem(key);
 };
+
+export const clearAll = async () => {
+  await AsyncStorage.clear();
+};

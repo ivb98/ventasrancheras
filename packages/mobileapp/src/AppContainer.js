@@ -21,35 +21,16 @@ const Stack = createStackNavigator();
 import Signature from './base/Form/SignatureField/SignatureField';
 import {Formik} from 'formik';
 import Button from './base/Button';
+import LogOutButton from './components/LogOutButton/index';
+import DeliveryHomescreen from './pages/HomeScreen/DeliveryHomescreen/index';
+import SalesmanHomescreen from './pages/HomeScreen/SalesmanHomescreen/index';
 
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
-  <Stack.Screen name="Home" component={() => <Text>Hello Delivery</Text>} />
+  <Stack.Screen name="Home" component={DeliveryHomescreen} />
 );
 const salesmanScreens = (
-  <Stack.Screen
-    name="Home"
-    component={() => {
-      return (
-        <View style={{height: 300}}>
-          <Formik
-            initialValues={{signature: ''}}
-            onSubmit={values => {
-              console.log(values);
-            }}>
-            {({handleChange, handleSubmit}) => (
-              <View style={{flex: 1}}>
-                <Signature name="signature" />
-                <View style={{marginTop: 30}}>
-                  <Button text="submit" onPress={handleSubmit} />
-                </View>
-              </View>
-            )}
-          </Formik>
-        </View>
-      );
-    }}
-  />
+  <Stack.Screen name="Home" component={SalesmanHomescreen} />
 );
 const AppContainer: () => React$Node = () => {
   let [userData, setUserData] = useContext(UserContext);
