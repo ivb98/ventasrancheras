@@ -4,10 +4,13 @@ import {View, StyleSheet} from 'react-native';
 import LoginForm from './LoginForm/index';
 import Title from '../../base/Title/index';
 import {UserContext} from '../../contexts/userContext';
+import {save, get} from '../../lib/storage/storage';
+import {USER_KEY} from '../../lib/storage/storage.keys';
 
 const Container = () => {
   const [state, setState] = useState({loading: false, error: null});
-  const [userData, setUserData] = useContext(UserContext);
+  const [, setUserData] = useContext(UserContext);
+
   async function handleSubmit(values, {setSubmitting, setFieldValue}) {
     let {email, password} = values;
     setState({error: null, loading: true});
@@ -24,6 +27,7 @@ const Container = () => {
           user: {role: data.role, email: data.email, name: data.name},
         };
       });
+      await save(USER_KEY, data);
     } else {
       setState({error, loading: false});
       setFieldValue('password', '');
