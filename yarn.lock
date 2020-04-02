@@ -10307,7 +10307,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10601,6 +10601,13 @@ react-native-screens@^2.4.0:
   integrity sha512-7GcXlaj7IIrM4l5Ub7BPTkNQJ2slHGt2bhmfWmW73NTXEv+7pjHlp+JpQO32Yn+O8UQGPFf0rsesfYUdER7ppQ==
   dependencies:
     debounce "^1.2.0"
+
+react-native-signature-capture@^0.4.10:
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/react-native-signature-capture/-/react-native-signature-capture-0.4.10.tgz#ee355a7ca3e8341d50304572258607b9876a34a6"
+  integrity sha512-4VbZ6wJVLUdai3WfSiTR2YacTxVuDamBrYl7lxbCrsqa0QyBSiupc5Yz5/Qg7GOuD72jhVXpWJvwJQSmMRy4dQ==
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native@0.62.0:
   version "0.62.0"

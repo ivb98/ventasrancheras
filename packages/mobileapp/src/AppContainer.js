@@ -8,7 +8,7 @@
 import 'react-native-gesture-handler';
 
 import React, {useContext, useEffect} from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 import LoginPage from './pages/Login/container';
 import {NavigationContainer} from '@react-navigation/native';
@@ -18,13 +18,38 @@ import SplashScreen from './pages/Splashscreen/index';
 import {get} from './lib/storage/storage';
 import {USER_KEY} from './lib/storage/storage.keys';
 const Stack = createStackNavigator();
+import Signature from './base/Form/SignatureField/SignatureField';
+import {Formik} from 'formik';
+import Button from './base/Button';
 
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
   <Stack.Screen name="Home" component={() => <Text>Hello Delivery</Text>} />
 );
 const salesmanScreens = (
-  <Stack.Screen name="Home" component={() => <Text>Hello Salesman</Text>} />
+  <Stack.Screen
+    name="Home"
+    component={() => {
+      return (
+        <View style={{height: 300}}>
+          <Formik
+            initialValues={{signature: ''}}
+            onSubmit={values => {
+              console.log(values);
+            }}>
+            {({handleChange, handleSubmit}) => (
+              <View style={{flex: 1}}>
+                <Signature name="signature" />
+                <View style={{marginTop: 30}}>
+                  <Button text="submit" onPress={handleSubmit} />
+                </View>
+              </View>
+            )}
+          </Formik>
+        </View>
+      );
+    }}
+  />
 );
 const AppContainer: () => React$Node = () => {
   let [userData, setUserData] = useContext(UserContext);

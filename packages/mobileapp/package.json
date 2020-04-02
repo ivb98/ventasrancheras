@@ -22,7 +22,8 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
-    "react-native-screens": "^2.4.0"
+    "react-native-screens": "^2.4.0",
+    "react-native-signature-capture": "^0.4.10"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -62,7 +63,9 @@
       "jetifier",
       "jetifier/**",
       "@react-native-community/async-storage",
-      "@react-native-community/async-storage/**"
+      "@react-native-community/async-storage/**",
+      "react-native-signature-capture",
+      "react-native-signature-capture/**"
     ]
   }
 }
