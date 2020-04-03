@@ -1,4 +1,5 @@
 import React from 'react';
+import EmployeeForm from '../Forms/EmployeeForm';
 import { Link } from 'react-router-dom';
 
 
@@ -9,6 +10,7 @@ function DeliveryView() {
     return(
             <div>
                  <h1>
+                    <EmployeeForm/>
                      <Link to={`/Delivery/${id}`}>This Profile</Link>
                      
                 </h1>  

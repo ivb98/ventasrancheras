@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import EmployeeForm from '../Forms/EmployeeForm';
 import { Link } from 'react-router-dom';
 
 
@@ -8,6 +9,7 @@ function SellerView() {
     return(
             <div>
                  <h1>
+                     <EmployeeForm/>
                      <Link to={`/Seller/${id}`}>This Profile</Link>
                      
                 </h1> 
