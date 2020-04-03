@@ -8,43 +8,41 @@ import DeliveryView from "../pages/DeliveryVw";
 import DeliveryPrflView from "../pages/DeliveryPrflVw";
 import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { 
+        BrowserRouter as Router, 
+        Switch, 
+        Route,
+        Redirect
+        } from "react-router-dom";
 
+const auth = true;
 
-
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        auth === true ? <Component {...props} />
+        : <Redirect to="Login"/>
+    )}/> 
+)
 
 function Nav() {
-    const user=false;
 
-    const loggedNavigation = (
+    return (
         <Router>
-        <div className="Nav">
-            <Navbar />
-            <Switch>
-                <Route path="/Seller" exact component={SellerView}/> 
-                <Route path="/Delivery" exact component={DeliveryView}/>
-                <Route path="/Package" exact component={PackageView}/>
-                <Route path="/Customer" exact component={CustomerView}/>
-                <Route path="/Seller/:id" component={SellerPrflView}/>
-                <Route path="/Delivery/:id" component={DeliveryPrflView}/>
-                <Route path="/Customer/:id" component={CustomerPrflView}/>
-            </Switch>
-        </div>
-    </Router>
-    )
-
-    const notLoggedNavigation =(
-            <Router>
-                <Switch>  <Route path="/Login" component={Login}/> </Switch>
-            </Router>
-    )
-
-    if(user)
-    return loggedNavigation;
-
-    else {return notLoggedNavigation}
-    
+            <div className="Nav">
+                <Navbar />
+                <Switch>
+                    <Route path="/Login" component={Login}/>
+                    <PrivateRoute path="/Seller" exact component={SellerView}/> 
+                    <PrivateRoute path="/Delivery" exact component={DeliveryView}/>
+                    <PrivateRoute path="/Package" exact component={PackageView}/>
+                    <PrivateRoute path="/Customer" exact component={CustomerView}/>
+                    <PrivateRoute path="/Seller/:id" component={SellerPrflView}/>
+                    <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView}/>
+                    <PrivateRoute path="/Customer/:id" component={CustomerPrflView}/>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default Nav;
-
