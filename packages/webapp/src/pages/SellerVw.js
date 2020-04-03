@@ -1,22 +1,34 @@
 import React from 'react';
 import EmployeeForm from '../Forms/EmployeeForm';
-import { Link } from 'react-router-dom';
+import ProfileTable from '../Component/ProfileTable';
 
+
+const sellers = [{
+    id: 1,
+    nombre: "Email",
+    email: "email@email.com"
+},{
+    id: 2,
+    nombre: "Prueba",
+    email: "prueba@email.com"
+},{
+    id: 3,
+    nombre: "Test",
+    email: "test@email.com"
+},{
+    id: 4,
+    nombre: "Exito",
+    email: "exito@email.com"
+},]
 
 function SellerView() {
 
-    const id = 1;
     return(
-            <div>
-                 <h1>
-                     <EmployeeForm/>
-                     <Link to={`/Seller/${id}`}>This Profile</Link>
-                     
-                </h1> 
-            </div>
-          
-        )
-    
+        <div>
+            <ProfileTable products={sellers} rol="Seller" />
+            <EmployeeForm rol="Seller"/>
+        </div>   
+        )    
 }
 
 export default SellerView;

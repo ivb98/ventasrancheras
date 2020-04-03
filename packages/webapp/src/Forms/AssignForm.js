@@ -2,8 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import Error from './FormsErrors';
 import * as Yup from "yup";
-import { Form, Button } from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 
 const validationSchema = Yup.object().shape({
     employeename: Yup.string()
@@ -18,9 +17,9 @@ const validationSchema = Yup.object().shape({
 })
 
 
-export default function AssignForm() {
+export default function AssignForm(props) {
     return(
-        <Container>
+        <Container fluid="sm">
         <Formik 
             initialValues={{ employeename: "", assigment: ""}}
             validationSchema={validationSchema}
@@ -43,9 +42,9 @@ export default function AssignForm() {
                 isSubmitting 
             }) => (
                 <Form  onSubmit={handleSubmit}>
-                    <Form.Label>Asignar trabajo a empleado </Form.Label>
-                    <Form.Group className="input-row">
-                    <Form.Label>Empleado :</Form.Label>
+                    <Form.Label>Asignar {props.rol} a {props.assign} </Form.Label>
+                    <Form.Group >
+                    <Form.Label>{props.rol} :</Form.Label>
                        <Form.Control  
                            type= "text" 
                            name= "employeename" 
@@ -59,8 +58,8 @@ export default function AssignForm() {
                        <Error touched={touched.employeename} message={errors.employeename} /> 
                    </Form.Group>
 
-                   <Form.Group className="input-row">
-                       <Form.Label>Asignacion :</Form.Label>
+                   <Form.Group >
+                       <Form.Label>{props.assign} :</Form.Label>
                        <Form.Control  
                            type= "text" 
                            name= "assigment" 

@@ -11,6 +11,7 @@
         "formik": "^2.1.4",
         "react": "^16.12.0",
         "react-bootstrap": "^1.0.0",
+        "react-bootstrap-table-next": "^4.0.0",
         "react-dom": "^16.12.0",
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.0",

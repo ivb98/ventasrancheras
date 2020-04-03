@@ -2,8 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import Error from './FormsErrors';
 import * as Yup from "yup";
-import { Form, Button } from 'react-bootstrap';
-import { Container } from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -26,9 +25,9 @@ const validationSchema = Yup.object().shape({
 })
 
 
-export default function EmployeeForm() {
+export default function EmployeeForm(props) {
     return(
-        <Container>
+        <Container fluid="sm">
         <Formik 
             initialValues={{ name: "", lastname: "", username: "", password: ""}}
             validationSchema={validationSchema}
@@ -51,8 +50,8 @@ export default function EmployeeForm() {
                 isSubmitting 
             }) => (
                 <Form  onSubmit={handleSubmit}>
-                    <Form.Label>Crear un nuevo Empleado </Form.Label>
-                    <Form.Group controlId="formName">
+                    <Form.Label>Crear un nuevo {props.rol}</Form.Label>
+                    <Form.Group>
                         <Form.Label>Name :</Form.Label>
                        <Form.Control  
                            type= "text" 
@@ -67,7 +66,7 @@ export default function EmployeeForm() {
                        <Error touched={touched.name} message={errors.name} /> 
                    </Form.Group>
 
-                   <Form.Group controlId="formLastname">
+                   <Form.Group >
                     <Form.Label>Lastname :</Form.Label>
                        <Form.Control  
                            type= "text" 
@@ -82,7 +81,7 @@ export default function EmployeeForm() {
                        <Error touched={touched.lastname} message={errors.lastname} />
                    </Form.Group>
 
-                   <Form.Group controlId="formUsername">
+                   <Form.Group >
                     <Form.Label>Username :</Form.Label>
                        <Form.Control  
                            type= "text" 
@@ -97,7 +96,7 @@ export default function EmployeeForm() {
                        <Error touched={touched.username} message={errors.username} />
                    </Form.Group>
 
-                   <Form.Group controlId="formPassword">
+                   <Form.Group >
                    <Form.Label>Password :</Form.Label>
                        <Form.Control  
                            type= "text" 
