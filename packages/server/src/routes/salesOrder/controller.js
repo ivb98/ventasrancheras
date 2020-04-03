@@ -1,3 +1,4 @@
+const { uploadBase64ToQuickbooks } = require("../../erp/ErpUtils");
 const Signature = require("../../erp/Signature/Signature");
 const SalesOrder = require("../../erp/Estimate/Estimate");
 const Inventory = require("../../erp/Inventory/Inventory");
@@ -28,9 +29,7 @@ function createLine(items, inventory) {
     return created;
 }
 module.exports.create = async (req, res, next) => {
-    const { visitId, customerId, items } = req.body;
-    if (!req.files) return next(new Error("No signature added"));
-    const { signature } = req.files;
+    const { visitId, customerId, items, signature } = req.body;
     if (!visitId || !customerId || !items || !signature) next(new Error("Missing parameters"));
     try {
         const jsonItems = JSON.parse(items);
@@ -42,12 +41,16 @@ module.exports.create = async (req, res, next) => {
             },
             Line: createdLine,
         });
-        await Signature.uploadSignature(signature.data, {
-            note: "Customer received signature",
-            imgName: `customerSignature.jpg`,
-            type: "Estimate",
-            id: estimate.Id,
-        });
+        await uploadBase64ToQuickbooks(
+            signature,
+            `siganture_${estimate.Id}_${new Date().getTime()}`,
+            {
+                note: "Customer received signature",
+                imgName: `customerSignature.jpg`,
+                type: "Estimate",
+                id: estimate.Id,
+            }
+        );
         await Repository.update(
             { id: visitId },
             { qbo_estimate_id: estimate.Id, visited: true, date: new Date().getTime() },

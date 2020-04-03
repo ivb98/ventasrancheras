@@ -2,9 +2,9 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {MIDDLE_FONT} from '../../styles/theme.style';
 
-const Subtitle = ({children, ...props}) => {
+const Subtitle = ({children, extraStyles, ...props}) => {
   return (
-    <Text {...props} style={styles.subtitle}>
+    <Text {...props} style={{...styles.subtitle, ...extraStyles}}>
       {children}
     </Text>
   );

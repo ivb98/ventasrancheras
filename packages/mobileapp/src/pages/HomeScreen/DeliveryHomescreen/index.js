@@ -9,7 +9,13 @@ const DeliveryHomescreen = ({navigation}) => {
       buttonArray={[
         <Button key={'1'} text="Mi Ruta" onPress={() => {}} />,
         <Button key={'2'} text="Ver Ordenes" onPress={() => {}} />,
-        <Button key={'3'} text="Recibir Paquetes" onPress={() => {}} />,
+        <Button
+          key={'3'}
+          text="Recibir Paquetes"
+          onPress={() => {
+            navigation.navigate('ReceivePackage');
+          }}
+        />,
       ]}
     />
   );

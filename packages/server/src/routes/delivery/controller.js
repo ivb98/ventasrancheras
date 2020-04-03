@@ -5,6 +5,7 @@ const Employee = require("../../entities/Employee/Employee");
 const PackageDelivery = require("../../entities/PackageDelivery/PackageDelivery");
 const QBOEmployee = require("../../erp/Employee/Employee");
 const Signature = require("../../erp/Signature/Signature");
+const { uploadBase64ToQuickbooks } = require("../../erp/ErpUtils");
 
 function formatDelivery(delivery, packageDeliveries) {
     let packagesForThisDelivery = packageDeliveries.filter(packageDelivery => {
@@ -90,18 +91,20 @@ module.exports.assign = async (req, res, next) => {
 };
 
 module.exports.receive = async (req, res, next) => {
-    const { packageId } = req.body;
-    if (!req.files) return next(new Error("No signature added"));
-    const { signature } = req.files;
+    const { packageId, signature } = req.body;
     if (!packageId || !signature) return next(new Error("Missing parameteres"));
 
     try {
-        await Signature.uploadSignature(signature.data, {
-            note: "Delivery received signature",
-            imgName: `deliverySignature.jpg`,
-            type: "Invoice",
-            id: packageId,
-        });
+        await uploadBase64ToQuickbooks(
+            signature,
+            `signature_${packageId}_${new Date().getTime()}`,
+            {
+                note: "Delivery received signature",
+                imgName: `deliverySignature.jpg`,
+                type: "Invoice",
+                id: packageId,
+            }
+        );
         await Repository.update(
             { qboReceiptId: packageId },
             { status: StatusConstants.PICKED_UP },
@@ -109,27 +112,31 @@ module.exports.receive = async (req, res, next) => {
         );
         return res.sendStatus(200);
     } catch (err) {
+        console.log(err);
         return next(err);
     }
 };
 
 module.exports.deliver = async (req, res, next) => {
-    const { packageId } = req.body;
-    if (!req.files) return next(new Error("No signature added"));
-    const { signature } = req.files;
+    const { packageId, signature } = req.body;
     if (!packageId || !signature) return next(new Error("Missing parameteres"));
+
     try {
         await Repository.update(
             { qboReceiptId: packageId },
             { status: StatusConstants.DELIVERED },
             PackageDelivery
         );
-        await Signature.uploadSignature(signature.data, {
-            note: "Customer received signature",
-            imgName: `customerSignature.jpg`,
-            type: "Invoice",
-            id: packageId,
-        });
+        await uploadBase64ToQuickbooks(
+            signature,
+            `siganture_${packageId}_${new Date().getTime()}`,
+            {
+                note: "Customer received signature",
+                imgName: `customerSignature.jpg`,
+                type: "Invoice",
+                id: packageId,
+            }
+        );
         return res.sendStatus(200);
     } catch (err) {
         return next(err);

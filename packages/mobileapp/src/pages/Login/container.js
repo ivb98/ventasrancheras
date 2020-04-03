@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {makeJsonRequest} from '../../lib/request';
+import {makeJsonRequest, setAccessToken} from '../../lib/request';
 import {View, StyleSheet} from 'react-native';
 import LoginForm from './LoginForm/index';
 import Title from '../../base/Title/index';
@@ -15,12 +15,13 @@ const Container = () => {
     let {email, password} = values;
     setState({error: null, loading: true});
     setSubmitting(true);
-    let {error, ...data} = await makeJsonRequest('http://10.0.0.23:3000/auth', {
+    let {error, ...data} = await makeJsonRequest('/auth', {
       method: 'POST',
       body: JSON.stringify({email, password}),
     });
     if (!error) {
       setState({error: null, loading: false});
+      setAccessToken(data.access_token);
       setUserData(prev => {
         return {
           ...prev,

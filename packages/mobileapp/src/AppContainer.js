@@ -8,26 +8,61 @@
 import 'react-native-gesture-handler';
 
 import React, {useContext, useEffect} from 'react';
-import {Text, View} from 'react-native';
 
 import LoginPage from './pages/Login/container';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {UserContext} from './contexts/userContext';
 import SplashScreen from './pages/Splashscreen/index';
-import {get} from './lib/storage/storage';
-import {USER_KEY} from './lib/storage/storage.keys';
+import {get, save} from './lib/storage/storage';
+import {
+  USER_KEY,
+  CUSTOMER_KEY,
+  ITEM_KEY,
+  ME_KEY,
+  PACKAGE_KEY,
+} from './lib/storage/storage.keys';
 const Stack = createStackNavigator();
-import Signature from './base/Form/SignatureField/SignatureField';
-import {Formik} from 'formik';
-import Button from './base/Button';
-import LogOutButton from './components/LogOutButton/index';
 import DeliveryHomescreen from './pages/HomeScreen/DeliveryHomescreen/index';
 import SalesmanHomescreen from './pages/HomeScreen/SalesmanHomescreen/index';
+import ReceivePackage from './pages/ReceivePackage/index';
+import {makeJsonRequest, setAccessToken} from './lib/request';
 
+async function fetchInitialData(role) {
+  let packageData = await makeJsonRequest('/package', {}, true);
+  if (packageData.error) {
+    console.log(packageData.error);
+  } else {
+    await save(PACKAGE_KEY, packageData);
+  }
+
+  let itemsData = await makeJsonRequest('/item', {}, true);
+  if (itemsData.error) {
+    console.log(itemsData.error);
+  } else {
+    await save(ITEM_KEY, itemsData);
+  }
+
+  let customersData = await makeJsonRequest('/customer', {}, true);
+  if (customersData.error) {
+    console.log(customersData.error);
+  } else {
+    await save(CUSTOMER_KEY, customersData);
+  }
+
+  let myData = await makeJsonRequest(`/${role}/me`, {}, true);
+  if (myData.error) {
+    console.log(myData.error);
+  } else {
+    await save(ME_KEY, myData);
+  }
+}
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
-  <Stack.Screen name="Home" component={DeliveryHomescreen} />
+  <>
+    <Stack.Screen name="Home" component={DeliveryHomescreen} />
+    <Stack.Screen name="ReceivePackage" component={ReceivePackage} />
+  </>
 );
 const salesmanScreens = (
   <Stack.Screen name="Home" component={SalesmanHomescreen} />
@@ -38,7 +73,9 @@ const AppContainer: () => React$Node = () => {
     async function fetchExistingData() {
       let user = await get(USER_KEY);
       let jsonUser = JSON.parse(user);
+      setAccessToken(jsonUser.access_token);
       setUserData(prev => ({...prev, isLoading: false, user: jsonUser}));
+      fetchInitialData(jsonUser.role);
     }
 
     fetchExistingData();

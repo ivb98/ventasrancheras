@@ -3,7 +3,7 @@ import {View, Picker} from 'react-native';
 
 const Select = ({handleChange, value, values = [], placeholder}) => {
   const items = values.map((item, i) => (
-    <Picker.Item label={item} value={item} key={i} />
+    <Picker.Item label={item.label} value={item.value} key={i} />
   ));
   return (
     <View>
