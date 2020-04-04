@@ -22,5 +22,5 @@ export const clearAll = async () => {
 
 export const update = async (key, newData) => {
   await AsyncStorage.removeItem(key);
-  await AsyncStorage.setItem(key, newData);
+  await save(key, newData);
 };

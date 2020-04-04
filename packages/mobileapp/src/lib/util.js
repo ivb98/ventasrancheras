@@ -14,14 +14,11 @@ export const fetchInitialData = async (role, setData) => {
     {endpoint: '/customer', key: CUSTOMER_KEY, name: 'customers'},
     {endpoint: `/${role}/me`, key: ME_KEY, name: 'me'},
   ];
-  console.log(requests);
   let stateObject = {};
   setData((prev) => ({
     ...prev,
     loading: {isLoading: true, current: 1, total: requests.length},
   }));
-
-  console.log('here');
 
   for (let i = 0; i < requests.length; i++) {
     const {endpoint, key} = requests[i];
@@ -41,4 +38,9 @@ export const fetchInitialData = async (role, setData) => {
     ...stateObject,
     loading: {isLoading: false, current: 1, total: 1},
   }));
+};
+
+export const formatSignature = (signature) => {
+  const formatted = `data:image/png;base64,${signature}`;
+  return formatted;
 };

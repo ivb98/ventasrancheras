@@ -17,7 +17,6 @@ export const makeJsonRequest = async (url, opts = {}, auth = false) => {
 
     return data;
   } catch {
-    console.log('data?');
     return null;
   }
 };

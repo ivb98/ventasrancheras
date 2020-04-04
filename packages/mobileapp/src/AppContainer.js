@@ -23,12 +23,14 @@ import ReceivePackage from './pages/ReceivePackage/index';
 import {setAccessToken} from './lib/request';
 import {DataContext} from './contexts/dataContext';
 import {fetchInitialData} from './lib/util';
+import DeliverPackage from './pages/DeliverPackage/index';
 
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
   <>
     <Stack.Screen name="Home" component={DeliveryHomescreen} />
     <Stack.Screen name="ReceivePackage" component={ReceivePackage} />
+    <Stack.Screen name="DeliverPackage" component={DeliverPackage} />
   </>
 );
 const salesmanScreens = (

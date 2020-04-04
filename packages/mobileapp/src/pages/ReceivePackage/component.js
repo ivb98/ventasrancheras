@@ -9,6 +9,7 @@ import {makeJsonRequest} from '../../lib/request';
 import PackageInfo from './packageInfo';
 import {updatePackageStatus} from '../../lib/storage/controller';
 import {DataContext} from '../../contexts/dataContext';
+import {formatSignature} from '../../lib/util';
 
 const ReceivePackageComponent = ({packages}) => {
   const [data, setData] = useContext(DataContext);
@@ -22,7 +23,7 @@ const ReceivePackageComponent = ({packages}) => {
             method: 'POST',
             body: JSON.stringify({
               packageId: values.order.packageId,
-              signature: `data:image/png;base64,${values.signature}`,
+              signature: formatSignature(values.signature),
             }),
           },
           true,

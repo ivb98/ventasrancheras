@@ -1,8 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import ReceivePackageComponent from './component';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
-import {get} from '../../lib/storage/storage';
-import {ME_KEY} from '../../lib/storage/storage.keys';
 import {DataContext} from '../../contexts/dataContext';
 
 const ReceivePackage = () => {
@@ -10,7 +8,6 @@ const ReceivePackage = () => {
   const [data] = useContext(DataContext);
   useEffect(() => {
     async function getPackages() {
-      console.log(data.me.packages);
       setPackages(
         data.me.packages
           .filter(({status}) => status === 'Not Picked Up')

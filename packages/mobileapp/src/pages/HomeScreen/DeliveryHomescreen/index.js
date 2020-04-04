@@ -30,6 +30,13 @@ const DeliveryHomescreen = ({navigation}) => {
             navigation.navigate('ReceivePackage');
           }}
         />,
+        <Button
+          kye="44"
+          text="DELIVER"
+          onPress={() => {
+            navigation.navigate('DeliverPackage', {pkg: data.me.packages[0]});
+          }}
+        />,
       ]}
     />
   );
