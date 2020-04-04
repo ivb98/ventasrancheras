@@ -7,6 +7,11 @@ export const initialDataState = {
   customers: [],
   visits: [],
   me: [],
+  loading: {
+    isLoading: false,
+    current: 1,
+    total: 1,
+  },
 };
 
 export const DataProvider = (props) => {

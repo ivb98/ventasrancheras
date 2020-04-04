@@ -1,12 +1,15 @@
 import React, {useState, useContext} from 'react';
 import {makeJsonRequest, setAccessToken} from '../../lib/request';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ToastAndroid} from 'react-native';
 import LoginForm from './LoginForm/index';
 import Title from '../../base/Title/index';
 import {UserContext} from '../../contexts/userContext';
-import {save, get} from '../../lib/storage/storage';
+import {save} from '../../lib/storage/storage';
 import {USER_KEY} from '../../lib/storage/storage.keys';
 
+function showErrorMessage() {
+  ToastAndroid.show('Credenciales erroneos', ToastAndroid.SHORT);
+}
 const Container = () => {
   const [state, setState] = useState({loading: false, error: null});
   const [, setUserData] = useContext(UserContext);
@@ -22,7 +25,7 @@ const Container = () => {
     if (!error) {
       setState({error: null, loading: false});
       setAccessToken(data.access_token);
-      setUserData(prev => {
+      setUserData((prev) => {
         return {
           ...prev,
           user: {role: data.role, email: data.email, name: data.name},
@@ -31,6 +34,7 @@ const Container = () => {
       await save(USER_KEY, data);
     } else {
       setState({error, loading: false});
+      showErrorMessage();
       setFieldValue('password', '');
     }
   }

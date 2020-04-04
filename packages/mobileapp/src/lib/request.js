@@ -1,4 +1,4 @@
-const baseUrl = 'http://10.0.0.23:3000';
+const baseUrl = 'http://10.0.0.10:3000';
 let access_token = '';
 
 export const makeJsonRequest = async (url, opts = {}, auth = false) => {
@@ -17,6 +17,7 @@ export const makeJsonRequest = async (url, opts = {}, auth = false) => {
 
     return data;
   } catch {
+    console.log('data?');
     return null;
   }
 };
