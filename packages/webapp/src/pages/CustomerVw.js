@@ -1,5 +1,6 @@
 import React from 'react';
 import ProfileTable from '../Component/ProfileTable';
+import { Container } from 'react-bootstrap';
 
 const customers = [{
     id: 111,
@@ -23,9 +24,9 @@ const customers = [{
 function CustomerView() {
  
     return(
-            <div>
-                <ProfileTable products={customers}/>        
-            </div>
+            <Container>
+                <ProfileTable products={customers} rol="Customer"/>        
+            </Container>
         )
     
 }
