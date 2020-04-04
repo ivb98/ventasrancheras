@@ -19,7 +19,7 @@ app.use("/auth", require("./Auth/routes"));
 app.use("/customer", require("./routes/customer/routes"));
 app.use("/package", require("./routes/package/routes"));
 app.use("/item", require("./routes/item/routes"));
-app.use("/sales", require("./routes/sales/router"));
+app.use("/salesman", require("./routes/sales/router"));
 app.use("/payment", require("./routes/payment/routes"));
 app.use("/delivery", require("./routes/delivery/routes"));
 app.use("/salesorder", require("./routes/salesOrder/routes"));

@@ -6,7 +6,7 @@ import Button from '../../base/Button/index';
 import {View, StyleSheet} from 'react-native';
 import Subtitle from '../../base/Subtitle/index';
 import {makeJsonRequest} from '../../lib/request';
-import PackageInfo from './packageInfo';
+import PackageInfo from '../../components/PackageInfo/container';
 import {updatePackageStatus} from '../../lib/storage/controller';
 import {DataContext} from '../../contexts/dataContext';
 import {formatSignature} from '../../lib/util';
@@ -16,7 +16,7 @@ const ReceivePackageComponent = ({packages}) => {
   return (
     <Formik
       initialValues={{order: packages[0].value, signature: ''}}
-      onSubmit={async (values) => {
+      onSubmit={async values => {
         await makeJsonRequest(
           '/delivery/receive',
           {

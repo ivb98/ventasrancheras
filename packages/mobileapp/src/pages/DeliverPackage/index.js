@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import PackageInfo from '../ReceivePackage/packageInfo';
+import PackageInfo from '../../components/PackageInfo/container';
 import Title from '../../base/Title/index';
 import DeliveryForm from './form';
 import {makeJsonRequest} from '../../lib/request';

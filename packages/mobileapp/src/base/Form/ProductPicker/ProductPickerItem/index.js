@@ -1,24 +1,29 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import InputField from '../../InputField/index';
 import Subtitle from '../../../Subtitle/index';
 import LabeledInputField from '../../LabeledInputField/index';
 
-const ProductPickerItem = ({text, value, placeholder, handleChange}) => {
+const ProductPickerItem = ({text, price, value, placeholder, handleChange}) => {
   return (
     <View style={styles.column}>
       <Subtitle>{text}</Subtitle>
-      <LabeledInputField
-        inputField={
-          <InputField
-            value={value}
-            placeholder={placeholder}
-            handleChange={handleChange}
-            keyboardType="number-pad"
+      <Subtitle extraStyles={{alignSelf: 'center'}}>{price} $</Subtitle>
+      <View style={styles.row}>
+        <View style={{flex: 1}}>
+          <LabeledInputField
+            inputField={
+              <InputField
+                value={value}
+                placeholder={placeholder}
+                handleChange={handleChange}
+                keyboardType="number-pad"
+              />
+            }
+            labelText="Unidades"
           />
-        }
-        labelText="Amount"
-      />
+        </View>
+      </View>
     </View>
   );
 };
@@ -26,6 +31,10 @@ const ProductPickerItem = ({text, value, placeholder, handleChange}) => {
 const styles = StyleSheet.create({
   column: {
     flex: 1,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 export default ProductPickerItem;

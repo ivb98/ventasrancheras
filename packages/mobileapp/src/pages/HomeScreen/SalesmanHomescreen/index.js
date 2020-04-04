@@ -28,6 +28,14 @@ const SalesmanHomescreen = ({navigation}) => {
           text="Recibir Pago"
           onPress={() => {}}
         />,
+        <Button
+          disabled={loading.isLoading}
+          key={'4'}
+          text="Sales Order"
+          onPress={() => {
+            navigation.navigate('SalesOrder');
+          }}
+        />,
       ]}
     />
   );

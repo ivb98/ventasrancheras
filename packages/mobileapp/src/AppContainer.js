@@ -24,6 +24,7 @@ import {setAccessToken} from './lib/request';
 import {DataContext} from './contexts/dataContext';
 import {fetchInitialData} from './lib/util';
 import DeliverPackage from './pages/DeliverPackage/index';
+import SalesOrder from './pages/SalesOrder/index';
 
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
@@ -34,7 +35,10 @@ const deliveryScreens = (
   </>
 );
 const salesmanScreens = (
-  <Stack.Screen name="Home" component={SalesmanHomescreen} />
+  <>
+    <Stack.Screen name="Home" component={SalesmanHomescreen} />
+    <Stack.Screen name="SalesOrder" component={SalesOrder} />
+  </>
 );
 const AppContainer: () => React$Node = () => {
   const [userData, setUserData] = useContext(UserContext);
@@ -48,9 +52,13 @@ const AppContainer: () => React$Node = () => {
         if (jsonUser) {
           setAccessToken(jsonUser.access_token);
           fetchInitialData(jsonUser.role, setData);
-          setUserData((prev) => ({...prev, isLoading: false, user: jsonUser}));
+          setUserData(prev => ({
+            ...prev,
+            isLoading: false,
+            user: jsonUser,
+          }));
         } else {
-          setUserData((prev) => ({...prev, isLoading: false}));
+          setUserData(prev => ({...prev, isLoading: false}));
         }
       } else {
         fetchInitialData(userData.user.role, setData);
@@ -58,6 +66,7 @@ const AppContainer: () => React$Node = () => {
     }
 
     fetchExistingData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData.user]);
 
   if (userData.isLoading) {

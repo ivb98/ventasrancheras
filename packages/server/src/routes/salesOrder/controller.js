@@ -32,9 +32,8 @@ module.exports.create = async (req, res, next) => {
     const { visitId, customerId, items, signature } = req.body;
     if (!visitId || !customerId || !items || !signature) next(new Error("Missing parameters"));
     try {
-        const jsonItems = JSON.parse(items);
         const inventory = await Inventory.getInventory();
-        const createdLine = createLine(jsonItems, inventory);
+        const createdLine = createLine(items, inventory);
         const estimate = await SalesOrder.createSalesOrder({
             CustomerRef: {
                 value: customerId,

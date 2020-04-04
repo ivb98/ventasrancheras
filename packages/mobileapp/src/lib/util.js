@@ -12,10 +12,10 @@ export const fetchInitialData = async (role, setData) => {
     {endpoint: '/package', key: PACKAGE_KEY, name: 'packages'},
     {endpoint: '/item', key: ITEM_KEY, name: 'items'},
     {endpoint: '/customer', key: CUSTOMER_KEY, name: 'customers'},
-    {endpoint: `/${role}/me`, key: ME_KEY, name: 'me'},
+    {endpoint: `/${role.toLowerCase()}/me`, key: ME_KEY, name: 'me'},
   ];
-  let stateObject = {};
-  setData((prev) => ({
+  const stateObject = {};
+  setData(prev => ({
     ...prev,
     loading: {isLoading: true, current: 1, total: requests.length},
   }));
@@ -24,7 +24,7 @@ export const fetchInitialData = async (role, setData) => {
     const {endpoint, key} = requests[i];
     const data = await makeJsonRequest(endpoint, {}, true);
     await save(key, data);
-    setData((prev) => ({
+    setData(prev => ({
       ...prev,
       loading: {isLoading: true, current: i + 1, total: requests.length},
     }));
@@ -33,14 +33,14 @@ export const fetchInitialData = async (role, setData) => {
 
   console.log(stateObject);
 
-  setData((prev) => ({
+  setData(prev => ({
     ...prev,
     ...stateObject,
     loading: {isLoading: false, current: 1, total: 1},
   }));
 };
 
-export const formatSignature = (signature) => {
+export const formatSignature = signature => {
   const formatted = `data:image/png;base64,${signature}`;
   return formatted;
 };

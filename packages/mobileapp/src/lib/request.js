@@ -21,6 +21,6 @@ export const makeJsonRequest = async (url, opts = {}, auth = false) => {
   }
 };
 
-export const setAccessToken = (token) => {
+export const setAccessToken = token => {
   access_token = token;
 };

@@ -7,12 +7,12 @@ export const save = async (key, data) => {
   await AsyncStorage.setItem(key, data);
 };
 
-export const get = async (key) => {
+export const get = async key => {
   let item = await AsyncStorage.getItem(key);
   return item;
 };
 
-export const remove = async (key) => {
+export const remove = async key => {
   await AsyncStorage.removeItem(key);
 };
 

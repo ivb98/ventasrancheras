@@ -25,12 +25,14 @@ const ProductPicker = ({values, handleChange, placeholder}) => {
                     text={values.items[i].items[j].name}
                     value={values.items[i].items[j].qty}
                     placeholder={placeholder}
+                    price={values.items[i].items[j].unitPrice}
                     handleChange={handleChange(`items[${i}].items[${j}].qty`)}
                   />
                   {values.items[i].items.length > j + 1 ? (
                     <ProductPickerItem
                       text={values.items[i].items[j + 1].name}
                       value={values.items[i].items[j + 1].qty}
+                      price={values.items[i].items[j].unitPrice}
                       placeholder={placeholder}
                       handleChange={handleChange(
                         `items[${i}].items[${j + 1}].qty`,
