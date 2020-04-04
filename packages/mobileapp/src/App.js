@@ -9,12 +9,15 @@ import 'react-native-gesture-handler';
 
 import React from 'react';
 import {UserProvider} from './contexts/userContext';
+import {DataProvider} from './contexts/dataContext';
 import AppContainer from './AppContainer';
 
 const App: () => React$Node = () => {
   return (
     <UserProvider>
-      <AppContainer />
+      <DataProvider>
+        <AppContainer />
+      </DataProvider>
     </UserProvider>
   );
 };

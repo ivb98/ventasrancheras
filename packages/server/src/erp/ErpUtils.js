@@ -14,10 +14,12 @@ module.exports.parseError = err => {
 };
 
 module.exports.clearItem = item => {
+    const splittedName = item.SalesItemLineDetail.ItemRef.name.split(":");
+    const name = splittedName.length > 1 ? splittedName[1] : splittedName[0];
     return {
         id: item.Id,
         description: item.Description,
-        name: item.SalesItemLineDetail.ItemRef.name,
+        name,
         unitPrice: item.SalesItemLineDetail.UnitPrice,
         qty: item.SalesItemLineDetail.Qty,
     };

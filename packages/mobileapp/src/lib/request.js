@@ -12,11 +12,15 @@ export const makeJsonRequest = async (url, opts = {}, auth = false) => {
   }
 
   let request = await fetch(`${baseUrl}${url}`, {method: 'GET', ...opts});
-  let data = await request.json();
+  try {
+    let data = await request.json();
 
-  return data;
+    return data;
+  } catch {
+    return null;
+  }
 };
 
-export const setAccessToken = token => {
+export const setAccessToken = (token) => {
   access_token = token;
 };

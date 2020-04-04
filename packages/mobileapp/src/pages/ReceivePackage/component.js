@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Formik} from 'formik';
 import Select from '../../base/Form/Select/index';
 import Signature from '../../base/Form/SignatureField/SignatureField';
@@ -6,12 +6,16 @@ import Button from '../../base/Button/index';
 import {View, StyleSheet} from 'react-native';
 import Subtitle from '../../base/Subtitle/index';
 import {makeJsonRequest} from '../../lib/request';
+import PackageInfo from './packageInfo';
+import {updatePackageStatus} from '../../lib/storage/controller';
+import {DataContext} from '../../contexts/dataContext';
 
 const ReceivePackageComponent = ({packages}) => {
+  const [data, setData] = useContext(DataContext);
   return (
     <Formik
       initialValues={{order: packages[0].value, signature: ''}}
-      onSubmit={async values => {
+      onSubmit={async (values) => {
         await makeJsonRequest(
           '/delivery/receive',
           {
@@ -23,10 +27,10 @@ const ReceivePackageComponent = ({packages}) => {
           },
           true,
         );
+        updatePackageStatus(values.order.packageId, 'Picked Up', data, setData);
       }}>
       {({handleChange, values, handleSubmit}) => (
         <View style={styles.container}>
-          {console.log(values)}
           <Subtitle extraStyles={styles.subtitle}>Paquete</Subtitle>
           <Select
             name="order"
@@ -34,8 +38,12 @@ const ReceivePackageComponent = ({packages}) => {
             value={values.order}
             values={packages}
           />
+          <Subtitle extraStyles={styles.subtitle}>Detalles</Subtitle>
+          <PackageInfo packageData={values.order.packageId} />
           <Subtitle extraStyles={styles.subtitle}>Firma</Subtitle>
-          <Signature name="signature" />
+          <View style={styles.signatureContainer}>
+            <Signature name="signature" />
+          </View>
           <View style={styles.buttonContainer}>
             <Button text="Submit" onPress={handleSubmit} />
           </View>
@@ -54,6 +62,9 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     marginVertical: 15,
+  },
+  signatureContainer: {
+    height: 250,
   },
 });
 export default ReceivePackageComponent;

@@ -27,16 +27,20 @@ import DeliveryHomescreen from './pages/HomeScreen/DeliveryHomescreen/index';
 import SalesmanHomescreen from './pages/HomeScreen/SalesmanHomescreen/index';
 import ReceivePackage from './pages/ReceivePackage/index';
 import {makeJsonRequest, setAccessToken} from './lib/request';
+import {DataContext} from './contexts/dataContext';
 
-async function fetchInitialData(role) {
+async function fetchInitialData(role, setData) {
+  console.log('data');
   let packageData = await makeJsonRequest('/package', {}, true);
+  console.log('done');
   if (packageData.error) {
-    console.log(packageData.error);
   } else {
     await save(PACKAGE_KEY, packageData);
   }
 
   let itemsData = await makeJsonRequest('/item', {}, true);
+  console.log('done');
+
   if (itemsData.error) {
     console.log(itemsData.error);
   } else {
@@ -44,6 +48,8 @@ async function fetchInitialData(role) {
   }
 
   let customersData = await makeJsonRequest('/customer', {}, true);
+  console.log('done');
+
   if (customersData.error) {
     console.log(customersData.error);
   } else {
@@ -51,11 +57,21 @@ async function fetchInitialData(role) {
   }
 
   let myData = await makeJsonRequest(`/${role}/me`, {}, true);
+  console.log('done');
+
   if (myData.error) {
     console.log(myData.error);
   } else {
     await save(ME_KEY, myData);
   }
+
+  setData((prev) => ({
+    ...prev,
+    packages: packageData,
+    items: itemsData,
+    customers: customersData,
+    me: myData,
+  }));
 }
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
@@ -68,14 +84,15 @@ const salesmanScreens = (
   <Stack.Screen name="Home" component={SalesmanHomescreen} />
 );
 const AppContainer: () => React$Node = () => {
-  let [userData, setUserData] = useContext(UserContext);
+  const [userData, setUserData] = useContext(UserContext);
+  const [, setData] = useContext(DataContext);
   useEffect(() => {
     async function fetchExistingData() {
       let user = await get(USER_KEY);
       let jsonUser = JSON.parse(user);
       setAccessToken(jsonUser.access_token);
-      setUserData(prev => ({...prev, isLoading: false, user: jsonUser}));
-      fetchInitialData(jsonUser.role);
+      setUserData((prev) => ({...prev, isLoading: false, user: jsonUser}));
+      fetchInitialData(jsonUser.role, setData);
     }
 
     fetchExistingData();
