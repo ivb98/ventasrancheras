@@ -1,6 +1,7 @@
 import React from "react";
 import StatusTable from "../Component/StatusTable";
 import { Container, Row, Col } from "react-bootstrap";
+import { SelectProvider } from "../Context/Contexts";
 
 const packages = [
     {
@@ -20,7 +21,9 @@ const packages = [
 function CustomerPrflView() {
     return (
         <Container>
+            <SelectProvider>
             <StatusTable rol="Customer" products={packages} />
+            </SelectProvider>
         </Container>
     );
 }

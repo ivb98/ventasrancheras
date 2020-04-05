@@ -10,6 +10,8 @@ import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
+
+
 const auth = true;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -23,6 +25,7 @@ function Nav() {
     return (
         <Router>
             <div className="Nav">
+     
                 <Navbar />
                 <Switch>
                     <Route path="/Login" component={Login} />
@@ -34,6 +37,7 @@ function Nav() {
                     <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView} />
                     <PrivateRoute path="/Customer/:id" component={CustomerPrflView} />
                 </Switch>
+        
             </div>
         </Router>
     );

@@ -1,0 +1,12 @@
+.block  {
+    width: 20rem;
+    margin: 0.5rem;
+    background-color: #9c9c9cc7;
+    display: inline-block;
+}
+
+.box {
+    margin: 0.5rem;
+    background-color: #eee;
+    display: inline-block;
+}
