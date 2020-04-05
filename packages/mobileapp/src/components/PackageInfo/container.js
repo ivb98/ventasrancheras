@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {get} from '../../lib/storage/storage';
 import {PACKAGE_KEY} from '../../lib/storage/storage.keys';
-import MyPackage from '../SalesOrder/packageInfo';
+import MyPackage from './component';
 
 const PackageInfo = ({packageData}) => {
   let [info, setInfo] = useState(null);

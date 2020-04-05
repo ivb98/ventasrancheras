@@ -6,11 +6,9 @@ const { createToken } = require("./jwt/index");
 
 module.exports.login = async (req, res, next) => {
     const { email, password } = req.body;
-    console.log(email, password);
     const employee =
         (await Repository.findOne({ email, password }, Employee)) ||
         (await Repository.findOne({ email, password }, Manager));
-    console.log(employee);
     if (!employee) return next(new Error("Wrong credentials"));
 
     const accessToken = createToken(employee.id, employee.role || RolesConstants.MANAGER);
