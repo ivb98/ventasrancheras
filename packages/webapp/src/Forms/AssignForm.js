@@ -46,7 +46,7 @@ export default function AssignForm(props) {
                         </Form.Label>
                         <Form.Group>
                             <Form.Label>{props.rol} :</Form.Label>
-                            <Form.Control
+                            {/* <Form.Control
                                 type="text"
                                 name="employeename"
                                 id="employeename"
@@ -57,7 +57,23 @@ export default function AssignForm(props) {
                                 className={
                                     touched.employeename && errors.employeename ? "has-error" : null
                                 }
-                            />
+                            /> */}
+
+                                <Form.Control as="select"  className={
+                                    touched.employeename && errors.employeename ? "has-error" : null
+                                } name="employeename"   onChange={handleChange} value="Choose...">
+                                type="text"
+                                
+                                id="employeename"
+                               
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.name}
+                                
+                            >
+                            <option>Choose...</option>
+                            <option>...</option>
+                            </Form.Control>
                             <Error touched={touched.employeename} message={errors.employeename} />
                         </Form.Group>
 

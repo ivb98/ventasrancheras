@@ -26,7 +26,17 @@ const sellers = [
     },
 ];
 
-function SellerView() {
+class SellerView extends React.Component {
+
+// componentDidMount (){
+//     this.fetchSellers()
+// }
+
+// fetchSellers = async ()=>{
+//     const data = await fetch('')
+// }
+
+    render(){
     return (
         <Container fluid>
             <Row>
@@ -42,6 +52,7 @@ function SellerView() {
             </Row>
         </Container>
     );
+}
 }
 
 export default SellerView;

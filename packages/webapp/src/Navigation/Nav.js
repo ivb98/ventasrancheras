@@ -10,7 +10,10 @@ import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
-const auth = true;
+ let auth = false;
+const isLogged = JSON.parse(localStorage.getItem("login"))
+
+if(isLogged){console.log(isLogged); auth= true} 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
