@@ -17,7 +17,7 @@ module.exports.clearItem = item => {
     const splittedName = item.SalesItemLineDetail.ItemRef.name.split(":");
     const name = splittedName.length > 1 ? splittedName[1] : splittedName[0];
     return {
-        id: item.Id,
+        id: item.SalesItemLineDetail.ItemRef.value,
         description: item.Description,
         name,
         unitPrice: item.SalesItemLineDetail.UnitPrice,
@@ -31,4 +31,21 @@ module.exports.uploadBase64ToQuickbooks = async (b64, name, opts) => {
     const readStream = fs.createReadStream(filepath);
     await Signature.uploadSignature(readStream, opts);
     fs.unlinkSync(filepath);
+};
+
+module.exports.mapPackageDates = packages => {
+    const packageDateMaps = {};
+
+    packages.forEach(pkg => {
+        const customer = pkg.CustomerRef.value;
+        const date = new Date(pkg.MetaData.CreateTime).getTime();
+        const data = { id: pkg.Id, date };
+        if (!packageDateMaps[customer]) {
+            packageDateMaps[customer] = data;
+        } else {
+            packageDateMaps[customer] =
+                packageDateMaps[customer].date > data.date ? packageDateMaps[customer] : data;
+        }
+    });
+    return packageDateMaps;
 };

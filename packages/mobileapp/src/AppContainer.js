@@ -26,6 +26,7 @@ import {fetchInitialData} from './lib/util';
 import DeliverPackage from './pages/DeliverPackage/index';
 import SalesOrder from './pages/SalesOrder/index';
 import Payment from './pages/Payment/index';
+import Inventory from './pages/Inventory/index';
 
 const notLoggedScreens = <Stack.Screen name="Home" component={LoginPage} />;
 const deliveryScreens = (
@@ -40,6 +41,7 @@ const salesmanScreens = (
     <Stack.Screen name="Home" component={SalesmanHomescreen} />
     <Stack.Screen name="SalesOrder" component={SalesOrder} />
     <Stack.Screen name="Payment" component={Payment} />
+    <Stack.Screen name="Inventory" component={Inventory} />
   </>
 );
 const AppContainer: () => React$Node = () => {

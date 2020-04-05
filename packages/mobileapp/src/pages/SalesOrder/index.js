@@ -3,26 +3,8 @@ import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Title from '../../base/Title/index';
 import {DataContext} from '../../contexts/dataContext';
 import Form from './form';
+import {formatItems} from '../../lib/util';
 
-function formatItems(items) {
-  let categories = {};
-  for (const item of items) {
-    item.qty = '0';
-    item.price = item.unitPrice;
-    const {category} = item;
-    categories[category] = categories[category]
-      ? [...categories[category], item]
-      : [item];
-  }
-  let formattedItems = [];
-  for (const category in categories) {
-    formattedItems.push({
-      name: category,
-      items: categories[category],
-    });
-  }
-  return formattedItems;
-}
 const SalesOrder = () => {
   let [data] = useContext(DataContext);
   let visitId = data.me.salesman.visits[0].id;

@@ -25,14 +25,18 @@ const cleanPackages = packages => {
     return cleanedPackages;
 };
 
-module.exports.getPackages = async () => {
+module.exports.getPackages = async ({ full } = { full: false }) => {
     const qbo = await QBO.getQbo();
     return new Promise((resolve, reject) => {
         qbo.findInvoices({}, (err, invoices) => {
             if (err) {
                 reject(QBOUtils.parseError(err));
             } else {
-                resolve(cleanPackages(invoices.QueryResponse.Invoice));
+                resolve(
+                    full
+                        ? invoices.QueryResponse.Invoice
+                        : cleanPackages(invoices.QueryResponse.Invoice)
+                );
             }
         });
     });

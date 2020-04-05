@@ -3,7 +3,6 @@ import {View, Picker} from 'react-native';
 import {useField} from 'formik';
 
 function handleChange(value, position, setValue) {
-  console.log('VALUE HAS CHANGED');
   setValue(value);
 }
 const Select = ({values = [], name}) => {

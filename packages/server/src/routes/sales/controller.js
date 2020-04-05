@@ -3,7 +3,9 @@ const { RolesConstants } = require("@vranch/common");
 const Repository = require("../../entities/EntityRepository");
 const Employee = require("../../entities/Employee/Employee");
 const SalesVisit = require("../../entities/SalesVisit/SalesVisit");
+const Packages = require("../../erp/Packages/Packages");
 const QBOEmployee = require("../../erp/Employee/Employee");
+const { mapPackageDates } = require("../../erp/ErpUtils");
 
 function formatSalesman(salesman, salesVisits) {
     let employeeVisits = salesVisits.filter(salesVisit => {
@@ -43,9 +45,21 @@ module.exports.getSingleSalesman = async (req, res) => {
         { id: req.id, role: RolesConstants.SALESMAN },
         Employee
     );
-    const salesVisits = await Repository.findAll({ relations: ["emp"] }, SalesVisit);
-    salesman = await formatSalesman(salesman, salesVisits);
+    const packages = await Packages.getPackages({ full: true });
+    const packageMap = mapPackageDates(packages);
+    let salesVisits = await Repository.findAll({ relations: ["emp"] }, SalesVisit);
+    salesVisits = salesVisits.map(salesVisit => {
+        let lastOrderId = "-1";
+        if (packageMap[salesVisit.qbo_client_id]) {
+            lastOrderId = packageMap[salesVisit.qbo_client_id].id;
+        }
+        return {
+            ...salesVisit,
+            lastOrderId,
+        };
+    });
 
+    salesman = await formatSalesman(salesman, salesVisits);
     res.send({ salesman });
 };
 

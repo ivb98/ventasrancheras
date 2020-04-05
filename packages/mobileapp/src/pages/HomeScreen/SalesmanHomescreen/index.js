@@ -20,7 +20,9 @@ const SalesmanHomescreen = ({navigation}) => {
           disabled={loading.isLoading}
           key={'2'}
           text="Ver Visitas"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('Inventory');
+          }}
         />,
         <Button
           disabled={loading.isLoading}

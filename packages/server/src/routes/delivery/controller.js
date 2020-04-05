@@ -139,6 +139,7 @@ module.exports.deliver = async (req, res, next) => {
         );
         return res.sendStatus(200);
     } catch (err) {
+        console.log(err);
         return next(err);
     }
 };

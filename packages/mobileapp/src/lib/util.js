@@ -21,13 +21,13 @@ export const fetchInitialData = async (role, setData) => {
   }));
 
   for (let i = 0; i < requests.length; i++) {
-    const {endpoint, key} = requests[i];
-    const data = await makeJsonRequest(endpoint, {}, true);
-    await save(key, data);
     setData(prev => ({
       ...prev,
       loading: {isLoading: true, current: i + 1, total: requests.length},
     }));
+    const {endpoint, key} = requests[i];
+    const data = await makeJsonRequest(endpoint, {}, true);
+    await save(key, data);
     stateObject[requests[i].name] = data;
   }
 
@@ -43,4 +43,24 @@ export const fetchInitialData = async (role, setData) => {
 export const formatSignature = signature => {
   const formatted = `data:image/png;base64,${signature}`;
   return formatted;
+};
+
+export const formatItems = items => {
+  let categories = {};
+  for (const item of items) {
+    item.qty = '0';
+    item.price = item.unitPrice;
+    const {category} = item;
+    categories[category] = categories[category]
+      ? [...categories[category], item]
+      : [item];
+  }
+  let formattedItems = [];
+  for (const category in categories) {
+    formattedItems.push({
+      name: category,
+      items: categories[category],
+    });
+  }
+  return formattedItems;
 };
