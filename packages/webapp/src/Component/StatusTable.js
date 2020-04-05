@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
+import { useSelectDispatch } from "../Context/Contexts";
 
 function StatusTable(props) {
-    const rol = props.rol;
 
-    const hide = rol === "Seller" ? false : true;
+    const sellerRole = props.rol === "Seller" ? true : false;
 
     const columns = [
         {
@@ -15,12 +15,12 @@ function StatusTable(props) {
         {
             dataField: "nombre",
             text: "Nombre",
-            hidden: hide,
+            hidden: !sellerRole,
         },
         {
             dataField: "email",
             text: "E-mail",
-            hidden: hide,
+            hidden: !sellerRole,
         },
         {
             dataField: "info",
@@ -32,9 +32,27 @@ function StatusTable(props) {
         },
     ];
 
+    const dispatch = useSelectDispatch();
+
+    const selectRow = {
+        mode: "radio",
+        clickToSelect: true,
+        hideSelectColumn: true,
+        bgColor: "#00BFFF",
+        onSelect: (row, isSelect, rowIndex, e) => {
+            (!sellerRole)? dispatch({ type: "selectPackage", pack: row })
+            :dispatch({ type: "selectPerson", person: row })
+        },
+    };
+
     return (
         <Container fluid="md">
-            <BootstrapTable keyField="id" data={props.products} columns={columns} />
+            <BootstrapTable
+                keyField="id"
+                data={props.products}
+                columns={columns}
+                selectRow={selectRow}
+            />
         </Container>
     );
 }

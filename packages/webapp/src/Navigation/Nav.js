@@ -26,6 +26,7 @@ function Nav() {
     return (
         <Router>
             <div className="Nav">
+     
                 <Navbar />
                 <Switch>
                     <Route path="/Login" component={Login} />
@@ -37,6 +38,7 @@ function Nav() {
                     <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView} />
                     <PrivateRoute path="/Customer/:id" component={CustomerPrflView} />
                 </Switch>
+        
             </div>
         </Router>
     );

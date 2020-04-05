@@ -2,6 +2,8 @@ import React from "react";
 import Assignform from "../Forms/AssignForm";
 import { Container, Row, Col } from "react-bootstrap";
 import StatusTable from "../Component/StatusTable";
+import StatusPack from "../Component/StatusPack";
+import { SelectProvider } from "../Context/Contexts";
 
 const packages = [
     {
@@ -21,15 +23,18 @@ const packages = [
 function DeliveryPrflView() {
     return (
         <Container fluid>
-            <Row>
-                <Col xs={12} md={8}>
-                    <StatusTable rol="Delivery" products={packages} />
-                </Col>
-                <Col xs={6} md={4}>
-                    {" "}
-                    <Assignform assign="Package" rol="Delivery" />
-                </Col>
-            </Row>
+            <SelectProvider>
+                <Row>
+                    <Col xs={12} md={8}>
+                        <StatusTable rol="Delivery" products={packages} />
+                    </Col>
+                    <Col xs={6} md={4}>
+                        {" "}
+                        <Assignform assign="Package" rol="Delivery" />
+                        <StatusPack rol="Delivery"/>
+                    </Col>
+                </Row>
+            </SelectProvider>
         </Container>
     );
 }
