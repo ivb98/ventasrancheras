@@ -33,12 +33,7 @@ const ReceivePackageComponent = ({packages}) => {
       {({handleChange, values, handleSubmit}) => (
         <View style={styles.container}>
           <Subtitle extraStyles={styles.subtitle}>Paquete</Subtitle>
-          <Select
-            name="order"
-            handleChange={handleChange('order')}
-            value={values.order}
-            values={packages}
-          />
+          <Select name="order" values={packages} />
           <Subtitle extraStyles={styles.subtitle}>Detalles</Subtitle>
           <PackageInfo packageData={values.order.packageId} />
           <Subtitle extraStyles={styles.subtitle}>Firma</Subtitle>

@@ -26,7 +26,9 @@ const SalesmanHomescreen = ({navigation}) => {
           disabled={loading.isLoading}
           key={'3'}
           text="Recibir Pago"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('Payment');
+          }}
         />,
         <Button
           disabled={loading.isLoading}
