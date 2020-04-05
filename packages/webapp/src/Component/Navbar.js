@@ -1,30 +1,24 @@
 import React from "react";
 import "./styles/Navbar.css";
-
+import * as ReactBootStrap from "react-bootstrap";
 function Navbar() {
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div>
-            <u1 className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                <a className="nav-link" href="/Seller">Sellers</a>
-                </li>
-                <li className="nav-item active">
-                <a className="nav-link" href="/Delivery">Delivery</a>
-                </li>
-                <li className="nav-item active">
-                <a className="nav-link" href="/Package">Package</a>
-                </li>
-                <li className="nav-item active">
-                <a className="nav-link" href="/Customer">Customer</a>
-                </li>
-             </u1>
-            </div>
-        </nav>
+       
+            <ReactBootStrap.Navbar bg="dark" variant="dark"expand="lg">
+              <ReactBootStrap.Navbar.Brand href="/Seller">Nav-Bar</ReactBootStrap.Navbar.Brand>
+              <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
+                <ReactBootStrap.Nav className="mr-auto">
+                  <ReactBootStrap.Nav.Link href="/Seller">Seller</ReactBootStrap.Nav.Link>
+                  <ReactBootStrap.Nav.Link href="/Delivery">Delivery</ReactBootStrap.Nav.Link>
+                  <ReactBootStrap.Nav.Link href="/Package">Package</ReactBootStrap.Nav.Link>
+                  <ReactBootStrap.Nav.Link href="/Customer">Customer</ReactBootStrap.Nav.Link>
+
+                </ReactBootStrap.Nav>
+
+              </ReactBootStrap.Navbar.Collapse>
+            </ReactBootStrap.Navbar>
     );
 }
 
