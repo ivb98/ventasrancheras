@@ -70,8 +70,9 @@ function StatusPack(props) {
 
     return (
         <Container>
-            <span className="rounded mb-0 box border border-dark"></span>
+            <span className="rounded mb-0 box border border-dark">
             {(sellerRole)? sellerContent(item): packageContent(item)}
+            </span>
         </Container>
     );
 }
