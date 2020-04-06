@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "../Component/Navbar";
 import Login from "../pages/Login";
 import SellerView from "../pages/SellerVw";
@@ -9,24 +9,23 @@ import DeliveryPrflView from "../pages/DeliveryPrflVw";
 import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import UserContext from '../Context/UserContext'
 
- let auth = false;
-const isLogged = JSON.parse(localStorage.getItem("login"))
+let auth = true
 
-if(isLogged){console.log(isLogged); auth= true} 
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest } ) => (
+    // <UserContext.Consumer>
     <Route
         {...rest}
         render={(props) => (auth === true ? <Component {...props} /> : <Redirect to="Login" />)}
     />
+    /* </UserContext.Consumer> */
 );
 
 function Nav() {
     return (
         <Router>
             <div className="Nav">
-     
                 <Navbar />
                 <Switch>
                     <Route path="/Login" component={Login} />
@@ -38,7 +37,6 @@ function Nav() {
                     <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView} />
                     <PrivateRoute path="/Customer/:id" component={CustomerPrflView} />
                 </Switch>
-        
             </div>
         </Router>
     );

@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import './styles/Login.css';
+import { Redirect } from 'react-router-dom';
+import { UserProvider } from '../Context/UserContext.js'
 
 class Login extends React.Component {
-
-  state={
+constructor(){
+  super();
+  this.state={
     form:{
       email:'',
       password:''
-    }
+    },
+    name: '',
+    role: '',
+    login:false,
+    store:null
   }
+}
+ 
 
   handleInput = event => {
     this.setState({ //seteando datos
@@ -38,18 +47,36 @@ class Login extends React.Component {
         response.json().then((result)=>{
             console.log("result", result);
             localStorage.setItem('login', JSON.stringify({
-               token: 'bearer '+ result.access_token
-            }) )
+               token: result.access_token
+            }))
+              this.setState({name:result.name, role: result.role})
+              this.storeCollector();
+           
         })
       })
-      this.props.history.push('/Seller');
+      
   }
+
+  storeCollector(){
+    let store = JSON.parse(localStorage.getItem('login'));
+    if(store && store.login){
+      this.setState({login:true, store:store})
+    }
+  } 
 
 
 
  
 render(){
+
+ 
+
   return(
+    this.state.login?
+    <UserProvider value={this.state}>
+     <Redirect to='/Seller' />
+     </UserProvider>
+    :
     <div className="loginContent">
     <h1 className="pageTitle">Portal de Acceso</h1> 
     <form onSubmit ={this.handleSubmit}>

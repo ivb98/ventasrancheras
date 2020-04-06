@@ -16,7 +16,10 @@ function Navbar() {
                   <ReactBootStrap.Nav.Link href="/Customer">Customer</ReactBootStrap.Nav.Link>
 
                 </ReactBootStrap.Nav>
-
+                <ReactBootStrap.Form inline>
+    
+      <ReactBootStrap.Button variant="outline-success">Search</ReactBootStrap.Button>
+    </ReactBootStrap.Form>
               </ReactBootStrap.Navbar.Collapse>
             </ReactBootStrap.Navbar>
     );
