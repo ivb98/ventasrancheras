@@ -7,11 +7,26 @@
  */
 import 'react-native-gesture-handler';
 
-import React, {useState} from 'react';
+import React, {useEffect, useContext, useRef} from 'react';
 import {UserProvider} from './contexts/userContext';
 import {DataProvider} from './contexts/dataContext';
 import AppContainer from './AppContainer';
-import {NetworkProvider} from 'react-native-offline';
+import {NetworkProvider, NetworkConsumer} from 'react-native-offline';
+import {Text} from 'react-native';
+import {DataContext} from './contexts/dataContext';
+
+const NOT_LOADED = 0;
+const LOADING = 1;
+const LOADED = 2;
+
+const Conditional = ({isConnected}) => {
+  const loaded = useRef(NOT_LOADED);
+  const [data] = useContext(DataContext);
+
+  useEffect(() => {}, [data.internetConnection]);
+
+  return <AppContainer />;
+};
 
 const App: () => React$Node = () => {
   return (
@@ -23,7 +38,7 @@ const App: () => React$Node = () => {
           pingInBackground={true}
           pingOnlyIfOffline={false}
           pingTimeout={1000}
-          httpMethod="OPTIONS"
+          httpMethod="HEAD"
           pingInterval={500}>
           <AppContainer />
         </NetworkProvider>

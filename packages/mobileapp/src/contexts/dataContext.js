@@ -12,7 +12,7 @@ export const initialDataState = {
     current: 1,
     total: 1,
   },
-  internetConnection: false,
+  internetConnection: null,
 };
 
 export const DataProvider = props => {

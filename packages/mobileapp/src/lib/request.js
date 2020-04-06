@@ -1,9 +1,9 @@
 import {save, get} from './storage/storage';
 import {CACHE_KEY} from './storage/storage.keys';
 
-const baseUrl = 'http://10.0.0.10:3000';
+const baseUrl = 'https://vrancheras.herokuapp.com';
 let access_token = '';
-let isInternetReachable = false;
+let isInternetReachable = true;
 
 export const makeJsonRequest = async (
   url,

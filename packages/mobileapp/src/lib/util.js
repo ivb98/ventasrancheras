@@ -9,12 +9,14 @@ import {makeJsonRequest} from './request';
 import {ToastAndroid} from 'react-native';
 
 export const fetchInitialData = async (role, setData, data) => {
+  if (data.internetConnection === null) return;
   const requests = [
     {endpoint: '/package', key: PACKAGE_KEY, name: 'packages'},
     {endpoint: '/item', key: ITEM_KEY, name: 'items'},
     {endpoint: '/customer', key: CUSTOMER_KEY, name: 'customers'},
     {endpoint: `/${role.toLowerCase()}/me`, key: ME_KEY, name: 'me'},
   ];
+  console.log('JIUG JEFNER', data.internetConnection);
   setData(prev => ({
     ...prev,
     loading: {isLoading: true, current: 1, total: requests.length},
@@ -32,8 +34,16 @@ export const fetchInitialData = async (role, setData, data) => {
         const fetchedData = await makeJsonRequest(endpoint, {}, true, false);
         await save(key, fetchedData);
         stateObject[requests[i].name] = fetchedData;
-      } catch {}
+      } catch {
+        let cachedData = await get(key);
+        if (cachedData) {
+          cachedData = JSON.parse(cachedData);
+          stateObject[requests[i].name] = cachedData;
+        }
+      }
     }
+
+    console.log(stateObject);
 
     setData(prev => ({
       ...prev,

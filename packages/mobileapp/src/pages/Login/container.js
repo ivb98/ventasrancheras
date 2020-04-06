@@ -33,7 +33,7 @@ const Container = () => {
       setUserData(prev => {
         return {
           ...prev,
-          user: {role: data.role, email: data.email, name: data.name},
+          user: {...data},
         };
       });
       await save(USER_KEY, data);

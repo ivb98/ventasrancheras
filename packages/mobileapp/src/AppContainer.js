@@ -131,7 +131,7 @@ const AppContainer: () => React$Node = () => {
             console.log('is connected', isConnected);
             if (data.internetConnection !== isConnected) {
               toggleData(data, setData, isConnected);
-              if (isConnected) {
+              if (isConnected && userData.user) {
                 getCacheStuff(userData.user.role, setData, data);
               }
             }
