@@ -65,19 +65,21 @@ const packageContent = (item) => {
             <Container>
                 <span className="rounded mb-0 block border border-light">
                     <ul>
-                        {productos.map((producto) => {
+                        {item.items.map((producto) => {
                             return (
                                 <li>
                                     {" "}
-                                    {producto.name} x {producto.cant}{" "}
+                                    Product ID: {producto.id} Descripcion: {producto.name}{" "}
+                                    Cantidad:
+                                    {producto.qty}{" "}
                                 </li>
                             );
                         })}
                     </ul>
                 </span>
             </Container>
-            <p> Cliente: {item.clientname}</p>
-            <p> Delivery: {item.delivery}</p>
+                    <p> Cliente: {item.customer.name} ID: {item.customer.id}</p>
+            <p> Total: {item.total}</p>
         </div>
     );
 };
@@ -90,12 +92,16 @@ function StatusPack(props) {
 
     var item = sellerRole ? select.person : select.pack;
 
-    console.log(seller);
+    var isMyObjectEmpty = !Object.keys(item).length;
 
     return (
         <Container>
             <span className="rounded mb-0 box border border-dark">
-                {sellerRole ? sellerContent(item, seller) : packageContent(item)}
+                {!isMyObjectEmpty
+                    ? sellerRole
+                        ? sellerContent(item, seller)
+                        : packageContent(item)
+                    : null}
             </span>
         </Container>
     );

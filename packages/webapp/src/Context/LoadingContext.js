@@ -7,27 +7,42 @@ const initialState = {
     sellerLoaded: false,
     deliveryLoaded: false,
     packageLoaded: false,
+    customerLoaded: false,
+    sellers: [],
+    deliveries: [],
+    packs: [],
+    customers: []
 };
 
 function loadingReducer(state, action) {
     switch (action.type) {
         case "loadSeller": {
-            return { sellerLoaded: true };
+            return { sellerLoaded: true,
+                     sellers: action.sellers};
         }
         case "deloadSeller": {
             return { sellerLoaded: false };
         }
         case "loadDelivery": {
-            return { deliveryLoaded: true };
+            return { deliveryLoaded: true,
+                deliveries: action.deliveries };
         }
         case "deloadDelivery": {
             return { deliveryLoaded: false };
         }
         case "loadPackage": {
-            return { packageLoaded: true };
+            return { packageLoaded: true,
+                packs: action.packs };
         }
         case "deloadPackage": {
             return { packageLoaded: false };
+        }
+        case "loadCustomer": {
+            return { customerLoaded: true,
+                customers: action.customers };
+        }
+        case "deloadCustomer": {
+            return { customerLoaded: false };
         }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);

@@ -1,34 +1,47 @@
-import React from 'react';
-import ProfileTable from '../Component/ProfileTable';
-import { Container } from 'react-bootstrap';
+import React from "react";
+import ProfileTable from "../Component/ProfileTable";
+import { Container } from "react-bootstrap";
+import axios from "axios";
+import { LoadingProvider, useLoadingState, useLoadingDispatch } from "../Context/LoadingContext";
 
-const customers = [{
-    id: 111,
-    nombre: "Custom1",
-    email: "emaileo@email.com"
-},{
-    id: 212,
-    nombre: "Custom2",
-    email: "prubeo@email.com"
-},{
-    id: 332,
-    nombre: "Custom3",
-    email: "testeo@email.com"
-},{
-    id: 444,
-    nombre: "Custom7",
-    email: "custeo@email.com"
-},]
+const token =
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxMjE5MTUsImV4cCI6MTY0OTIzNzExNX0.Nrx4JW-OQdd7TyeJcwus8Rsv-0gV8KW5klrNmp2K8oI";
 
+const config = {
+    headers: {
+        "Content-type": "application/json",
+    },
+};
+
+async function getCustomers() {
+    if (token) {
+        config.headers["Authorization"] = token;
+    }
+
+    let res = await axios.get("/customer/", config);
+    console.log(res.data);
+    return res.data;
+}
 
 function CustomerView() {
- 
-    return(
-            <Container>
-                <ProfileTable products={customers} rol="Customer"/>        
-            </Container>
-        )
-    
+    const { customerLoaded } = useLoadingState();
+
+    console.log(customerLoaded);
+    const dispatch = useLoadingDispatch();
+
+    if (!customerLoaded) {
+        getCustomers().then((customer) => {
+            dispatch({ type: "loadCustomer", customers: customer });
+        });
+    }
+
+    const { customers } = useLoadingState();
+
+    return (
+        <Container>
+            <ProfileTable products={customers} rol="Customer" />
+        </Container>
+    );
 }
 
 export default CustomerView;

@@ -4,7 +4,7 @@ const SelectStateContext = React.createContext();
 const SelectDispatchContext = React.createContext();
 
 const initialState = {
-    pack: { },
+    pack: {},
     person: {}
 
 }

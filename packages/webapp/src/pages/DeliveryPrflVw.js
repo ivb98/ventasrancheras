@@ -31,7 +31,7 @@ function DeliveryPrflView() {
                     <Col xs={6} md={4}>
                         {" "}
                         <Assignform assign="Package" rol="Delivery" />
-                        <StatusPack rol="Delivery"/>
+                        
                     </Col>
                 </Row>
             </SelectProvider>
