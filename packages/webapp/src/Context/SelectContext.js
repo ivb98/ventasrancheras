@@ -12,11 +12,9 @@ const initialState = {
 function selectReducer(state, action) {
     switch (action.type) {
         case "selectPackage": {
-            console.log(action.pack)
             return { pack: action.pack };
         }
         case "selectPerson": {
-            console.log(action.person)
             return { person: action.person };
         }
         default: {

@@ -1,48 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import EmployeeForm from "../Forms/EmployeeForm";
 import ProfileTable from "../Component/ProfileTable";
 import { Container, Row, Col } from "react-bootstrap";
+import axios from "axios";
+import { LoadingProvider, useLoadingState, useLoadingDispatch } from "../Context/LoadingContext";
 
-const sellers = [
-    {
-        id: 1,
-        nombre: "Email",
-        email: "email@email.com",
+const initialState = {
+    salesmen: [],
+};
+
+const token =
+    "";
+
+const config = {
+    headers: {
+        "Content-type": "application/json",
     },
-    {
-        id: 2,
-        nombre: "Prueba",
-        email: "prueba@email.com",
-    },
-    {
-        id: 3,
-        nombre: "Test",
-        email: "test@email.com",
-    },
-    {
-        id: 4,
-        nombre: "Exito",
-        email: "exito@email.com",
-    },
-];
+};
 
-class SellerView extends React.Component {
+async function getSellers() {
+    if (token) {
+        config.headers["Authorization"] = token;
+    }
 
-// componentDidMount (){
-//     this.fetchSellers()
-// }
+    let res = await axios.get("https://vrancheras.herokuapp.com/sales/", config);
+    return res.data;
+}
 
-// fetchSellers = async ()=>{
-//     const data = await fetch('')
-// }
+const SellerView = () => {
+    const [salesmen, setSalesmen] = useState(initialState);
 
-    render(){
+    const { sellerLoaded } = useLoadingState();
+
+    const dispatch = useLoadingDispatch();
+
+    if (!sellerLoaded) {
+        dispatch({ type: "loadSeller" });
+        getSellers().then((sales) => setSalesmen(sales));
+    }
+
     return (
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
                     {" "}
-                    <ProfileTable products={sellers} rol="Seller" />{" "}
+                    <ProfileTable products={salesmen.salesmen} rol="Seller" />{" "}
                 </Col>
 
                 <Col xs={6} md={4}>
@@ -52,7 +54,6 @@ class SellerView extends React.Component {
             </Row>
         </Container>
     );
-}
-}
+};
 
 export default SellerView;

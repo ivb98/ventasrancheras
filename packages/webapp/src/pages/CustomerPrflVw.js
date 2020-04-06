@@ -1,7 +1,7 @@
 import React from "react";
 import StatusTable from "../Component/StatusTable";
 import { Container, Row, Col } from "react-bootstrap";
-import { SelectProvider } from "../Context/Contexts";
+import { SelectProvider } from "../Context/SelectContext";
 
 const packages = [
     {

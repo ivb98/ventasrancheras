@@ -9,8 +9,9 @@ import DeliveryPrflView from "../pages/DeliveryPrflVw";
 import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { LoadingProvider } from "../Context/LoadingContext";
 
- let auth = false;
+ let auth = true;
 const isLogged = JSON.parse(localStorage.getItem("login"))
 
 if(isLogged){console.log(isLogged); auth= true} 
@@ -29,6 +30,7 @@ function Nav() {
      
                 <Navbar />
                 <Switch>
+                    <LoadingProvider>
                     <Route path="/Login" component={Login} />
                     <PrivateRoute path="/Seller" exact component={SellerView} />
                     <PrivateRoute path="/Delivery" exact component={DeliveryView} />
@@ -37,6 +39,7 @@ function Nav() {
                     <PrivateRoute path="/Seller/:id" component={SellerPrflView} />
                     <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView} />
                     <PrivateRoute path="/Customer/:id" component={CustomerPrflView} />
+                    </LoadingProvider>
                 </Switch>
         
             </div>
