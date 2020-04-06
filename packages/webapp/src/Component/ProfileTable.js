@@ -1,12 +1,13 @@
 import React from "react";
 import { Container, Nav } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
+import {Link} from "react-router-dom";
 
-const linkToProfile = (rol, id) => {
+const linkToProfile = (rol, row) => {
     return (
         <Nav>
             <Nav.Item>
-                <Nav.Link href={`/${rol}/${id}`}>This Profile</Nav.Link>
+                <Link to={{pathname:`/${rol}/${row.id}`, state:{row}}}>Ver mas</Link>
             </Nav.Item>
         </Nav>
     );
@@ -21,7 +22,7 @@ function ProfileTable(props) {
             text: "ID",
         },
         {
-            dataField: "nombre",
+            dataField: "name",
             text: "Nombre",
         },
         {
@@ -33,7 +34,7 @@ function ProfileTable(props) {
             isDummyField: true,
             text: "Detalles",
             formatter: (cell, row, rowIndex) => {
-                return linkToProfile(rol, row.id);
+                return linkToProfile(rol, row);
             },
         },
     ];

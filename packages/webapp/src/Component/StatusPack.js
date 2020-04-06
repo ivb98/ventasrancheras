@@ -1,10 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { useSelectState, useSelectDispatch, SelectProvider } from "../Context/Contexts";
+import { useSelectState } from "../Context/SelectContext";
 
 import "./styles/StatusPack.css";
-
-const state = "lamao";
 
 const productos = [
     {
@@ -21,12 +19,39 @@ const productos = [
     },
 ];
 
-const sellerContent = (item) => {
-
-
+const sellerContent = (item, seller) => {
     return (
         <div>
+            <h1>Visitados</h1>
+            <Container>
+                <span className="rounded mb-0 block border border-light">
+                    <ul>
+                        {seller.visits.map((visita) => {
+                            return (
+                                <li>
+                                    {" "}
+                                    Id Quickbook: {visita.id} Visitado: {visita.visited}{" "}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </span>
+            </Container>
             <h> ID: {item.id}</h>
+            <Container>
+                <span className="rounded mb-0 block border border-light">
+                    <ul>
+                        {productos.map((producto) => {
+                            return (
+                                <li>
+                                    {" "}
+                                    {producto.name} x {producto.cant}{" "}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </span>
+            </Container>
             <p> Nombre completo: {item.nombre}</p>
             <p> Email: {item.email}</p>
         </div>
@@ -34,8 +59,6 @@ const sellerContent = (item) => {
 };
 
 const packageContent = (item) => {
-
-
     return (
         <div>
             <h> ID: {item.id}</h>
@@ -63,15 +86,16 @@ function StatusPack(props) {
     const sellerRole = props.rol === "Seller" ? true : false;
 
     const select = useSelectState();
+    const seller = props.seller;
 
     var item = sellerRole ? select.person : select.pack;
 
-    console.log(select);
+    console.log(seller);
 
     return (
         <Container>
             <span className="rounded mb-0 box border border-dark">
-            {(sellerRole)? sellerContent(item): packageContent(item)}
+                {sellerRole ? sellerContent(item, seller) : packageContent(item)}
             </span>
         </Container>
     );

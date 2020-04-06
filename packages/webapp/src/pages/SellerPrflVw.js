@@ -3,7 +3,7 @@ import StatusTable from "../Component/StatusTable";
 import Assignform from "../Forms/AssignForm";
 import StatusPack from "../Component/StatusPack";
 import { Container, Col, Row } from "react-bootstrap";
-import { SelectProvider } from "../Context/Contexts";
+import { SelectProvider } from "../Context/SelectContext";
 
 const customers = [
     {
@@ -28,8 +28,9 @@ const customers = [
     },
 ];
 
+function SellerPrflView(props) {
+    const seller = props.location.state.row;
 
-function SellerPrflView() {
     return (
         <Container fluid>
             <Row>
@@ -40,7 +41,7 @@ function SellerPrflView() {
                     <Col xs={6} md={4}>
                         {" "}
                         <Assignform assign="Customer" rol="Seller" />
-                        <StatusPack rol="Seller"/>
+                        <StatusPack rol="Seller" seller={seller} />
                     </Col>
                 </SelectProvider>
             </Row>

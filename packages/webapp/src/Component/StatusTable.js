@@ -1,10 +1,10 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useSelectDispatch } from "../Context/Contexts";
+import { useSelectDispatch } from "../Context/SelectContext";
 
 function StatusTable(props) {
-
+    
     const sellerRole = props.rol === "Seller" ? true : false;
 
     const columns = [
@@ -40,8 +40,9 @@ function StatusTable(props) {
         hideSelectColumn: true,
         bgColor: "#00BFFF",
         onSelect: (row, isSelect, rowIndex, e) => {
-            (!sellerRole)? dispatch({ type: "selectPackage", pack: row })
-            :dispatch({ type: "selectPerson", person: row })
+            !sellerRole
+                ? dispatch({ type: "selectPackage", pack: row })
+                : dispatch({ type: "selectPerson", person: row });
         },
     };
 
