@@ -9,6 +9,7 @@ module.exports.createPayment = async (req, res, next) => {
                 value: customerId,
             },
         });
+        console.log("se fue el maluco");
         res.sendStatus(200);
     } catch (err) {
         console.log(err);

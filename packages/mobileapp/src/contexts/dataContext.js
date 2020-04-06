@@ -12,9 +12,10 @@ export const initialDataState = {
     current: 1,
     total: 1,
   },
+  internetConnection: false,
 };
 
-export const DataProvider = (props) => {
+export const DataProvider = props => {
   const [data, setData] = useState(initialDataState);
 
   return (

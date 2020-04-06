@@ -4,40 +4,62 @@ import {
   ME_KEY,
   PACKAGE_KEY,
 } from './storage/storage.keys';
-import {save} from './storage/storage';
+import {save, get} from './storage/storage';
 import {makeJsonRequest} from './request';
+import {ToastAndroid} from 'react-native';
 
-export const fetchInitialData = async (role, setData) => {
+export const fetchInitialData = async (role, setData, data) => {
   const requests = [
     {endpoint: '/package', key: PACKAGE_KEY, name: 'packages'},
     {endpoint: '/item', key: ITEM_KEY, name: 'items'},
     {endpoint: '/customer', key: CUSTOMER_KEY, name: 'customers'},
     {endpoint: `/${role.toLowerCase()}/me`, key: ME_KEY, name: 'me'},
   ];
-  const stateObject = {};
   setData(prev => ({
     ...prev,
     loading: {isLoading: true, current: 1, total: requests.length},
   }));
+  if (data.internetConnection) {
+    const stateObject = {};
 
-  for (let i = 0; i < requests.length; i++) {
+    for (let i = 0; i < requests.length; i++) {
+      setData(prev => ({
+        ...prev,
+        loading: {isLoading: true, current: i + 1, total: requests.length},
+      }));
+      const {endpoint, key} = requests[i];
+      try {
+        const fetchedData = await makeJsonRequest(endpoint, {}, true, false);
+        await save(key, fetchedData);
+        stateObject[requests[i].name] = fetchedData;
+      } catch {}
+    }
+
     setData(prev => ({
       ...prev,
-      loading: {isLoading: true, current: i + 1, total: requests.length},
+      ...stateObject,
+      loading: {isLoading: false, current: 1, total: 1},
     }));
-    const {endpoint, key} = requests[i];
-    const data = await makeJsonRequest(endpoint, {}, true);
-    await save(key, data);
-    stateObject[requests[i].name] = data;
+  } else {
+    ToastAndroid.show(
+      'No se pudo actualizar la informacion. Cargando data almacenada...',
+      ToastAndroid.SHORT,
+    );
+    const cachedData = {};
+    for (let i = 0; i < requests.length; i++) {
+      const fetchedData = JSON.parse(await get(requests[i].key));
+      cachedData[requests[i].name] = fetchedData;
+      setData(prev => ({
+        ...prev,
+        loading: {isLoading: true, current: i + 1, total: 4},
+      }));
+    }
+    setData(prev => ({
+      ...prev,
+      ...cachedData,
+      loading: {isLoading: false, current: 1, total: 1},
+    }));
   }
-
-  console.log(stateObject);
-
-  setData(prev => ({
-    ...prev,
-    ...stateObject,
-    loading: {isLoading: false, current: 1, total: 1},
-  }));
 };
 
 export const formatSignature = signature => {

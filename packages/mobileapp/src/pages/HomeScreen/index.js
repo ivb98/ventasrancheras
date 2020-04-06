@@ -24,7 +24,7 @@ const HomeScreen = ({buttonArray, title}) => {
       refreshControl={
         <RefreshControl
           onRefresh={() => {
-            fetchInitialData(userData.user.role, setData);
+            fetchInitialData(userData.user.role, setData, data);
           }}
           refreshing={false}
         />
@@ -36,7 +36,10 @@ const HomeScreen = ({buttonArray, title}) => {
           {loading && loading.isLoading && (
             <View style={{alignItems: 'center'}}>
               <ActivityIndicator />
-              <Text>Loading data {`${loading.current}/${loading.total}`}</Text>
+              <Text>
+                {loading.message || 'Cargando informacion'}{' '}
+                {`${loading.current}/${loading.total}`}
+              </Text>
             </View>
           )}
           <View style={styles.logOutButtonContainer}>

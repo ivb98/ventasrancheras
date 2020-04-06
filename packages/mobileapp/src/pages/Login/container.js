@@ -18,14 +18,19 @@ const Container = () => {
     let {email, password} = values;
     setState({error: null, loading: true});
     setSubmitting(true);
-    let {error, ...data} = await makeJsonRequest('/auth', {
-      method: 'POST',
-      body: JSON.stringify({email, password}),
-    });
+    let {error, ...data} = await makeJsonRequest(
+      '/auth',
+      {
+        method: 'POST',
+        body: JSON.stringify({email, password}),
+      },
+      false,
+      false,
+    );
     if (!error) {
       setState({error: null, loading: false});
       setAccessToken(data.access_token);
-      setUserData((prev) => {
+      setUserData(prev => {
         return {
           ...prev,
           user: {role: data.role, email: data.email, name: data.name},

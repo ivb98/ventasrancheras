@@ -1,5 +1,5 @@
-import {update} from './storage';
-import {ME_KEY} from './storage.keys';
+import {update, get} from './storage';
+import {ME_KEY, CACHE_KEY} from './storage.keys';
 
 export const updatePackageStatus = (id, newStatus, data, setData) => {
   for (let i = 0; i < data.me.packages.length; i++) {

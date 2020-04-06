@@ -26,7 +26,6 @@ const Payment = ({customers}) => {
       }}>
       {({values, handleChange, handleSubmit}) => (
         <View>
-          {console.log(values.customer)}
           <Subtitle>Cliente</Subtitle>
           <Select name="customer" values={customers} />
           <Subtitle>Cantidad</Subtitle>
