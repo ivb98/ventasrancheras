@@ -23,7 +23,7 @@ async function getSellers() {
         config.headers["Authorization"] = token;
     }
 
-    let res = await axios.get("https://vrancheras.herokuapp.com/sales/", config);
+    let res = await axios.get("https://vrancheras.herokuapp.com/salesman/", config);
     return res.data;
 }
 
@@ -53,6 +53,7 @@ const SellerView = () => {
                 </Col>
             </Row>
         </Container>
+        
     );
 };
 

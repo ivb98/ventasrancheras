@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
 
 export const UserContext = React.createContext();
-export const initialUserState = null;
+export const initialUserState = {
+  name: '',
+  role: '',
+  login:false,
+  store:''
+};
 
 export const UserProvider = props => {
   const [userData, setUserData] = useState(initialUserState);

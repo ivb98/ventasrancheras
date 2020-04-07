@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Navbar from "../Component/Navbar";
-import Login from "../pages/Login";
 import SellerView from "../pages/SellerVw";
 import SellerPrflView from "../pages/SellerPrflVw";
 import PackageView from "../pages/PackageVw";
@@ -10,37 +9,48 @@ import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { LoadingProvider } from "../Context/LoadingContext";
+import { UserContext } from "../Context/UserContext";
+import Login from "../Component/LoginWrapper";
 
- let auth = true;
-const isLogged = JSON.parse(localStorage.getItem("login"))
+//  let auth = true;
+// const isLogged = JSON.parse(localStorage.getItem("login"))
 
-const PrivateRoute = ({ component: Component, ...rest } ) => (
-    // <UserContext.Consumer>
-    <Route
-        {...rest}
-        render={(props) => (auth === true ? <Component {...props} /> : <Redirect to="Login" />)}
-    />
-    /* </UserContext.Consumer> */
-);
+// const PrivateRoute = ({ component: Component, ...rest } ) => (
+//      <UserContext.Consumer>
+//     <Route
+//         {...rest}
+//         render={(props) => (auth === true ? <Component {...props} /> : <Redirect to="Login" />)}
+//     />
+//      </UserContext.Consumer>
+// );
 
 function Nav() {
+    const [user, setUser] = useContext(UserContext);
+    console.log(user);
+    const notLoggedNavigation = <Route exact path="/" component={Login} />;
+
+    const loggedNavigation = (
+   
+            <LoadingProvider>
+                <Route exact path="/" component={SellerView} />
+                <Route path="/Seller" exact component={SellerView} />
+                <Route path="/Delivery" exact component={DeliveryView} />
+                <Route path="/Package" exact component={PackageView} />
+                <Route path="/Customer" exact component={CustomerView} />
+                <Route path="/Seller/:id" component={SellerPrflView} />
+                <Route path="/Delivery/:id" component={DeliveryPrflView} />
+                <Route path="/Customer/:id" component={CustomerPrflView} />
+            </LoadingProvider>
+        
+    );
+
     return (
         <Router>
-            <div className="Nav">
-                <Navbar />
-                <Switch>
-                    <LoadingProvider>
-                    <Route path="/Login" component={Login} />
-                    <PrivateRoute path="/Seller" exact component={SellerView} />
-                    <PrivateRoute path="/Delivery" exact component={DeliveryView} />
-                    <PrivateRoute path="/Package" exact component={PackageView} />
-                    <PrivateRoute path="/Customer" exact component={CustomerView} />
-                    <PrivateRoute path="/Seller/:id" component={SellerPrflView} />
-                    <PrivateRoute path="/Delivery/:id" component={DeliveryPrflView} />
-                    <PrivateRoute path="/Customer/:id" component={CustomerPrflView} />
-                    </LoadingProvider>
-                </Switch>
-            </div>
+            {user.login && <Navbar/>}
+            <Switch>
+                {user.login ? loggedNavigation : notLoggedNavigation}
+            </Switch>
+
         </Router>
     );
 }
