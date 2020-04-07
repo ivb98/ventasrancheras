@@ -27,7 +27,7 @@ async function getPackages() {
 
 function PackageView() {
 
-    const [data, setData] = useContext(DataContext);
+    const [data] = useContext(DataContext);
    
 
     return (

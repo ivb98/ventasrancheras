@@ -4,8 +4,8 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { useSelectDispatch } from "../Context/SelectContext";
 
 function StatusTable(props) {
-    
     const sellerRole = props.rol === "Seller" ? true : false;
+    const customerRole = props.rol === "Seller" ? true : false;
 
     const columns = [
         {
@@ -15,16 +15,23 @@ function StatusTable(props) {
         {
             dataField: "nombre",
             text: "Nombre",
-            hidden: !sellerRole,
+            hidden: (props.rol !== "Seller"),
         },
         {
             dataField: "email",
             text: "E-mail",
-            hidden: !sellerRole,
+            hidden: (props.rol !== "Seller"),
         },
         {
-            dataField: "customer.name",
+            dataField: "customer.displayName",
             text: "Information",
+            hidden: (props.rol !== "Customer"),
+        },
+        {
+            dataField: "Info",
+            text: "Ver",
+            isDummyField: true,
+            hidden: (props.rol !== "Package"),
         },
         {
             dataField: "status",

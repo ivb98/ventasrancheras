@@ -4,15 +4,11 @@ import { useSelectState } from "../Context/SelectContext";
 
 import "./styles/StatusPack.css";
 
-const deliveryContent = (item) => {
-    return (
-        <div>
-           
-        </div>
-    );
+const deliveryContent = item => {
+    return <div></div>;
 };
 
-const sellerContent = (item) => {
+const sellerContent = item => {
     return (
         <div>
             <h> ID: {item.id}</h>
@@ -22,14 +18,14 @@ const sellerContent = (item) => {
     );
 };
 
-const packageContent = (item) => {
+const packageContent = item => {
     return (
         <div>
             <h> ID: {item.id}</h>
             <Container>
                 <span className="rounded mb-0 block border border-light">
                     <ul>
-                        {item.items.map((producto) => {
+                        {item.items.map(producto => {
                             return (
                                 <li>
                                     {" "}
@@ -43,9 +39,11 @@ const packageContent = (item) => {
             </Container>
             <p>Client: {item.customer.name} </p>
             <p>Client ID: {item.customer.id}</p>
-            <p>
-                Address: {item.address.Line1},{item.address.City} {item.address.PostalCode}
-            </p>
+            {item.address !== undefined ? (
+                <p>
+                    Address: {item.address.Line1},{item.address.City} {item.address.PostalCode}
+                </p>
+            ) : null}
             <p> Total: {item.total}</p>
         </div>
     );
@@ -56,7 +54,6 @@ function StatusPack(props) {
     const deliveryRole = props.rol === "Delivery" ? true : false;
 
     const select = useSelectState();
-
 
     var item = sellerRole ? select.person : select.pack;
 

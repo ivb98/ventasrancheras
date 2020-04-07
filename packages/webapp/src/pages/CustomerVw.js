@@ -1,42 +1,16 @@
 import React, { useContext } from "react";
-import StatusTable from "../Component/StatusTable";
+import ProfileTable from "../Component/ProfileTable";
 import { Container, Row, Col } from "react-bootstrap";
-import { SelectProvider } from "../Context/SelectContext";
 import { DataContext } from "../Context/DataContext";
 
-const packages = [
-    {
-        id: 14,
-    },
-    {
-        id: 22,
-    },
-    {
-        id: 36,
-    },
-    {
-        id: 43,
-    },
-];
-
-function CustomerPrflView(props) {
+function CustomerView() {
     const [data] = useContext(DataContext);
 
     return (
         <Container>
-            <Container>
-                <p></p>
-                <h>Cliente : {}</h>
-                <p></p>
-                <p>Shipping Address: {}</p>
-                <p>Balance: {}</p>
-                <p></p>
-            </Container>
-            <SelectProvider>
-                <StatusTable rol="Customer" products={data.customers} />
-            </SelectProvider>
+            <ProfileTable products={data.customers} rol="Customer" />
         </Container>
     );
 }
 
-export default CustomerPrflView;
+export default CustomerView;

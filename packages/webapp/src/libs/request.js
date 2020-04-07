@@ -11,7 +11,7 @@ const config = {
 
 const getData = async url => {
     var info = await axios.get(url, config).then(res => {
-        console.log(res);
+      
         return res.data;
     });
 
@@ -22,7 +22,7 @@ export const fetchTheData = async (data, setData) => {
     const stateObject = {};
 
     const requests = [
-        //{ endpoint: "/sales", name: "salesmen" },
+        { endpoint: "/salesman", name: "salesmen" },
         { endpoint: "/package", name: "packages" },
         { endpoint: "/delivery", name: "deliveries" },
         { endpoint: "/customer", name: "customers" }
