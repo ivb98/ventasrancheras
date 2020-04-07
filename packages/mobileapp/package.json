@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "@react-native-community/async-storage": "^1.9.0",
+    "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/netinfo": "^5.7.0",
     "@react-navigation/native": "^5.1.4",
@@ -71,7 +72,9 @@
       "@react-native-community/netinfo",
       "@react-native-community/netinfo/**",
       "react-native-offline",
-      "react-native-offline/**"
+      "react-native-offline/**",
+      "@react-native-community/geolocation",
+      "@react-native-community/geolocation/**"
     ]
   }
 }

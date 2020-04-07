@@ -14,14 +14,8 @@ const SalesmanHomescreen = ({navigation}) => {
           disabled={loading.isLoading}
           key={'1'}
           text="Mi Ruta"
-          onPress={() => {}}
-        />,
-        <Button
-          disabled={loading.isLoading}
-          key={'2'}
-          text="Ver Visitas"
           onPress={() => {
-            navigation.navigate('Inventory');
+            navigation.navigate('Map');
           }}
         />,
         <Button
@@ -30,14 +24,6 @@ const SalesmanHomescreen = ({navigation}) => {
           text="Recibir Pago"
           onPress={() => {
             navigation.navigate('Payment');
-          }}
-        />,
-        <Button
-          disabled={loading.isLoading}
-          key={'4'}
-          text="Sales Order"
-          onPress={() => {
-            navigation.navigate('SalesOrder');
           }}
         />,
       ]}

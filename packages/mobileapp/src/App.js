@@ -7,28 +7,40 @@
  */
 import 'react-native-gesture-handler';
 
-import React, {useEffect, useContext, useRef} from 'react';
+import React, {useEffect, useContext, useRef, useState} from 'react';
 import {UserProvider} from './contexts/userContext';
 import {DataProvider} from './contexts/dataContext';
 import AppContainer from './AppContainer';
 import {NetworkProvider, NetworkConsumer} from 'react-native-offline';
-import {Text} from 'react-native';
+import {PermissionsAndroid} from 'react-native';
 import {DataContext} from './contexts/dataContext';
-
-const NOT_LOADED = 0;
-const LOADING = 1;
-const LOADED = 2;
-
-const Conditional = ({isConnected}) => {
-  const loaded = useRef(NOT_LOADED);
-  const [data] = useContext(DataContext);
-
-  useEffect(() => {}, [data.internetConnection]);
-
-  return <AppContainer />;
-};
+import SplashScreen from './pages/Splashscreen/index';
 
 const App: () => React$Node = () => {
+  const [permissions, setPermission] = useState(false);
+
+  useEffect(() => {
+    PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    ).then(async permission => {
+      setPermission(permission);
+      if (!permission) {
+        try {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          );
+
+          setPermission(granted === PermissionsAndroid.RESULTS.GRANTED);
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    });
+  }, []);
+
+  if (!permissions) {
+    return <SplashScreen />;
+  }
   return (
     <UserProvider>
       <DataProvider>

@@ -27,14 +27,10 @@ import DeliverPackage from './pages/DeliverPackage/index';
 import SalesOrder from './pages/SalesOrder/index';
 import Payment from './pages/Payment/index';
 import Inventory from './pages/Inventory/index';
-import {
-  fetch as fetchNet,
-  useNetInfo,
-  addEventListener,
-} from '@react-native-community/netinfo';
+import MapScreen from './pages/maps/index';
 import {Text} from 'react-native';
 import {NetworkConsumer} from 'react-native-offline';
-import Button from './base/Button/index';
+import Geolocation from '@react-native-community/geolocation';
 
 async function getCacheStuff(role, setData) {
   let cached = await get(CACHE_KEY);
@@ -70,6 +66,11 @@ const deliveryScreens = (
     <Stack.Screen name="Home" component={DeliveryHomescreen} />
     <Stack.Screen name="ReceivePackage" component={ReceivePackage} />
     <Stack.Screen name="DeliverPackage" component={DeliverPackage} />
+    <Stack.Screen
+      name="Map"
+      component={MapScreen}
+      initialParams={{next: 'DeliverPackage'}}
+    />
   </>
 );
 const salesmanScreens = (
@@ -78,6 +79,11 @@ const salesmanScreens = (
     <Stack.Screen name="SalesOrder" component={SalesOrder} />
     <Stack.Screen name="Payment" component={Payment} />
     <Stack.Screen name="Inventory" component={Inventory} />
+    <Stack.Screen
+      name="Map"
+      component={MapScreen}
+      initialParams={{next: 'Inventory'}}
+    />
   </>
 );
 
@@ -90,6 +96,9 @@ const AppContainer: () => React$Node = () => {
   const [data, setData] = useContext(DataContext);
 
   useEffect(() => {
+    Geolocation.getCurrentPosition(pos => {
+      console.log(pos);
+    });
     async function fetchExistingData() {
       if (!userData.user) {
         let savedUser = await get(USER_KEY);

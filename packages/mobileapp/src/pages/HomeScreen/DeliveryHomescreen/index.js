@@ -12,29 +12,18 @@ const DeliveryHomescreen = ({navigation}) => {
       buttonArray={[
         <Button
           disabled={loading.isLoading}
-          key={'1'}
+          key={'d-1'}
           text="Mi Ruta"
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('Map');
+          }}
         />,
         <Button
-          disabled={loading.isLoading}
-          key={'2'}
-          text="Ver Ordenes"
-          onPress={() => {}}
-        />,
-        <Button
-          key={'3'}
+          key={'d-3'}
           disabled={loading.isLoading}
           text="Recibir Paquetes"
           onPress={() => {
             navigation.navigate('ReceivePackage');
-          }}
-        />,
-        <Button
-          kye="44"
-          text="DELIVER"
-          onPress={() => {
-            navigation.navigate('DeliverPackage', {pkg: data.me.packages[0]});
           }}
         />,
       ]}

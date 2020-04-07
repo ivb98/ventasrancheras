@@ -16,7 +16,6 @@ export const fetchInitialData = async (role, setData, data) => {
     {endpoint: '/customer', key: CUSTOMER_KEY, name: 'customers'},
     {endpoint: `/${role.toLowerCase()}/me`, key: ME_KEY, name: 'me'},
   ];
-  console.log('JIUG JEFNER', data.internetConnection);
   setData(prev => ({
     ...prev,
     loading: {isLoading: true, current: 1, total: requests.length},
