@@ -1,14 +1,16 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import Title from '../../base/Title/index';
 import {DataContext} from '../../contexts/dataContext';
 import Form from './form';
 import {formatItems} from '../../lib/util';
+import Button from '../../base/Button/index';
 
-const SalesOrder = () => {
-  let [data] = useContext(DataContext);
-  let visitId = data.me.salesman.visits[0].id;
-  let customerId = data.me.salesman.visits[0].customer_id;
+const SalesOrder = ({route, navigation}) => {
+  console.log(route.params);
+  let [data, setData] = useContext(DataContext);
+  let visitId = route.params.visit.id;
+  let customerId = route.params.visit.customer_id;
 
   return (
     <ScrollView style={styles.container}>
@@ -17,7 +19,17 @@ const SalesOrder = () => {
         <Form
           items={data.items ? formatItems(data.items) : []}
           ids={{visitId, customerId}}
+          data={data}
+          setData={setData}
         />
+        <View style={styles.buttonContainer}>
+          <Button
+            text="Volver a pantalla de inicio"
+            onPress={() => {
+              navigation.navigate('Home');
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );
@@ -30,6 +42,9 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 25,
+  },
+  buttonContainer: {
+    marginVertical: 15,
   },
 });
 export default SalesOrder;

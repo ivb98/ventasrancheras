@@ -30,7 +30,7 @@ import Inventory from './pages/Inventory/index';
 import MapScreen from './pages/maps/index';
 import {Text} from 'react-native';
 import {NetworkConsumer} from 'react-native-offline';
-import Geolocation from '@react-native-community/geolocation';
+import MessageScreen from './pages/MessageScreen/index';
 
 async function getCacheStuff(role, setData) {
   let cached = await get(CACHE_KEY);
@@ -66,6 +66,7 @@ const deliveryScreens = (
     <Stack.Screen name="Home" component={DeliveryHomescreen} />
     <Stack.Screen name="ReceivePackage" component={ReceivePackage} />
     <Stack.Screen name="DeliverPackage" component={DeliverPackage} />
+    <Stack.Screen name="Message" component={MessageScreen} />
     <Stack.Screen
       name="Map"
       component={MapScreen}
@@ -79,6 +80,7 @@ const salesmanScreens = (
     <Stack.Screen name="SalesOrder" component={SalesOrder} />
     <Stack.Screen name="Payment" component={Payment} />
     <Stack.Screen name="Inventory" component={Inventory} />
+    <Stack.Screen name="Message" component={MessageScreen} />
     <Stack.Screen
       name="Map"
       component={MapScreen}
@@ -96,9 +98,6 @@ const AppContainer: () => React$Node = () => {
   const [data, setData] = useContext(DataContext);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(pos => {
-      console.log(pos);
-    });
     async function fetchExistingData() {
       if (!userData.user) {
         let savedUser = await get(USER_KEY);

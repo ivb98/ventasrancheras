@@ -8,6 +8,7 @@ import Subtitle from '../../base/Subtitle';
 import {formatSignature} from '../../lib/util';
 import {makeJsonRequest} from '../../lib/request';
 import PackageInfo from '../../components/PackageInfo/component';
+import {updateVisitStatus} from '../../lib/storage/controller';
 
 function getPickedItems(values, extended = false) {
   const items = [];
@@ -21,7 +22,8 @@ function getPickedItems(values, extended = false) {
   }
   return items;
 }
-const SalesOrderForm = ({items, ids}) => {
+const SalesOrderForm = ({items, ids, data, setData}) => {
+  console.log(ids);
   return (
     <Formik
       initialValues={{
@@ -43,6 +45,7 @@ const SalesOrderForm = ({items, ids}) => {
           },
           true,
         );
+        updateVisitStatus(ids.visitId, data, setData);
       }}>
       {({handleSubmit, values, handleChange}) => {
         const pickedItems = getPickedItems(values, true);

@@ -6,29 +6,32 @@ import Button from '../../base/Button/index';
 import {DataContext} from '../../contexts/dataContext';
 import {formatItems} from '../../lib/util';
 
-const Inventory = ({navigation}) => {
+const Inventory = ({navigation, route}) => {
   const [data] = useContext(DataContext);
-  let orderId = data.me.salesman.visits[0].lastOrderId;
+  let orderId = route.params.visit.lastOrderId;
   const foundPkg = data.packages.find(pkg => pkg.id == orderId) || null;
-  let items = data.items;
-  let packageItems = foundPkg.items.map(item => {
-    return items.find(it => {
-      return it.id === item.id;
+  let packageItems = [];
+  if (foundPkg) {
+    let items = data.items;
+    packageItems = foundPkg.items.map(item => {
+      return items.find(it => {
+        return it.id === item.id;
+      });
     });
-  });
+  }
   return (
     <ScrollView style={styles.container}>
       <Title extraStyles={styles.title}>Pasar Inventario</Title>
       {foundPkg ? (
         <InventoryForm items={formatItems(packageItems)} />
       ) : (
-        <Title extraStyles={styles.title}>Ultima Orden</Title>
+        <Title extraStyles={styles.title}>No hay inventario previo</Title>
       )}
       <View style={styles.buttonContainer}>
         <Button
           text={'Continuar'}
           onPress={() => {
-            navigation.navigate('SalesOrder');
+            navigation.navigate('SalesOrder', {visit: route.params.visit});
           }}
         />
       </View>
