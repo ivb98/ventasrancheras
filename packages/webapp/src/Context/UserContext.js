@@ -4,7 +4,7 @@ export const UserContext = React.createContext();
 export const initialUserState = {
   name: '',
   role: '',
-  login:false,
+  login:true,
   store:''
 };
 

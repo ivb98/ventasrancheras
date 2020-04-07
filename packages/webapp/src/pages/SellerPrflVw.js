@@ -41,7 +41,7 @@ function SellerPrflView(props) {
                     <Col xs={6} md={4}>
                         {" "}
                         <Assignform assign="Customer" rol="Seller" />
-                        <StatusPack rol="Seller" seller={seller} />
+                        <StatusPack rol="Seller" />
                     </Col>
                 </SelectProvider>
             </Row>

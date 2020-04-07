@@ -31,7 +31,7 @@ function Nav() {
 
     const loggedNavigation = (
    
-            <LoadingProvider>
+            <>
                 <Route exact path="/" component={SellerView} />
                 <Route path="/Seller" exact component={SellerView} />
                 <Route path="/Delivery" exact component={DeliveryView} />
@@ -40,7 +40,7 @@ function Nav() {
                 <Route path="/Seller/:id" component={SellerPrflView} />
                 <Route path="/Delivery/:id" component={DeliveryPrflView} />
                 <Route path="/Customer/:id" component={CustomerPrflView} />
-            </LoadingProvider>
+            </>
         
     );
 

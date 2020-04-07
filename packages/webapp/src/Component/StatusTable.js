@@ -23,7 +23,7 @@ function StatusTable(props) {
             hidden: !sellerRole,
         },
         {
-            dataField: "info",
+            dataField: "customer.name",
             text: "Information",
         },
         {

@@ -20,10 +20,14 @@ function ProfileTable(props) {
         {
             dataField: "id",
             text: "ID",
+        },{
+            dataField: "name",
+            text: "Nombre",
         },
         {
             dataField: "displayName",
             text: "Nombre",
+            hidden: ((rol !== "Customer")||(rol !== "Delivery") )
         },
         {
             dataField: "shipAddr.stringified",
@@ -53,3 +57,4 @@ function ProfileTable(props) {
 }
 
 export default ProfileTable;
+

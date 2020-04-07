@@ -2,7 +2,7 @@ import React from "react";
 import StatusTable from "../Component/StatusTable";
 import { Container, Row, Col } from "react-bootstrap";
 import { SelectProvider } from "../Context/SelectContext";
-import { LoadingProvider, useLoadingState, useLoadingDispatch } from "../Context/LoadingContext";
+import { DataProvider } from "../Context/DataContext";
 
 const packages = [
     {
@@ -22,6 +22,9 @@ const packages = [
 function CustomerPrflView(props) {
     
     const customer = props.location.state.row;
+
+
+
 
     return (
         <Container>

@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import EmployeeForm from "../Forms/EmployeeForm";
 import ProfileTable from "../Component/ProfileTable";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
-import { DataContext } from "../Context/DataContext";
+import { LoadingProvider, useLoadingState, useLoadingDispatch } from "../Context/LoadingContext";
+
 
 const token =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxMjE5MTUsImV4cCI6MTY0OTIzNzExNX0.Nrx4JW-OQdd7TyeJcwus8Rsv-0gV8KW5klrNmp2K8oI";
@@ -19,21 +20,37 @@ async function getSellers() {
         config.headers["Authorization"] = token;
     }
 
+<<<<<<< HEAD
     let res = await axios.get("/sales/", config);
     console.log(res);
+=======
+    let res = await axios.get("https://vrancheras.herokuapp.com/salesman/", config);
+>>>>>>> ab461885ad3fa95ffb031c9db23a9a760d9cdf5b
     return res.data;
 }
 
 const SellerView = () => {
-    const [data, setData] = useContext(DataContext);
 
+    const { sellerLoaded } = useLoadingState();
 
+    const dispatch = useLoadingDispatch();
+
+    if (!sellerLoaded) {
+        getSellers().then((sales) => {
+            dispatch({ type: "loadSeller", sellers: sales.salesmen });
+
+        });
+    }
+
+    const { sellers } = useLoadingState();
+
+    console.log(sellers);
     return (
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
                     {" "}
-                    <ProfileTable products={[]} rol="Seller" />{" "}
+                    <ProfileTable products={sellers} rol="Seller" />{" "}
                 </Col>
 
                 <Col xs={6} md={4}>
@@ -42,6 +59,7 @@ const SellerView = () => {
                 </Col>
             </Row>
         </Container>
+        
     );
 };
 

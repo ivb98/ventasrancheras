@@ -1,13 +1,15 @@
 import React from "react";
-import Nav from "./Navigation/Nav";
-
+import AppContainer from "./Component/AppContainer";
+import { DataProvider } from "./Context/DataContext";
+import { LoadingProvider } from "./Context/LoadingContext";
 
 function App() {
     return (
-        <div className="App">
-
-            <Nav />
-        </div>
+        <LoadingProvider>
+            <DataProvider>
+                <AppContainer />
+            </DataProvider>
+        </LoadingProvider>
     );
 }
 

@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext} from "react";
 import StatusTable from "../Component/StatusTable";
 import StatusPack from "../Component/StatusPack";
 import { Container, Row, Col } from "react-bootstrap";
 import { SelectProvider } from "../Context/SelectContext";
 import axios from "axios";
-import { LoadingProvider, useLoadingState, useLoadingDispatch } from "../Context/LoadingContext";
+import { DataContext } from "../Context/DataContext";
 
 const token =
     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxMjE5MTUsImV4cCI6MTY0OTIzNzExNX0.Nrx4JW-OQdd7TyeJcwus8Rsv-0gV8KW5klrNmp2K8oI";
@@ -26,25 +26,16 @@ async function getPackages() {
 }
 
 function PackageView() {
-    const { packageLoaded } = useLoadingState();
 
-    const dispatch = useLoadingDispatch();
-
-    if (!packageLoaded) {
-        getPackages().then((paquetes) => {
-            dispatch({ type: "loadPackage", packs: paquetes });
-        });
-    }
-
-    const { packs } = useLoadingState();
-
+    const [data, setData] = useContext(DataContext);
+   
 
     return (
         <Container>
             <Row>
                 <SelectProvider>
                     <Col>
-                        <StatusTable rol="Package" products={packs} />
+                        <StatusTable rol="Package" products={data.packages} />
                     </Col>
                     <Col>
                         <StatusPack rol="Package" />
