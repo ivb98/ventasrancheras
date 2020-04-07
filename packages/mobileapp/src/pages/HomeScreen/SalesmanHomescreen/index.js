@@ -3,13 +3,8 @@ import Button from '../../../base/Button/index';
 import Homescreen from '../index';
 import {DataContext} from '../../../contexts/dataContext';
 import Geolocation from '@react-native-community/geolocation';
+import {getDistance} from '../../../lib/util';
 
-function getDistance(current, destination) {
-  return Math.sqrt(
-    Math.pow(current.lat - destination.lat, 2) +
-      Math.pow(current.long - destination.long, 2),
-  );
-}
 function getLatAndLong(visit, customers) {
   for (let i = 0; i < customers.length; i++) {
     if (customers[i].id === visit.customer_id) {
@@ -19,7 +14,8 @@ function getLatAndLong(visit, customers) {
 
   return {lat: null, long: null};
 }
-async function getLocation(data) {
+async function getLocation(originalData) {
+  const data = JSON.parse(JSON.stringify(originalData));
   return new Promise((resolve, reject) => {
     if (!data.me.salesman.visits.length) {
       return resolve({lat: null, long: null});
@@ -76,12 +72,15 @@ const SalesmanHomescreen = ({navigation}) => {
           text="Mi Ruta"
           onPress={async () => {
             const pos = await getLocation(data);
+            console.log(data.me.packages);
             if (pos.lat === null) {
               navigation.navigate('Message', {
                 message: 'No hay mas clientes por visitar',
               });
             } else {
               navigation.navigate('Map', {
+                lat: pos.lat,
+                long: pos.long,
                 visit: {
                   ...pos,
                 },

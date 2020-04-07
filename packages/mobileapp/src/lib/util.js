@@ -9,7 +9,9 @@ import {makeJsonRequest} from './request';
 import {ToastAndroid} from 'react-native';
 
 export const fetchInitialData = async (role, setData, data) => {
-  if (data.internetConnection === null) return;
+  if (data.internetConnection === null) {
+    return;
+  }
   const requests = [
     {endpoint: '/package', key: PACKAGE_KEY, name: 'packages'},
     {endpoint: '/item', key: ITEM_KEY, name: 'items'},
@@ -94,4 +96,11 @@ export const formatItems = items => {
     });
   }
   return formattedItems;
+};
+
+export const getDistance = (current, destination) => {
+  return Math.sqrt(
+    Math.pow(current.lat - destination.lat, 2) +
+      Math.pow(current.long - destination.long, 2),
+  );
 };

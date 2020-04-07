@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import Subtitle from '../../base/Subtitle/index';
 
 const MessageScreen = ({route}) => {
   return (
     <View style={styles.container}>
-      <Text>{route.params.message}</Text>
+      <Subtitle>{route.params.message}</Subtitle>
     </View>
   );
 };

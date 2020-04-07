@@ -2,12 +2,13 @@ import React, {useEffect, useState, useContext} from 'react';
 import ReceivePackageComponent from './component';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {DataContext} from '../../contexts/dataContext';
+import MessageScreen from '../MessageScreen/index';
 
-const ReceivePackage = () => {
+const ReceivePackage = ({navigation, route}) => {
   let [packages, setPackages] = useState(null);
   const [data] = useContext(DataContext);
   useEffect(() => {
-    async function getPackages() {
+    function getPackages() {
       setPackages(
         data.me.packages
           .filter(({status}) => status === 'Not Picked Up')
@@ -19,13 +20,16 @@ const ReceivePackage = () => {
     }
 
     getPackages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (packages === null) {
     return <Text>Loading</Text>;
   }
 
   if (packages.length === 0) {
-    return <Text>No hay mas paquetes asignados para ti</Text>;
+    route.params = {};
+    route.params.message = 'No hay mas paquetes por recibir.';
+    return <MessageScreen route={route} navigation={navigation} />;
   }
   return (
     <ScrollView>

@@ -12,9 +12,7 @@ export const updatePackageStatus = (id, newStatus, data, setData) => {
 };
 
 export const updateVisitStatus = (id, data, setData) => {
-  console.log(data.me.salesman.visits.length);
   for (let i = 0; i < data.me.salesman.visits.length; i++) {
-    console.log(data.me.salesman.visits[i].id, id);
     if (data.me.salesman.visits[i].id === id) {
       data.me.salesman.visits[i].visited = true;
       data.me.salesman.visits[i].date = new Date();

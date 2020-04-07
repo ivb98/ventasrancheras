@@ -7,7 +7,6 @@ import {formatItems} from '../../lib/util';
 import Button from '../../base/Button/index';
 
 const SalesOrder = ({route, navigation}) => {
-  console.log(route.params);
   let [data, setData] = useContext(DataContext);
   let visitId = route.params.visit.id;
   let customerId = route.params.visit.customer_id;

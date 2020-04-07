@@ -8,7 +8,7 @@ const MapScreen = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <Title extraStyles={styles.title}>
-        Mapa {route.params.visit.lat}, {route.params.visit.long}
+        Mapa {route.params.lat}, {route.params.long}
       </Title>
       <Text>Aqui va el mapa</Text>
       <Button
