@@ -14,3 +14,16 @@ nav{
     justify-content: space-around;
     align-items: center;
 }
+
+.Navbar__brand {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .Navbar__brand:hover {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
