@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxMjE5MTUsImV4cCI6MTY0OTIzNzExNX0.Nrx4JW-OQdd7TyeJcwus8Rsv-0gV8KW5klrNmp2K8oI";
+    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxODgwOTAsImV4cCI6MTY0OTMwMzI5MH0.mksu2bwOSI4bboXog_ObQVr0_jKZt6904M3eHi_8cFc";
 
 const config = {
     headers: {
@@ -11,7 +11,6 @@ const config = {
 
 const getData = async url => {
     var info = await axios.get(url, config).then(res => {
-      
         return res.data;
     });
 
@@ -22,7 +21,7 @@ export const fetchTheData = async (data, setData) => {
     const stateObject = {};
 
     const requests = [
-        { endpoint: "/salesman", name: "salesmen" },
+        { endpoint: "/salesman", name: "salesman" },
         { endpoint: "/package", name: "packages" },
         { endpoint: "/delivery", name: "deliveries" },
         { endpoint: "/customer", name: "customers" }

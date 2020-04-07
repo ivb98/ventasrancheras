@@ -23,7 +23,6 @@ function ProfileTable(props) {
         },{
             dataField: "name",
             text: "Nombre",
-            hidden: (rol === "Customer")
         },
         {
             dataField: "displayName",

@@ -9,13 +9,14 @@ import { DataContext } from "../Context/DataContext";
 const SellerView = () => {
     const [data] = useContext(DataContext);
 
-       
+        //console.log(data);
+
     return (
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
                     {" "}
-                    <ProfileTable products={data.salesmen.salesmen} rol="Seller" />{" "}
+                    <ProfileTable products={data.salesman.salesmen} rol="Seller" />{" "}
                 </Col>
 
                 <Col xs={6} md={4}>

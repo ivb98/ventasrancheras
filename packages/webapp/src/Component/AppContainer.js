@@ -19,7 +19,6 @@ function AppContainer() {
     }
     }, [loading]);
 
-    console.log(data);
 
     return (
         <div className="App">

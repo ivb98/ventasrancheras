@@ -3,24 +3,18 @@ import { Container } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useSelectDispatch } from "../Context/SelectContext";
 
+const visited = (value) => {
+    return ((value === true)? <p>Yes</p>:<p>No</p>)
+}
+
 function StatusTable(props) {
     const sellerRole = props.rol === "Seller" ? true : false;
-    const customerRole = props.rol === "Seller" ? true : false;
+   
 
     const columns = [
         {
             dataField: "id",
             text: "ID",
-        },
-        {
-            dataField: "nombre",
-            text: "Nombre",
-            hidden: (props.rol !== "Seller"),
-        },
-        {
-            dataField: "email",
-            text: "E-mail",
-            hidden: (props.rol !== "Seller"),
         },
         {
             dataField: "customer.displayName",
@@ -32,11 +26,20 @@ function StatusTable(props) {
             text: "Ver",
             isDummyField: true,
             hidden: (props.rol !== "Package"),
-        },
-        {
+        },{
             dataField: "status",
             text: "Status",
+            hidden: (props.rol === "Seller"),
+
         },
+        {
+            dataField: "visited",
+            text: "Visited",
+            hidden: (props.rol !== "Seller"),
+            formatter: (cell, row, rowIndex) => {
+                return visited(row.visited);
+            },
+        }
     ];
 
     const dispatch = useSelectDispatch();

@@ -28,15 +28,22 @@ const customers = [
     },
 ];
 
+
 function SellerPrflView(props) {
     const seller = props.location.state.row;
 
+    console.log(seller);
+
     return (
         <Container fluid>
+            <Container>
+                <h2>Seller: {seller.name}</h2>
+                <p></p>
+            </Container>
             <Row>
                 <SelectProvider>
                     <Col xs={12} md={8}>
-                        <StatusTable rol="Seller" products={customers} />
+                        <StatusTable rol="Seller" products={seller.visits} />
                     </Col>
                     <Col xs={6} md={4}>
                         {" "}

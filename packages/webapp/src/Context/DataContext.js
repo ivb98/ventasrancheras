@@ -5,7 +5,7 @@ export const initialDataState = {
   packages: [],
   deliveries: [],
   customers: [],
-  salesmen: [],
+  salesman: [],
   loading: {
     isLoading: false,
     current: 1,
