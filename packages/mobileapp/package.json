@@ -22,11 +22,13 @@
     "react": "16.11.0",
     "react-native": "0.62.0",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-launch-navigator": "^1.0.7",
     "react-native-offline": "^5.4.0",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
-    "react-native-signature-capture": "^0.4.10"
+    "react-native-signature-capture": "^0.4.10",
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -74,7 +76,9 @@
       "react-native-offline",
       "react-native-offline/**",
       "@react-native-community/geolocation",
-      "@react-native-community/geolocation/**"
+      "@react-native-community/geolocation/**",
+      "react-native-launch-navigator",
+      "react-native-launch-navigator/**"
     ]
   }
 }
