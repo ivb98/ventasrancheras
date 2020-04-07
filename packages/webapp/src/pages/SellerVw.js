@@ -9,8 +9,7 @@ import { DataContext } from "../Context/DataContext";
 const SellerView = () => {
     const [data] = useContext(DataContext);
 
-        //console.log(data);
-
+    
     return (
         <Container fluid>
             <Row>
