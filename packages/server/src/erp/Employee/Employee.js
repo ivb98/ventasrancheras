@@ -11,6 +11,7 @@ const QBOUtils = require("../ErpUtils");
  * @param {string} employee.PrimaryEmailAddr.Address email address.
  */
 module.exports.createEmployee = async employee => {
+    console.log(employee);
     const qbo = await QBO.getQbo();
     return new Promise((resolve, reject) => {
         qbo.createEmployee(employee, (err, emp) => {

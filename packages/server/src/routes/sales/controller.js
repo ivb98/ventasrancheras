@@ -68,6 +68,7 @@ module.exports.create = async (req, res, next) => {
     if (!email || !password || !name || !lastname) {
         return next(new Error("Missing parameters"));
     }
+    console.log(email, password, name, lastname);
     try {
         const qboEmployee = await QBOEmployee.createEmployee({
             DisplayName: `${name} ${lastname}`,
@@ -81,13 +82,15 @@ module.exports.create = async (req, res, next) => {
             email,
             password,
             `${name} ${lastname}`,
-            qboEmployee,
+            qboEmployee.Id,
             RolesConstants.SALESMAN
         );
         const created = await Repository.create(employee, Employee);
+        // console.log(created);
         const formmated = formatSalesman(created, []);
         return res.send({ ...formmated });
     } catch (err) {
+        console.log(err);
         return next(new Error("There was an error creating the employee"));
     }
 };

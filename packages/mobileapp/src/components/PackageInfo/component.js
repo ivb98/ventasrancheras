@@ -9,14 +9,17 @@ const SalesOrderInfo = ({items}) => {
   );
   return (
     <View style={styles.container}>
-      {items.map((item, i) => (
-        <View style={styles.row} key={i}>
-          <Text>{`${item.name}:`}</Text>
-          <Text>
-            {`${item.unitPrice} $ x ${item.qty} units`} {'\n'}
-          </Text>
-        </View>
-      ))}
+      {items.map((item, i) => {
+        console.log(item.unitPrice);
+        return (
+          <View style={styles.row} key={i}>
+            <Text>{`${item.name}:`}</Text>
+            <Text>
+              {`${item.unitPrice} $ x ${item.qty} units`} {'\n'}
+            </Text>
+          </View>
+        );
+      })}
       <Subtitle extraStyles={styles.total}>Total {total} $</Subtitle>
     </View>
   );

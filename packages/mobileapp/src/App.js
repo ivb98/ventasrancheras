@@ -44,14 +44,7 @@ const App = () => {
   return (
     <UserProvider>
       <DataProvider>
-        <NetworkProvider
-          pingServerUrl="http://10.0.0.10:4000/ping"
-          shouldPing={true}
-          pingInBackground={true}
-          pingOnlyIfOffline={false}
-          pingTimeout={1000}
-          httpMethod="OPTIONS"
-          pingInterval={501}>
+        <NetworkProvider>
           <AppContainer />
         </NetworkProvider>
       </DataProvider>

@@ -143,7 +143,7 @@ const AppContainer = () => {
                 getCacheStuff(userData.user.role, setData, data);
               }
             }
-            return <Text>Internet: {isConnected.toString()}</Text>;
+            return null;
           }}
         </NetworkConsumer>
         <Stack.Navigator

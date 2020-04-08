@@ -16,6 +16,7 @@ module.exports.parseError = err => {
 module.exports.clearItem = item => {
     const splittedName = item.SalesItemLineDetail.ItemRef.name.split(":");
     const name = splittedName.length > 1 ? splittedName[1] : splittedName[0];
+    console.log(name, item.SalesItemLineDetail);
     return {
         id: item.SalesItemLineDetail.ItemRef.value,
         description: item.Description,

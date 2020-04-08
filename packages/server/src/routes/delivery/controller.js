@@ -65,9 +65,9 @@ module.exports.create = async (req, res, next) => {
             },
         });
         const employee = new Employee(
-            `${name} ${lastname}`,
+            email,
             password,
-            name,
+            `${name} ${lastname}`,
             qboEmployee.Id,
             RolesConstants.DELIVERY
         );
@@ -75,12 +75,14 @@ module.exports.create = async (req, res, next) => {
         const formmated = formatDelivery(created, []);
         return res.send({ ...formmated });
     } catch (err) {
+        console.log(err);
         return next(new Error("There was an error creating the employee"));
     }
 };
 
 module.exports.assign = async (req, res, next) => {
     const { deliveryId, packageId } = req.body;
+    console.log(deliveryId, packageId);
     const packageDelivery = new PackageDelivery(
         deliveryId,
         packageId,

@@ -5807,6 +5807,11 @@ file-match@^1.0.1:
   dependencies:
     utils-extend "^1.0.6"
 
+file-saver@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
+  integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==
+
 file-system@^2.1.0, file-system@^2.1.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/file-system/-/file-system-2.2.2.tgz#7d65833e3a2347dcd956a813c677153ed3edd987"
@@ -10854,6 +10859,18 @@ react-bootstrap-table-next@^4.0.0:
     classnames "^2.2.5"
     react-transition-group "^4.2.0"
     underscore "1.9.1"
+
+react-bootstrap-table2-paginator@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table2-paginator/-/react-bootstrap-table2-paginator-2.1.2.tgz#a62151909e594719db568cede6e5d2962cbf8ddb"
+  integrity sha512-LC5znEphhgKJvaSY1q8d+Gj0Nc/1X+VS3tKJjkmWmfv9P61YC/BnwJ+aoqEmQzsLiVGowrzss+i/u+Tip5H+Iw==
+
+react-bootstrap-table2-toolkit@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-table2-toolkit/-/react-bootstrap-table2-toolkit-2.1.2.tgz#75c28b97e16961ee1433018b4f0c6b17261e167a"
+  integrity sha512-PKJhh6tBQDh9jpiTKv1RpYCZlsQYbLEQb+GvkePRsUlHjV7anD2OmEviJILKXyUNsumNi0UXgqyMqsZ2HYhD/w==
+  dependencies:
+    file-saver "2.0.2"
 
 react-bootstrap@^1.0.0:
   version "1.0.0"
