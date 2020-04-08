@@ -36,17 +36,17 @@ function SellerPrflView(props) {
             <Row>
                 <SelectProvider>
                     <Col xs={12} md={8}>
-                        <StatusTable rol="Seller" products={seller.visits} />
+                        <StatusTable rol="SalesMen" products={seller.visits} />
                     </Col>
                     <Col xs={6} md={4}>
                         {" "}
                         <Assignform
                             handleFormSubmit={handleFormSubmit}
-                            assign="Customer"
-                            rol="Seller"
+                            assign="Clients"
+                            rol="SalesMen"
                             employee={seller}
                         />
-                        <StatusPack rol="Seller" />
+                        <StatusPack rol="SalesMen" />
                     </Col>
                 </SelectProvider>
             </Row>

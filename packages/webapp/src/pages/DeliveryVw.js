@@ -11,11 +11,11 @@ function DeliveryView() {
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
-                    <ProfileTable products={data.deliveries} rol="Delivery" />
+                    <ProfileTable products={data.deliveries} rol="DeliDrivers" />
                 </Col>
                 <Col xs={6} md={4}>
                     {" "}
-                    <EmployeeForm rol="delivery" />
+                    <EmployeeForm rol="DeliDrivers" />
                 </Col>
             </Row>
         </Container>

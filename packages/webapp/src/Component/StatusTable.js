@@ -15,7 +15,7 @@ const visited = value => {
 };
 
 function StatusTable(props) {
-    const sellerRole = props.rol === "Seller" ? true : false;
+    const sellerRole = props.rol === "SalesMen" ? true : false;
 
     const columns = [
         {
@@ -25,23 +25,23 @@ function StatusTable(props) {
         {
             dataField: "customer.displayName",
             text: "Information",
-            hidden: props.rol !== "Customer",
+            hidden: props.rol !== "Clients",
         },
         {
             dataField: "Info",
             text: "Ver",
             isDummyField: true,
-            hidden: props.rol !== "Package",
+            hidden: props.rol !== "Packs",
         },
         {
             dataField: "status",
             text: "Status",
-            hidden: props.rol === "Seller",
+            hidden: props.rol === "SalesMen",
         },
         {
             dataField: "visited",
             text: "Visited",
-            hidden: props.rol !== "Seller",
+            hidden: props.rol !== "SalesMen",
             formatter: (cell, row, rowIndex) => {
                 return visited(row.visited);
             },

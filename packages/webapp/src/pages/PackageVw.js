@@ -15,10 +15,10 @@ function PackageView() {
             <Row>
                 <SelectProvider>
                     <Col>
-                        <StatusTable rol="Package" products={data.packages} />
+                        <StatusTable rol="Packs" products={data.packages} />
                     </Col>
                     <Col>
-                        <StatusPack rol="Package" />
+                        <StatusPack rol="Packs" />
                     </Col>
                 </SelectProvider>
             </Row>

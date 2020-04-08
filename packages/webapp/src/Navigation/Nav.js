@@ -30,13 +30,13 @@ function Nav() {
     const loggedNavigation = (
         <>
             <Route exact path="/" component={SellerView} />
-            <Route path="/Seller" exact component={SellerView} />
-            <Route path="/Delivery" exact component={DeliveryView} />
-            <Route path="/Package" exact component={PackageView} />
-            <Route path="/Customer" exact component={CustomerView} />
-            <Route path="/Seller/:id" component={SellerPrflView} />
-            <Route path="/Delivery/:id" component={DeliveryPrflView} />
-            <Route path="/Customer/:id" component={CustomerPrflView} />
+            <Route path="/SalesMen" exact component={SellerView} />
+            <Route path="/DeliDrivers" exact component={DeliveryView} />
+            <Route path="/Packs" exact component={PackageView} />
+            <Route path="/Clients" exact component={CustomerView} />
+            <Route path="/SalesMen/:id" component={SellerPrflView} />
+            <Route path="/DeliDrivers/:id" component={DeliveryPrflView} />
+            <Route path="/Clients/:id" component={CustomerPrflView} />
         </>
     );
 

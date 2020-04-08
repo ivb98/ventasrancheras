@@ -12,6 +12,8 @@ function DeliveryPrflView(props) {
     const [data] = useContext(DataContext);
     const [user] = useContext(UserContext);
 
+    
+
     async function handleFormSubmit({ employeename, assigment }, { setSubmitting, resetForm }) {
         setSubmitting(true);
         const emp = data.deliveries.find(delivery => {
@@ -33,17 +35,17 @@ function DeliveryPrflView(props) {
             <SelectProvider>
                 <Row>
                     <Col xs={12} md={8}>
-                        <StatusTable rol="Delivery" products={delivery.packages} />
+                        <StatusTable rol="DeliDrivers" products={delivery.packages} />
                     </Col>
                     <Col xs={6} md={4}>
                         {" "}
                         <Assignform
-                            assign="Package"
-                            rol="Delivery"
+                            assign="Packs"
+                            rol="DeliDrivers"
                             employee={delivery}
                             handleFormSubmit={handleFormSubmit}
                         />
-                        <StatusPack rol="Delivery" />
+                        <StatusPack rol="DeliDrivers" />
                     </Col>
                 </Row>
             </SelectProvider>

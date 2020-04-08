@@ -37,7 +37,7 @@ export default function AssignForm(props) {
         valueProperty: "id",
         array: freePackages,
     };
-    const isSeller = rol === "Seller";
+    const isSeller = rol === RolesConstants.SALESMAN;
     const selectData = isSeller ? salesmanSelect : deliverySelect;
     const initValue = {
         employeename: employeeName,

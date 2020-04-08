@@ -42,5 +42,5 @@
             "last 1 safari version"
         ]
     },
-    "proxy": "http://localhost:4500"
+    "proxy": "https://vrancheras.herokuapp.com"
 }

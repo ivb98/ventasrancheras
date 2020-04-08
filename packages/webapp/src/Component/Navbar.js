@@ -13,22 +13,22 @@ function Navbar() {
     return (
         <div className="mb-5">
             <ReactBootStrap.Navbar bg="dark" variant="dark" expand="lg">
-                <Link className="Navbar__brand" to="/Seller">
+                <Link className="Navbar__brand" to="/SalesMen">
                     Ventas Rancheras
                 </Link>
                 <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
                     <ReactBootStrap.Nav className="ml-auto">
-                        <Link className="Navbar__brand" to="/Seller">
-                            Seller
+                        <Link className="Navbar__brand" to="/SalesMen">
+                            Sales
                         </Link>
-                        <Link className="Navbar__brand" to="/Delivery">
+                        <Link className="Navbar__brand" to="/DeliDrivers">
                             Delivery
                         </Link>
-                        <Link className="Navbar__brand" to="/Package">
+                        <Link className="Navbar__brand" to="/Packs">
                             Package
                         </Link>
-                        <Link className="Navbar__brand" to="/Customer">
+                        <Link className="Navbar__brand" to="/Clients">
                             Customer
                         </Link>
                         <LogOut

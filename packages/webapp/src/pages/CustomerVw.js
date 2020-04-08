@@ -8,7 +8,7 @@ function CustomerView() {
 
     return (
         <Container>
-            <ProfileTable products={data.customers} rol="Customer" />
+            <ProfileTable products={data.customers} rol="Clients" />
         </Container>
     );
 }

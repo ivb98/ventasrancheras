@@ -12,11 +12,11 @@ const SellerView = () => {
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
-                    <ProfileTable products={data.salesman.salesmen} rol="Seller" />
+                    <ProfileTable products={data.salesman.salesmen} rol="SalesMen" />
                 </Col>
 
                 <Col xs={6} md={4}>
-                    <EmployeeForm rol="Seller" />
+                    <EmployeeForm rol="SalesMen" />
                 </Col>
             </Row>
         </Container>

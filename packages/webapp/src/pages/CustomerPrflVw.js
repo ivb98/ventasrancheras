@@ -25,10 +25,10 @@ function CustomerPrflView(props) {
             <Row>
                 <SelectProvider>
                     <Col>
-                        <StatusTable rol="Package" products={paquetes} />
+                        <StatusTable rol="Packs" products={paquetes} />
                     </Col>
                     <Col>
-                        <StatusPack rol="Customer" />
+                        <StatusPack rol="Clients" />
                     </Col>
                 </SelectProvider>
             </Row>

@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 export default function EmployeeForm({ rol }) {
     const [user] = useContext(UserContext);
-    const url = rol === "Seller" ? "/salesman" : "/delivery/create";
+    const url = rol === "SalesMen" ? "/salesman" : "/delivery/create";
     return (
         <Container fluid="sm">
             <Formik

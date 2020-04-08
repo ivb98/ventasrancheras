@@ -32,29 +32,29 @@ function ProfileTable(props) {
         {
             dataField: "name",
             text: "Nombre",
-            hidden: rol === "Customer",
+            hidden: rol === "Clients",
         },
         {
             dataField: "displayName",
             text: "Nombre",
-            hidden: rol !== "Customer",
+            hidden: rol !== "Clients",
         },
         {
             dataField: "shipAddr.stringified",
             text: "Address",
-            hidden: rol !== "Customer",
+            hidden: rol !== "Clients",
         },
         {
             dataField: "email",
             text: "E-mail",
-            hidden: rol === "Customer",
+            hidden: rol === "Clients",
         },
         {
             dataField: "Profile",
             isDummyField: true,
             text: "Detalles",
             formatter: (cell, row, rowIndex) => {
-                return linkToProfile(rol === RolesConstants.SALESMAN ? "Sales" : rol, row);
+                return linkToProfile(rol, row);
             },
         },
     ];
