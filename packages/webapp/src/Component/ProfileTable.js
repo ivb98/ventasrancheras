@@ -1,11 +1,15 @@
 import React from "react";
-import { Container, Nav } from "react-bootstrap";
+import { Container, Nav, Form, Button } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Link } from "react-router-dom";
 import { RolesConstants } from "@vranch/common";
-import paginationFactory from 'react-bootstrap-table2-paginator';
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
+
+const { SearchBar } = Search;
 
 const linkToProfile = (rol, row) => {
     return (
@@ -28,7 +32,7 @@ function ProfileTable(props) {
         {
             dataField: "name",
             text: "Nombre",
-            hidden: rol === "Customer"
+            hidden: rol === "Customer",
         },
         {
             dataField: "displayName",
@@ -56,8 +60,23 @@ function ProfileTable(props) {
     ];
 
     return (
-        <Container fluid="md">
-            <BootstrapTable keyField="id" data={props.products} columns={columns} pagination={ paginationFactory() }/>
+        <Container fluid="sm">
+            <ToolkitProvider
+                keyField="id"
+                data={props.products}
+                columns={columns}
+                search={{
+                    searchFormatted: true,
+                }}
+            >
+                {props => (
+                <div>
+                    <SearchBar {...props.searchProps} />
+                    <hr />
+                    <BootstrapTable pagination={paginationFactory()} {...props.baseProps} />
+                </div>
+                )}
+            </ToolkitProvider>
         </Container>
     );
 }

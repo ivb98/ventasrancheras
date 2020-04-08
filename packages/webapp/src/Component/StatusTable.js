@@ -2,9 +2,13 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useSelectDispatch } from "../Context/SelectContext";
-import paginationFactory from 'react-bootstrap-table2-paginator';
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+import "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css";
+
+const { SearchBar } = Search;
 
 const visited = value => {
     return value === true ? <p>Yes</p> : <p>No</p>;
@@ -60,13 +64,26 @@ function StatusTable(props) {
 
     return (
         <Container fluid="md">
-            <BootstrapTable
+            <ToolkitProvider
                 keyField="id"
                 data={props.products}
                 columns={columns}
-                selectRow={selectRow}
-                pagination={ paginationFactory() }
-            />
+                search={{
+                    searchFormatted: true,
+                }}
+            >
+                {props => (
+                    <div>
+                        <SearchBar {...props.searchProps} />
+                        <hr />
+                        <BootstrapTable
+                            selectRow={selectRow}
+                            pagination={paginationFactory()}
+                            {...props.baseProps}
+                        />
+                    </div>
+                )}
+            </ToolkitProvider>
         </Container>
     );
 }
