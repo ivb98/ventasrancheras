@@ -13,8 +13,9 @@ import Title from '../../base/Title/index';
 import {DataContext} from '../../contexts/dataContext';
 import {UserContext} from '../../contexts/userContext';
 import {fetchInitialData} from '../../lib/util';
+import Subtitle from '../../base/Subtitle/index';
 
-const HomeScreen = ({buttonArray, title}) => {
+const HomeScreen = ({buttonArray, title, subtitle}) => {
   const [data, setData] = useContext(DataContext);
   const [userData] = useContext(UserContext);
   const loading = data.loading;
@@ -31,6 +32,7 @@ const HomeScreen = ({buttonArray, title}) => {
       }>
       <View style={styles.container}>
         <Title extraStyles={styles.title}>{title}</Title>
+        <Subtitle extraStyles={styles.subtitle}>{subtitle}</Subtitle>
         <View style={styles.buttonsContainer}>
           <View style={styles.actionButtonContainer}>{buttonArray}</View>
           {loading && loading.isLoading && (
@@ -57,6 +59,10 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.85,
   },
   title: {
+    paddingLeft: 20,
+    paddingTop: 10,
+  },
+  subtitle: {
     paddingLeft: 20,
     paddingTop: 10,
   },

@@ -5,10 +5,14 @@ import {DataContext} from '../../../contexts/dataContext';
 import Geolocation from '@react-native-community/geolocation';
 import {getDistance} from '../../../lib/util';
 
-function getLatAndLong(visit, customers) {
+function getMetaData(visit, customers) {
   for (let i = 0; i < customers.length; i++) {
     if (customers[i].id === visit.customer_id) {
-      return {lat: customers[i].shipAddr.lat, long: customers[i].shipAddr.long};
+      return {
+        lat: customers[i].shipAddr.lat,
+        long: customers[i].shipAddr.long,
+        user: customers[i].displayName,
+      };
     }
   }
 
@@ -18,17 +22,17 @@ async function getLocation(originalData) {
   const data = JSON.parse(JSON.stringify(originalData));
   return new Promise((resolve, reject) => {
     if (!data.me.salesman.visits.length) {
-      return resolve({lat: null, long: null});
+      return resolve({lat: null, long: null, user: null});
     }
     data.me.salesman.visits = data.me.salesman.visits.filter(
       visit => visit.visited === false,
     );
     if (data.me.salesman.visits.length === 0) {
-      return resolve({lat: null, long: null});
+      return resolve({lat: null, long: null, user: null});
     }
     Geolocation.getCurrentPosition(pos => {
       const {latitude, longitude} = pos.coords;
-      const initialLatLong = getLatAndLong(
+      const initialLatLong = getMetaData(
         data.me.salesman.visits[0],
         data.customers,
       );
@@ -38,7 +42,7 @@ async function getLocation(originalData) {
         ...initialLatLong,
       };
       for (let i = 0; i < data.me.salesman.visits.length; i++) {
-        const {lat, long} = getLatAndLong(
+        const {lat, long, user} = getMetaData(
           data.me.salesman.visits[i],
           data.customers,
         );
@@ -52,19 +56,30 @@ async function getLocation(originalData) {
             distance: distance,
             lat,
             long,
+            user,
           };
         }
       }
-      return resolve({...next.visit, lat: next.lat, long: next.long});
+      return resolve({
+        ...next.visit,
+        lat: next.lat,
+        long: next.long,
+        user: next.user,
+      });
     });
   });
 }
 const SalesmanHomescreen = ({navigation}) => {
   const [data] = useContext(DataContext);
   const loading = data.loading;
+  let subtitle = '';
+  if (data.me && data.me.salesman && data.me.salesman.name) {
+    subtitle = data.me.salesman.name;
+  }
   return (
     <Homescreen
       title={'Salesman'}
+      subtitle={subtitle}
       buttonArray={[
         <Button
           disabled={loading.isLoading}
@@ -72,7 +87,6 @@ const SalesmanHomescreen = ({navigation}) => {
           text="Mi Ruta"
           onPress={async () => {
             const pos = await getLocation(data);
-            console.log(data.me.packages);
             if (pos.lat === null) {
               navigation.navigate('Message', {
                 message: 'No hay mas clientes por visitar',
@@ -81,6 +95,7 @@ const SalesmanHomescreen = ({navigation}) => {
               navigation.navigate('Map', {
                 lat: pos.lat,
                 long: pos.long,
+                userName: pos.user,
                 visit: {
                   ...pos,
                 },

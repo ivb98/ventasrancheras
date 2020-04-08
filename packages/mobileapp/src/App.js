@@ -50,8 +50,8 @@ const App = () => {
           pingInBackground={true}
           pingOnlyIfOffline={false}
           pingTimeout={1000}
-          httpMethod="HEAD"
-          pingInterval={500}>
+          httpMethod="OPTIONS"
+          pingInterval={501}>
           <AppContainer />
         </NetworkProvider>
       </DataProvider>

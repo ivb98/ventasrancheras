@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import Subtitle from '../../base/Subtitle/index';
 import Title from '../../base/Title/index';
 import Button from '../../base/Button/index';
 import LaunchNavigator from 'react-native-launch-navigator';
@@ -13,9 +14,10 @@ const MapScreen = ({navigation, route}) => {
   const {next, ...info} = route.params;
   return (
     <View style={styles.container}>
-      <Title extraStyles={styles.title}>
-        Mapa {route.params.lat}, {route.params.long}
-      </Title>
+      <Title extraStyles={styles.title}>De camino</Title>
+      {route.params.userName && (
+        <Subtitle>De camino a {route.params.userName}</Subtitle>
+      )}
       <View style={styles.googleMapsButton}>
         <Button
           text="Abrir en Google Maps"
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   googleMapsButton: {
-    height: Dimensions.get('screen').height * 0.6,
+    height: Dimensions.get('screen').height * 0.58,
     justifyContent: 'center',
   },
   nextButton: {
