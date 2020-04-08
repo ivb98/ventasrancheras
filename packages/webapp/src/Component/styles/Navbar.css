@@ -1,0 +1,29 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    background: rgb(73,79,82);
+    color: white;
+
+}
+
+.nav-links{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Navbar__brand {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .Navbar__brand:hover {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
