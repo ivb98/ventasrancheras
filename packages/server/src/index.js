@@ -1,3 +1,4 @@
+const path = require("path");
 const { createConnection, getConnectionOptions } = require("typeorm");
 const { SnakeNamingStrategy } = require("typeorm-naming-strategies");
 const express = require("express");
@@ -62,6 +63,11 @@ async function main() {
     app.use("/", AuthTokenRoutes);
     app.get("/ping", (req, res) => {
         res.send({ ok: true });
+    });
+    const staticFilesPath = path.resolve(__dirname, "../../webapp/build/");
+    app.use(express.static(staticFilesPath));
+    app.use("/*", (req, res) => {
+        res.sendFile(`${staticFilesPath}/index.html`);
     });
 }
 
