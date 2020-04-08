@@ -11,7 +11,7 @@ const deliveryContent = item => {
 const sellerContent = item => {
     return (
         <div>
-            <h> ID: {item.id}</h>
+            <h3> ID: {item.id}</h3>
             <p> Nombre completo: {item.nombre}</p>
             <p> Email: {item.email}</p>
         </div>
@@ -20,31 +20,32 @@ const sellerContent = item => {
 
 const packageContent = item => {
     return (
-        <div>
-            <h> ID: {item.id}</h>
-            <Container>
-                <span className="rounded mb-0 block border border-light">
-                    <ul>
-                        {item.items.map(producto => {
-                            return (
-                                <li>
-                                    {" "}
-                                    Product ID: {producto.id} Descripcion: {producto.name} Cantidad:{" "}
-                                    {producto.qty}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </span>
-            </Container>
-            <p>Client: {item.customer.name} </p>
-            <p>Client ID: {item.customer.id}</p>
-            {item.address !== undefined ? (
-                <p>
-                    Address: {item.address.Line1},{item.address.City} {item.address.PostalCode}
-                </p>
-            ) : null}
-            <p> Total: {item.total}</p>
+        <div className="card">
+            <div className="card-body">
+                <h4 className="card-title"> ID: {item.id}</h4>
+                <ul className="list-group my-4">
+                    {item.items.map(producto => {
+                        return (
+                            <li className="list-group-item">
+                                <ul>
+                                    <li>Product ID: {producto.id}</li>
+                                    <li>Descripcion: {producto.name}</li>
+                                    <li>Cantidad: {producto.qty}</li>
+                                </ul>
+                            </li>
+                        );
+                    })}
+                </ul>
+
+                <p>Client: {item.customer.name} </p>
+                <p>Client ID: {item.customer.id}</p>
+                {item.address !== undefined ? (
+                    <p>
+                        Address: {item.address.Line1},{item.address.City} {item.address.PostalCode}
+                    </p>
+                ) : null}
+                <p> Total: {item.total}</p>
+            </div>
         </div>
     );
 };

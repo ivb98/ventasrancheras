@@ -12,12 +12,11 @@ function CustomerPrflView(props) {
 
     const paquetes = data.packages.filter(pack => pack.customer.id === customer.id);
 
-
     return (
         <Container>
             <Container>
                 <p></p>
-                <h>Cliente : {customer.displayName}</h>
+                <h3>Cliente : {customer.displayName}</h3>
                 <p></p>
                 <p>Shipping Address: {customer.shipAddr.stringified}</p>
                 <p>Balance: {customer.balance}</p>
