@@ -20,7 +20,7 @@ const SellerView = () => {
 
                 <Col xs={6} md={4}>
                     {" "}
-                    <EmployeeForm rol="Seller" />{" "}
+                    <EmployeeForm rol="Salesman" />{" "}
                 </Col>
             </Row>
         </Container>

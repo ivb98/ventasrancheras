@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import Error from "./FormsErrors";
 import * as Yup from "yup";
 import { Container, Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -13,25 +14,44 @@ const validationSchema = Yup.object().shape({
         .min(1, "Must have at least 1 character")
         .max(255, "Must be less than 255 characters")
         .required("Must enter a Lastname"),
-    username: Yup.string()
-        .min(1, "Must have at least 1 character")
-        .max(255, "Must be less than 255 characters")
-        .required("Must enter a Username"),
+    email: Yup.string()
+        .email("Invalid e-mail address")
+        .required("Must enter an E-mail"),
     password: Yup.string()
         .min(6, "Must have at least 6 character")
         .max(255, "Must be less than 255 characters")
         .required("Must enter a password"),
 });
 
+
+
 export default function EmployeeForm(props) {
+    const rol = props.rol;
+    const url = (props.rol === "Salesman")? "salesman":"/delivery/create";
     return (
         <Container fluid="sm">
             <Formik
-                initialValues={{ name: "", lastname: "", username: "", password: "" }}
+                initialValues={{ name: "", lastname: "", email: "", password: "" }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
+
+                    const fullname = values.name + " " + values.lastname;
+                    axios
+                        .post(url, {
+                            name: fullname,
+                            email: values.email,
+                            password: values.password,
+                        },{
+                            headers: {
+                                'Content-Type': 'application/json',
+                                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxODgwOTAsImV4cCI6MTY0OTMwMzI5MH0.mksu2bwOSI4bboXog_ObQVr0_jKZt6904M3eHi_8cFc" 
+                            }})
+                        .then(res => console.log(res))
+                        .catch(e => console.log(e));
+
+                        
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
                         resetForm();
@@ -81,18 +101,18 @@ export default function EmployeeForm(props) {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Username :</Form.Label>
+                            <Form.Label>E-mail :</Form.Label>
                             <Form.Control
-                                type="text"
-                                name="username"
-                                id="username"
-                                placeholder="Enter Employee's Username"
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter Employee's E-mail"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.username}
-                                className={touched.username && errors.username ? "has-error" : null}
+                                value={values.email}
+                                className={touched.email && errors.email ? "has-error" : null}
                             />
-                            <Error touched={touched.username} message={errors.username} />
+                            <Error touched={touched.email} message={errors.email} />
                         </Form.Group>
 
                         <Form.Group>
@@ -105,7 +125,7 @@ export default function EmployeeForm(props) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.password}
-                                className={touched.username && errors.username ? "has-error" : null}
+                                className={touched.password && errors.password ? "has-error" : null}
                             />
                             <Error touched={touched.password} message={errors.password} />
                         </Form.Group>

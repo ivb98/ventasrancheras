@@ -15,7 +15,7 @@ function DeliveryView() {
                 </Col>
                 <Col xs={6} md={4}>
                     {" "}
-                    <EmployeeForm rol="Delivery" />
+                    <EmployeeForm rol="delivery" />
                 </Col>
             </Row>
         </Container>
