@@ -1,16 +1,30 @@
+const { createConnection, getConnectionOptions } = require("typeorm");
+const { SnakeNamingStrategy } = require("typeorm-naming-strategies");
 const express = require("express");
+const cors = require("cors");
 const AuthTokenRoutes = require("./erp/OAuth2/Auth/authToken.routes");
 const CachedToken = require("./erp/OAuth2/cache/tokenCache");
 const QBO = require("./erp/OAuth2/Auth/QBOAuth");
 const { port } = require("./config/index");
-// const { getInventory } = require("./erp/Inventory/Inventory");
-// const { getCustomers } = require("./erp/Customer/Customer");
-// const { getPackages, getPdf } = require("./erp/Packages/Packages");
-// const { uploadSignature, addNote } = require("./erp/Signature/Signature");
-// const { createSalesOrder } = require("./erp/Estimate/Estimate");
-// const { createEmployee } = require("./erp/Employee/Employee");
+const { defaultError } = require("./middlewares/error.middleware");
 
 const app = express();
+
+// middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/auth", require("./Auth/routes"));
+app.use("/customer", require("./routes/customer/routes"));
+app.use("/package", require("./routes/package/routes"));
+app.use("/item", require("./routes/item/routes"));
+app.use("/salesman", require("./routes/sales/router"));
+app.use("/payment", require("./routes/payment/routes"));
+app.use("/delivery", require("./routes/delivery/routes"));
+app.use("/salesorder", require("./routes/salesOrder/routes"));
+
+app.use(defaultError);
 
 async function loadCachedToken() {
     const cachedToken = CachedToken.get();
@@ -38,8 +52,17 @@ async function loadCachedToken() {
 }
 async function main() {
     loadCachedToken();
+    try {
+        const opts = await getConnectionOptions();
+        await createConnection({ ...opts, namingStrategy: new SnakeNamingStrategy() });
+    } catch (err) {
+        console.log(err);
+    }
     app.listen(port);
     app.use("/", AuthTokenRoutes);
+    app.get("/ping", (req, res) => {
+        res.send({ ok: true });
+    });
 }
 
 main();

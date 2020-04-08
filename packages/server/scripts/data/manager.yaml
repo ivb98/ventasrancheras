@@ -1,0 +1,60 @@
+---
+fixtures:
+    - email: test@manager.com
+      password: test1234
+      name: Manager McManager
+    - email: aferia1@hatena.ne.jp
+      password: OVPTrPr
+      name: Amabelle Feria
+
+    - email: lcoleborn2@examiner.com
+      password: YrIqYf4cA
+      name: Lissy Coleborn
+
+    - email: mosiaghail3@trellian.com
+      password: MD3Daw6
+      name: Myriam O'Siaghail
+
+    - email: ibaldacchi4@yelp.com
+      password: iDNmhKb
+      name: Ichabod Baldacchi
+
+    - email: shaston5@slashdot.org
+      password: gS1LobQtx0
+      name: Sabina Haston
+
+    - email: ahunt6@github.io
+      password: HMxIMarsY
+      name: Augusto Hunt
+
+    - email: sriccardelli7@utexas.edu
+      password: oanjwlf0fFFd
+      name: Skyler Riccardelli
+
+    - email: hkinnerk8@tamu.edu
+      password: oEUVSUo
+      name: Herrick Kinnerk
+
+    - email: aianinotti9@themeforest.net
+      password: CbOa2XeQ3
+      name: Alisa Ianinotti
+
+    - email: mcheelda@sfgate.com
+      password: XxWNvBRaWZm0
+      name: Monte Cheeld
+
+    - email: tmarienb@prnewswire.com
+      password: jhRnpt0
+      name: Turner Marien
+
+    - email: wgooderidgec@java.com
+      password: yTMNbLLznu
+      name: Warren Gooderidge
+
+    - email: khadigated@hao123.com
+      password: BVgNTOqQ7
+      name: Korey Hadigate
+
+    - email: gsapwelle@statcounter.com
+      password: CgiyBNX6
+      name: Gifford Sapwell

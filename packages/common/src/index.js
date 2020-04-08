@@ -1,5 +1,5 @@
-function test() {
-    console.log("hello world");
-}
+const VRError = require("./utils/VRError");
+const RolesConstants = require("./constants/roles");
+const StatusConstants = require("./constants/packageStatus");
 
-module.exports = { test };
+module.exports = { VRError, RolesConstants, StatusConstants };

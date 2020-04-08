@@ -1,0 +1,6 @@
+---
+fixtures:
+    - qbo_estimate_id: 1
+      visited: true
+      emp_id: 1
+      qbo_client_id: 1

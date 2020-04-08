@@ -9,12 +9,26 @@ module.exports.getCustomers = async () => {
     return new Promise((resolve, reject) => {
         qbo.findCustomers({ Active: true }, (err, customers) => {
             if (err) {
+                console.log(err);
                 reject(QBOUtils.parseError(err));
             } else {
-                const myCustomers = customers.QueryResponse.Customer.map(customer => {
+                let myCustomers = customers.QueryResponse.Customer.filter(
+                    customer => !!customer.BillAddr === true
+                );
+                myCustomers = myCustomers.map(customer => {
+                    let lat = 0;
+                    let long = 0;
+                    if (customer.Notes && customer.Notes.split(",").length === 2) {
+                        [lat, long] = customer.Notes.split(",");
+                    }
                     return {
-                        Id: customer.Id,
-                        shipAddr: customer.ShipAddr,
+                        id: customer.Id,
+                        shipAddr: {
+                            lat: Number.parseFloat(lat),
+                            long: Number.parseFloat(long),
+                            stringified: `${customer.BillAddr.City}, ${customer.BillAddr.CountrySubDivisionCode}, ${customer.BillAddr.Line1}`,
+                        },
+                        balance: customer.Balance,
                         displayName: customer.DisplayName,
                     };
                 });

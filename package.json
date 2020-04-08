@@ -8,6 +8,7 @@
         "packages/*"
     ],
     "scripts": {
-        "dev:server": "yarn workspace @vranch/server dev"
+        "dev:server": "yarn workspace @vranch/server dev",
+        "start": "yarn workspace @vranch/server start"
     }
 }
