@@ -51,21 +51,21 @@ module.exports.getSingleDelivery = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
-    const { email, password, name } = req.body;
-    if (!email || !password || !name) {
+    const { email, password, name, lastname } = req.body;
+    if (!email || !password || !name || !lastname) {
         return next(new Error("Missing parameters"));
     }
     try {
         const qboEmployee = await QBOEmployee.createEmployee({
-            DisplayName: name,
+            DisplayName: `${name} ${lastname}`,
             GivenName: name,
-            FamilyName: name,
+            FamilyName: lastname,
             PrimaryEmailAddr: {
                 Address: email,
             },
         });
         const employee = new Employee(
-            email,
+            `${name} ${lastname}`,
             password,
             name,
             qboEmployee.Id,

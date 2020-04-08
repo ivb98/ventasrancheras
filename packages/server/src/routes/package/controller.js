@@ -14,7 +14,7 @@ module.exports.getPackages = async (req, res) => {
     }
 
     for (const pkg of packages) {
-        pkg.status = deliveryMap[pkg.id] || StatusConstants.NOT_PICKED_UP;
+        pkg.status = deliveryMap[pkg.id] || StatusConstants.NOT_ASSIGNED;
     }
 
     res.send(packages);

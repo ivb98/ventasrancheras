@@ -1,0 +1,71 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js wrapper-test
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\nodejs\;C:\Users\user\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Java\jdk1.8.0_241\bin;;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\user\AppData\Local\Yarn\bin;C:\Users\user\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.0
+
+Node version: 
+  13.8.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\user\Desktop\proyect\ventasrancheras\packages\server\package.json: Unexpected string in JSON at position 1228
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+      "name": "@vranch/server",
+      "version": "1.0.0",
+      "main": "index.js",
+      "license": "MIT",
+      "dependencies": {
+          "@vranch/common": "^1.0.0",
+          "express": "^4.17.1",
+          "intuit-oauth": "^2.0.2",
+          "node-quickbooks": "^2.0.33",
+          "pg": "^7.18.2",
+          "reflect-metadata": "^0.1.13",
+          "typeorm": "^0.2.24",
+          "typeorm-naming-strategies": "^1.1.0"
+      },
+      "devDependencies": {
+          "chai": "^4.2.0",
+          "dotenv": "^8.2.0",
+          "eslint": "^6.8.0",
+          "eslint-config-airbnb": "^18.0.1",
+          "eslint-config-node": "^4.0.0",
+          "eslint-config-prettier": "^6.10.0",
+          "eslint-plugin-import": "^2.20.1",
+          "eslint-plugin-jsx-a11y": "^6.2.3",
+          "eslint-plugin-node": "^11.0.0",
+          "eslint-plugin-prettier": "^3.1.2",
+          "eslint-plugin-react": "^7.18.3",
+          "fake": "^0.2.2",
+          "faker": "^4.1.0",
+          "mocha": "^7.1.1",
+          "nodemon": "^2.0.2",
+          "prettier": "^1.19.1"
+      },
+      "scripts": {
+          "test": "mocha test/orm.test.js",
+          "wrapper-test": "mocha test/CustomerTest.js test/EmployeeTest.js test/EstimateTest.js test/PackageTest.js test/PaymentTest.js test/SignatureTest.js"
+          "lint": "eslint .",
+          "start": "node src/index",
+          "dev": "nodemon --ignore *.json src/index"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

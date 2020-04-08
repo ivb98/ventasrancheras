@@ -3,7 +3,8 @@
     "plugins": ["prettier"],
     "rules": {
         "no-unused-vars": "warn",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     },
     "parserOptions": {
         "ecmaVersion": 11,
