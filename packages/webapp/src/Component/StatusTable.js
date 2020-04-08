@@ -2,6 +2,9 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { useSelectDispatch } from "../Context/SelectContext";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 const visited = value => {
     return value === true ? <p>Yes</p> : <p>No</p>;
@@ -62,6 +65,7 @@ function StatusTable(props) {
                 data={props.products}
                 columns={columns}
                 selectRow={selectRow}
+                pagination={ paginationFactory() }
             />
         </Container>
     );

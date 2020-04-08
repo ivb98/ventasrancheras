@@ -3,6 +3,9 @@ import { Container, Nav } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
 import { Link } from "react-router-dom";
 import { RolesConstants } from "@vranch/common";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 
 const linkToProfile = (rol, row) => {
     return (
@@ -25,6 +28,7 @@ function ProfileTable(props) {
         {
             dataField: "name",
             text: "Nombre",
+            hidden: rol === "Customer"
         },
         {
             dataField: "displayName",
@@ -53,7 +57,7 @@ function ProfileTable(props) {
 
     return (
         <Container fluid="md">
-            <BootstrapTable keyField="id" data={props.products} columns={columns} />
+            <BootstrapTable keyField="id" data={props.products} columns={columns} pagination={ paginationFactory() }/>
         </Container>
     );
 }
