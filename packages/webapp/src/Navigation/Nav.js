@@ -30,27 +30,22 @@ function Nav() {
     const notLoggedNavigation = <Route exact path="/" component={Login} />;
 
     const loggedNavigation = (
-   
-            <>
-                <Route exact path="/" component={SellerView} />
-                <Route path="/Seller" exact component={SellerView} />
-                <Route path="/Delivery" exact component={DeliveryView} />
-                <Route path="/Package" exact component={PackageView} />
-                <Route path="/Customer" exact component={CustomerView} />
-                <Route path="/Seller/:id" component={SellerPrflView} />
-                <Route path="/Delivery/:id" component={DeliveryPrflView} />
-                <Route path="/Customer/:id" component={CustomerPrflView} />
-            </>
-        
+        <>
+            <Route exact path="/" component={SellerView} />
+            <Route path="/Seller" exact component={SellerView} />
+            <Route path="/Delivery" exact component={DeliveryView} />
+            <Route path="/Package" exact component={PackageView} />
+            <Route path="/Customer" exact component={CustomerView} />
+            <Route path="/Seller/:id" component={SellerPrflView} />
+            <Route path="/Delivery/:id" component={DeliveryPrflView} />
+            <Route path="/Customer/:id" component={CustomerPrflView} />
+        </>
     );
 
     return (
         <Router>
-            {user.login && <Navbar/>}
-            <Switch>
-                {user.login ? loggedNavigation : notLoggedNavigation}
-            </Switch>
-
+            {user.login && <Navbar />}
+            <Switch>{user.login ? loggedNavigation : notLoggedNavigation}</Switch>
         </Router>
     );
 }

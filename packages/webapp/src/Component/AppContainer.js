@@ -9,16 +9,15 @@ function AppContainer() {
     const [data, setData] = useContext(DataContext);
 
     useEffect(() => {
-        if(!loading){async function fetchAll() {
-            
-            fetchTheData(data, setData);
-            setLoading(true);
+        if (!loading) {
+            async function fetchAll() {
+                fetchTheData(data, setData);
+                setLoading(true);
+            }
+
+            fetchAll();
         }
-
-        fetchAll();
-    }
     }, [loading]);
-
 
     return (
         <div className="App">

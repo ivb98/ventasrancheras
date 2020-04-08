@@ -1,21 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 export const UserContext = React.createContext();
 export const initialUserState = {
-  name: '',
-  role: '',
-  login:true,
-  store:''
+    name: "",
+    role: "",
+    login: false,
+    store: "",
 };
 
 export const UserProvider = props => {
-  const [userData, setUserData] = useState(initialUserState);
+    const [userData, setUserData] = useState(initialUserState);
 
-  
-
-  return (
-    <UserContext.Provider value={[userData, setUserData]}>
-      {props.children}
-    </UserContext.Provider>
-  );
+    return (
+        <UserContext.Provider value={[userData, setUserData]}>
+            {props.children}
+        </UserContext.Provider>
+    );
 };
