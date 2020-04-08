@@ -1,13 +1,14 @@
 import React from "react";
 import { Container, Nav } from "react-bootstrap";
 import BootstrapTable from "react-bootstrap-table-next";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { RolesConstants } from "@vranch/common";
 
 const linkToProfile = (rol, row) => {
     return (
         <Nav>
             <Nav.Item>
-                <Link to={{pathname:`/${rol}/${row.id}`, state:{row}}}>Ver mas</Link>
+                <Link to={{ pathname: `/${rol}/${row.id}`, state: { row } }}>Ver mas</Link>
             </Nav.Item>
         </Nav>
     );
@@ -20,31 +21,32 @@ function ProfileTable(props) {
         {
             dataField: "id",
             text: "ID",
-        },{
+        },
+        {
             dataField: "name",
             text: "Nombre",
         },
         {
             dataField: "displayName",
             text: "Nombre",
-            hidden: (rol !== "Customer" )
+            hidden: rol !== "Customer",
         },
         {
             dataField: "shipAddr.stringified",
             text: "Address",
-            hidden: (rol !== "Customer" )
+            hidden: rol !== "Customer",
         },
         {
             dataField: "email",
             text: "E-mail",
-            hidden: (rol === "Customer" )
+            hidden: rol === "Customer",
         },
         {
             dataField: "Profile",
             isDummyField: true,
             text: "Detalles",
             formatter: (cell, row, rowIndex) => {
-                return linkToProfile(rol, row);
+                return linkToProfile(rol === RolesConstants.SALESMAN ? "Sales" : rol, row);
             },
         },
     ];
@@ -57,4 +59,3 @@ function ProfileTable(props) {
 }
 
 export default ProfileTable;
-

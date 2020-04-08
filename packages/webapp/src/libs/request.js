@@ -1,8 +1,5 @@
 import axios from "axios";
 
-const token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxODgwOTAsImV4cCI6MTY0OTMwMzI5MH0.mksu2bwOSI4bboXog_ObQVr0_jKZt6904M3eHi_8cFc";
-
 const config = {
     headers: {
         "Content-type": "application/json",
@@ -17,20 +14,17 @@ const getData = async url => {
     return info;
 };
 
-export const fetchTheData = async (data, setData) => {
+export const fetchTheData = async (data, setData, token) => {
     const stateObject = {};
 
     const requests = [
         { endpoint: "/salesman", name: "salesman" },
         { endpoint: "/package", name: "packages" },
         { endpoint: "/delivery", name: "deliveries" },
-        { endpoint: "/customer", name: "customers" }
-        
+        { endpoint: "/customer", name: "customers" },
     ];
 
-    if (token) {
-        config.headers["Authorization"] = token;
-    }
+    config.headers["Authorization"] = token;
 
     setData(prev => ({
         ...prev,
@@ -50,14 +44,13 @@ export const fetchTheData = async (data, setData) => {
         try {
             const fetchedData = await getData(endpoint);
             stateObject[requests[i].name] = fetchedData;
-        
         } catch {
             return null;
         }
     }
 
     console.log(stateObject);
-    
+
     setData(prev => ({
         ...prev,
         ...stateObject,

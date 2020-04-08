@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik";
 import Error from "./FormsErrors";
 import * as Yup from "yup";
 import { Container, Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { UserContext } from "../Context/UserContext";
 
 const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -23,11 +24,9 @@ const validationSchema = Yup.object().shape({
         .required("Must enter a password"),
 });
 
-
-
-export default function EmployeeForm(props) {
-    const rol = props.rol;
-    const url = (props.rol === "Salesman")? "salesman":"/delivery/create";
+export default function EmployeeForm({ rol }) {
+    const [user] = useContext(UserContext);
+    const url = rol === "Salesman" ? "/salesman" : "/delivery/create";
     return (
         <Container fluid="sm">
             <Formik
@@ -36,22 +35,25 @@ export default function EmployeeForm(props) {
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
 
-
-                    const fullname = values.name + " " + values.lastname;
                     axios
-                        .post(url, {
-                            name: fullname,
-                            email: values.email,
-                            password: values.password,
-                        },{
-                            headers: {
-                                'Content-Type': 'application/json',
-                                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6Ik1hbmFnZXIiLCJpYXQiOjE1ODYxODgwOTAsImV4cCI6MTY0OTMwMzI5MH0.mksu2bwOSI4bboXog_ObQVr0_jKZt6904M3eHi_8cFc" 
-                            }})
+                        .post(
+                            url,
+                            {
+                                name: values.name,
+                                lastname: values.lastname,
+                                email: values.email,
+                                password: values.password,
+                            },
+                            {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `bearer ${user.access_token}`,
+                                },
+                            }
+                        )
                         .then(res => console.log(res))
                         .catch(e => console.log(e));
 
-                        
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
                         resetForm();
@@ -69,7 +71,7 @@ export default function EmployeeForm(props) {
                     isSubmitting,
                 }) => (
                     <Form onSubmit={handleSubmit}>
-                        <Form.Label>Crear un nuevo {props.rol}</Form.Label>
+                        <Form.Label>Crear un nuevo {rol}</Form.Label>
                         <Form.Group>
                             <Form.Label>Name :</Form.Label>
                             <Form.Control

@@ -8,7 +8,6 @@ import DeliveryPrflView from "../pages/DeliveryPrflVw";
 import CustomerView from "../pages/CustomerVw";
 import CustomerPrflView from "../pages/CustomerPrflVw";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import { LoadingProvider } from "../Context/LoadingContext";
 import { UserContext } from "../Context/UserContext";
 import Login from "../Component/LoginWrapper";
 
@@ -26,7 +25,6 @@ import Login from "../Component/LoginWrapper";
 
 function Nav() {
     const [user, setUser] = useContext(UserContext);
-    console.log(user);
     const notLoggedNavigation = <Route exact path="/" component={Login} />;
 
     const loggedNavigation = (

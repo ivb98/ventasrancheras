@@ -6,7 +6,6 @@ import UserProvider from "../Context/UserContext.js";
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = {
             form: {
                 email: "",
@@ -31,7 +30,6 @@ class Login extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log(this.state.form);
         this.login();
     };
 
@@ -43,9 +41,7 @@ class Login extends React.Component {
             },
             body: JSON.stringify(this.state.form),
         }).then(response => {
-            console.log(response);
             response.json().then(result => {
-                console.log("result", result);
                 localStorage.setItem("login", JSON.stringify(result));
                 this.setState({ name: result.name, role: result.role });
                 let store = JSON.parse(localStorage.getItem("login"));

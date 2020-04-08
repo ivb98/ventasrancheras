@@ -5,10 +5,7 @@ import { useSelectState } from "../Context/SelectContext";
 import "./styles/StatusPack.css";
 
 const deliveryContent = item => {
-    return (
-        <div>
-        </div>
-    );
+    return <div></div>;
 };
 
 const sellerContent = item => {

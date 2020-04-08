@@ -4,6 +4,7 @@ import Error from "./FormsErrors";
 import * as Yup from "yup";
 import { Container, Form, Button } from "react-bootstrap";
 import { DataContext } from "../Context/DataContext";
+import { RolesConstants } from "@vranch/common";
 
 const validationSchema = Yup.object().shape({
     employeename: Yup.string()
@@ -16,19 +17,10 @@ const validationSchema = Yup.object().shape({
         .required("Must enter an assigment"),
 });
 
-const keysArray = packs => {
-    const array = [];
-
-    for (let i = 0; i < packs.length; i++) array[i] = packs[i].id;
-
-    
-
-    return array;
-};
-
 export default function AssignForm(props) {
     const [data] = useContext(DataContext);
 
+    console.log(data);
     const rol = props.rol;
 
     const employeeName = props.employee.name ? props.employee.name : "";
@@ -36,10 +28,23 @@ export default function AssignForm(props) {
     const initValue = { employeename: employeeName, assigment: "" };
 
     const freePackages = data.packages.filter(pack => pack.status === "Not Assigned");
+    const freeCustomers = data.customers.filter(customer => !customer.assigned);
 
-    
+    const salesmanSelect = {
+        prepend: "Cliente",
+        textProperty: "displayName",
+        valueProperty: "id",
+        array: freeCustomers,
+    };
 
-    const keyArray = keysArray(freePackages);
+    const deliverySelect = {
+        prepend: "Paquete",
+        textProperty: "id",
+        valueProperty: "id",
+        array: freePackages,
+    };
+
+    const selectData = rol === "Seller" ? salesmanSelect : deliverySelect;
 
     return (
         <Container fluid="sm">
@@ -104,7 +109,13 @@ export default function AssignForm(props) {
                                     touched.assigment && errors.assigment ? "has-error" : null
                                 }
                             >
-                                <option value ={keyArray} />
+                                {selectData.array.map((item, i) => {
+                                    return (
+                                        <option key={i} value={item[selectData.valueProperty]}>
+                                            {selectData.prepend} {item[selectData.textProperty]}
+                                        </option>
+                                    );
+                                })}
                             </Form.Control>
                             <Error touched={touched.assigment} message={errors.assigment} />
                         </Form.Group>

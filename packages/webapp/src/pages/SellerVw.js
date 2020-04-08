@@ -7,15 +7,16 @@ import { DataContext } from "../Context/DataContext";
 const SellerView = () => {
     const [data] = useContext(DataContext);
 
+    if (!data.salesman.salesmen) return null;
     return (
         <Container fluid>
             <Row>
                 <Col xs={12} md={8}>
-                    {/* <ProfileTable products={data.salesman.salesmen} rol="Seller" /> */}
+                    <ProfileTable products={data.salesman.salesmen} rol="Seller" />
                 </Col>
 
                 <Col xs={6} md={4}>
-                    {/* <EmployeeForm rol="Salesman" /> */}
+                    <EmployeeForm rol="Seller" />
                 </Col>
             </Row>
         </Container>
