@@ -14,7 +14,7 @@ function Navbar() {
         <div className="mb-5">
             <ReactBootStrap.Navbar bg="dark" variant="dark" expand="lg">
                 <Link className="Navbar__brand" to="/Seller">
-                    Nav-Bar{" "}
+                    Ventas Rancheras
                 </Link>
                 <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">

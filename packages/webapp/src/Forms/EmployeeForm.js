@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 export default function EmployeeForm({ rol }) {
     const [user] = useContext(UserContext);
-    const url = rol === "Salesman" ? "/salesman" : "/delivery/create";
+    const url = rol === "Seller" ? "/salesman" : "/delivery/create";
     return (
         <Container fluid="sm">
             <Formik
@@ -34,7 +34,6 @@ export default function EmployeeForm({ rol }) {
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-
                     axios
                         .post(
                             url,
@@ -54,11 +53,7 @@ export default function EmployeeForm({ rol }) {
                         .then(res => console.log(res))
                         .catch(e => console.log(e));
 
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        resetForm();
-                        setSubmitting(false);
-                    }, 500);
+                    resetForm();
                 }}
             >
                 {({

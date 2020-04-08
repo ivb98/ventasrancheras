@@ -11,21 +11,15 @@ const validationSchema = Yup.object().shape({
         .min(1, "Must have at least 1 character")
         .max(255, "Must be less than 255 characters")
         .required("Must enter an Employee"),
-    assigment: Yup.string()
-        .min(1, "Must have at least 1 character")
-        .max(255, "Must be less than 255 characters")
-        .required("Must enter an assigment"),
 });
 
 export default function AssignForm(props) {
     const [data] = useContext(DataContext);
 
-    console.log(data);
+    if (!data.customers.length) return null;
     const rol = props.rol;
 
     const employeeName = props.employee.name ? props.employee.name : "";
-
-    const initValue = { employeename: employeeName, assigment: "" };
 
     const freePackages = data.packages.filter(pack => pack.status === "Not Assigned");
     const freeCustomers = data.customers.filter(customer => !customer.assigned);
@@ -43,23 +37,19 @@ export default function AssignForm(props) {
         valueProperty: "id",
         array: freePackages,
     };
-
-    const selectData = rol === "Seller" ? salesmanSelect : deliverySelect;
+    const isSeller = rol === "Seller";
+    const selectData = isSeller ? salesmanSelect : deliverySelect;
+    const initValue = {
+        employeename: employeeName,
+        assigment: isSeller ? freeCustomers[0].id : freePackages[0].id,
+    };
 
     return (
         <Container fluid="sm">
             <Formik
                 initialValues={initValue}
                 validationSchema={validationSchema}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setSubmitting(true);
-
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        resetForm();
-                        setSubmitting(false);
-                    }, 500);
-                }}
+                onSubmit={props.handleFormSubmit}
             >
                 {({
                     values,
