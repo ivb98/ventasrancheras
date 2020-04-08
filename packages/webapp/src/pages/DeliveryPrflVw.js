@@ -20,7 +20,7 @@ function DeliveryPrflView(props) {
                     </Col>
                     <Col xs={6} md={4}>
                         {" "}
-                        <Assignform assign="Package" rol="Delivery" />
+                        <Assignform assign="Package" rol="Delivery" employee={delivery} />
                         <StatusPack rol="Delivery" />
                     </Col>
                 </Row>

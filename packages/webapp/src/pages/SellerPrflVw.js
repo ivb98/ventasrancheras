@@ -8,8 +8,6 @@ import { SelectProvider } from "../Context/SelectContext";
 function SellerPrflView(props) {
     const seller = props.location.state.row;
 
-    console.log(seller);
-
     return (
         <Container fluid>
             <Container>
@@ -23,7 +21,7 @@ function SellerPrflView(props) {
                     </Col>
                     <Col xs={6} md={4}>
                         {" "}
-                        <Assignform assign="Customer" rol="Seller" />
+                        <Assignform assign="Customer" rol="Seller" employee={seller}/>
                         <StatusPack rol="Seller" />
                     </Col>
                 </SelectProvider>
