@@ -1,14 +1,10 @@
 ---
 fixtures:
-    - id: 1
-      qbo_receipt_id: 1
+    - qbo_receipt_id: 1
       emp_id: 2
-    - id: 2
-      qbo_receipt_id: 2
+    - qbo_receipt_id: 2
       emp_id: 3
-    - id: 3
-      qbo_receipt_id: 3
+    - qbo_receipt_id: 3
       emp_id: 4
-    - id: 4
-      qbo_receipt_id: 4
+    - qbo_receipt_id: 4
       emp_id: 5

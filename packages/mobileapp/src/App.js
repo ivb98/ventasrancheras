@@ -16,7 +16,7 @@ import {PermissionsAndroid} from 'react-native';
 import {DataContext} from './contexts/dataContext';
 import SplashScreen from './pages/Splashscreen/index';
 
-const App: () => React$Node = () => {
+const App = () => {
   const [permissions, setPermission] = useState(false);
 
   useEffect(() => {

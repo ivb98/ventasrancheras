@@ -64,15 +64,15 @@ module.exports.getSingleSalesman = async (req, res) => {
 };
 
 module.exports.create = async (req, res, next) => {
-    const { email, password, name } = req.body;
-    if (!email || !password || !name) {
+    const { email, password, name, lastname } = req.body;
+    if (!email || !password || !name || !lastname) {
         return next(new Error("Missing parameters"));
     }
     try {
         const qboEmployee = await QBOEmployee.createEmployee({
-            DisplayName: name,
+            DisplayName: `${name} ${lastname}`,
             GivenName: name,
-            FamilyName: name,
+            FamilyName: lastname,
             PrimaryEmailAddr: {
                 Address: email,
             },
@@ -80,8 +80,8 @@ module.exports.create = async (req, res, next) => {
         const employee = new Employee(
             email,
             password,
-            name,
-            qboEmployee.Id,
+            `${name} ${lastname}`,
+            qboEmployee,
             RolesConstants.SALESMAN
         );
         const created = await Repository.create(employee, Employee);

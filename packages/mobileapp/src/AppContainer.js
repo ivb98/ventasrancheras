@@ -93,7 +93,7 @@ function toggleData(data, setData, isConnected) {
   setData(prev => ({...prev, internetConnection: isConnected}));
   setConnectivity(isConnected);
 }
-const AppContainer: () => React$Node = () => {
+const AppContainer = () => {
   const [userData, setUserData] = useContext(UserContext);
   const [data, setData] = useContext(DataContext);
 

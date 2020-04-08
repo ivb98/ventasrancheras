@@ -9,6 +9,7 @@ import {formatSignature} from '../../lib/util';
 import {makeJsonRequest} from '../../lib/request';
 import PackageInfo from '../../components/PackageInfo/component';
 import {updateVisitStatus} from '../../lib/storage/controller';
+import * as Yup from 'yup';
 
 function getPickedItems(values, extended = false) {
   const items = [];
@@ -23,14 +24,16 @@ function getPickedItems(values, extended = false) {
   return items;
 }
 const SalesOrderForm = ({items, ids, data, setData}) => {
-  console.log(ids);
   return (
     <Formik
       initialValues={{
         items,
         signature: '',
       }}
-      onSubmit={async values => {
+      validationSchema={validationSchema}
+      initialErrors={{signature: 'Field is required'}}
+      onSubmit={async (values, {setSubmitting}) => {
+        setSubmitting(true);
         const items = getPickedItems(values);
         await makeJsonRequest(
           '/salesorder',
@@ -47,7 +50,7 @@ const SalesOrderForm = ({items, ids, data, setData}) => {
         );
         updateVisitStatus(ids.visitId, data, setData);
       }}>
-      {({handleSubmit, values, handleChange}) => {
+      {({handleSubmit, values, handleChange, isSubmitting, isValid}) => {
         const pickedItems = getPickedItems(values, true);
         return (
           <View>
@@ -61,7 +64,11 @@ const SalesOrderForm = ({items, ids, data, setData}) => {
               <SignatureField name="signature" />
             </View>
             <View style={styles.buttonContainer}>
-              <Button text="Submit" onPress={handleSubmit} />
+              <Button
+                text="Submit"
+                disabled={isSubmitting || !isValid}
+                onPress={handleSubmit}
+              />
             </View>
           </View>
         );
@@ -82,4 +89,7 @@ const styles = StyleSheet.create({
   },
 });
 
+const validationSchema = Yup.object().shape({
+  signature: Yup.string().required(),
+});
 export default SalesOrderForm;

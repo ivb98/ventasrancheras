@@ -56,7 +56,7 @@ async function main() {
     await loadFixtures("employee", con);
     await loadFixtures("manager", con);
     await loadFixtures("sales_visit", con);
-    await loadFixtures("package_delivery", con);
+    // await loadFixtures("package_delivery", con);
 }
 
 main();

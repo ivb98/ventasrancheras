@@ -7,7 +7,6 @@ import {useField} from 'formik';
 function resetField(signField, helpers, setClean) {
   signField.resetImage();
   helpers.setValue('');
-  helpers.setError('Field is required');
   setClean(true);
 }
 
@@ -17,7 +16,6 @@ function saveField(signField) {
 
 function handleSave({encoded}, helpers) {
   helpers.setValue(encoded);
-  helpers.setError('');
 }
 
 const SignatureField = props => {

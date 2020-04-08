@@ -12,7 +12,8 @@ import Button from '../../base/Button/index';
 const DeliverPackage = ({route, navigation}) => {
   const {pkg} = route.params;
   const [data, setData] = useContext(DataContext);
-  async function handleSubmit(values) {
+  async function handleSubmit(values, {setSubmitting}) {
+    setSubmitting(true);
     await makeJsonRequest(
       '/delivery/deliver',
       {

@@ -3,11 +3,15 @@ import {Formik} from 'formik';
 import {View, StyleSheet} from 'react-native';
 import InputField from '../../../base/Form/InputField/index';
 import Button from '../../../base/Button/index';
-
+import * as Yup from 'yup';
 const LoginForm = ({onSubmit}) => {
   return (
-    <Formik initialValues={{email: '', password: ''}} onSubmit={onSubmit}>
-      {({values, handleSubmit, handleChange, isSubmitting}) => (
+    <Formik
+      initialValues={{email: '', password: ''}}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+      validateOnMount={true}>
+      {({values, handleSubmit, handleChange, isSubmitting, isValid}) => (
         <View style={styles.form}>
           <InputField
             handleChange={handleChange('email')}
@@ -25,7 +29,7 @@ const LoginForm = ({onSubmit}) => {
             <Button
               onPress={handleSubmit}
               text="LOGIN"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isValid}
             />
           </View>
         </View>
@@ -38,5 +42,12 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 30,
   },
+});
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email()
+    .required(),
+  password: Yup.string().required(),
 });
 export default LoginForm;

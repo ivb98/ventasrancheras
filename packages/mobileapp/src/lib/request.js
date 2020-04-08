@@ -1,7 +1,7 @@
 import {save, get} from './storage/storage';
 import {CACHE_KEY} from './storage/storage.keys';
 
-const baseUrl = 'https://vrancheras.herokuapp.com';
+const baseUrl = 'http://10.0.0.10:3000';
 let access_token = '';
 let isInternetReachable = true;
 
@@ -20,13 +20,16 @@ export const makeJsonRequest = async (
     opts.headers.Authorization = `bearer ${access_token}`;
   }
 
+  console.log(isInternetReachable);
   if (isInternetReachable) {
     let request = await fetch(`${baseUrl}${url}`, {method: 'GET', ...opts});
     try {
       let data = await request.json();
 
+      console.log(data);
       return data;
-    } catch {
+    } catch (err) {
+      console.log(err);
       return null;
     }
   } else {

@@ -1,91 +1,90 @@
 ---
 fixtures:
-    - id: "1"
-      email: test@salesman.com
+    - email: test@salesman.com
       password: test1234
       qbo_id: 1
       role: Salesman
       name: Salesman McSeller
-    - id: 2
-      email: test@delivery.com
+
+    - email: test@delivery.com
       password: test1234
       qbo_id: 2
       role: Delivery
       name: Matilda Baulcombe
-    - id: 3
-      email: jboome2@altervista.org
+
+    - email: jboome2@altervista.org
       password: QpjyFVc
       qbo_id: 3
       role: Delivery
       name: Jandy Boome
-    - id: 4
-      email: ctickel3@dion.ne.jp
+
+    - email: ctickel3@dion.ne.jp
       password: aYfPzEmec
       qbo_id: 4
       role: Delivery
       name: Cully Tickel
-    - id: 5
-      email: dpapis4@networkadvertising.org
+
+    - email: dpapis4@networkadvertising.org
       password: jKenJA2aMT
       qbo_id: 5
       role: Delivery
       name: Dehlia Papis
-    - id: 6
-      email: eseniour5@deliciousdays.com
+
+    - email: eseniour5@deliciousdays.com
       password: 0qavYq
       qbo_id: 6
       role: Delivery
       name: Ennis Seniour
-    - id: 7
-      email: gsteggles6@weibo.com
+
+    - email: gsteggles6@weibo.com
       password: Z1a7EWgjW
       qbo_id: 7
       role: Salesman
       name: Guthrie Steggles
-    - id: 8
-      email: vpinching7@nasa.gov
+
+    - email: vpinching7@nasa.gov
       password: DdpJfRapeix
       qbo_id: 8
       role: Delivery
       name: Veradis Pinching
-    - id: 9
-      email: mjammes8@npr.org
+
+    - email: mjammes8@npr.org
       password: IclkWc9OLmTG
       qbo_id: 9
       role: Delivery
       name: Micah Jammes
-    - id: 10
-      email: dfern9@hexun.com
+
+    - email: dfern9@hexun.com
       password: KecDCSx
       qbo_id: 10
       role: Delivery
       name: Denni Fern
-    - id: 11
-      email: dgingella@drupal.org
+
+    - email: dgingella@drupal.org
       password: t2ATpgSm
       qbo_id: 11
       role: Salesman
       name: Don Gingell
-    - id: 12
-      email: bmoroneyb@amazon.com
+
+    - email: bmoroneyb@amazon.com
       password: tYFM8BvQME
       qbo_id: 12
       role: Delivery
       name: Brod Moroney
-    - id: 13
-      email: jrayc@topsy.com
+
+    - email: jrayc@topsy.com
       password: PrSLo3
       qbo_id: 13
       role: Delivery
       name: Jan Ray
-    - id: 14
-      email: lelsmered@home.pl
+
+    - email: lelsmered@home.pl
       password: LBYX2rHfZqL
       qbo_id: 14
       role: Salesman
       name: Libby Elsmere
-    - id: 15
-      email: asherringhame@tinypic.com
+
+    - email: asherringhame@tinypic.com
       password: kgndBI0Z1Co
       qbo_id: 15
       role: Salesman

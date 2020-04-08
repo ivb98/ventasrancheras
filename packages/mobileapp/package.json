@@ -78,7 +78,9 @@
       "@react-native-community/geolocation",
       "@react-native-community/geolocation/**",
       "react-native-launch-navigator",
-      "react-native-launch-navigator/**"
+      "react-native-launch-navigator/**",
+      "yup",
+      "yup/**"
     ]
   }
 }
