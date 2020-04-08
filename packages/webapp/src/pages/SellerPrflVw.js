@@ -10,7 +10,13 @@ import { UserContext } from "../Context/UserContext";
 function SellerPrflView(props) {
     const [data] = useContext(DataContext);
     const [user] = useContext(UserContext);
-    const seller = props.location.state.row;
+    const saleId = props.location.state.row.id;
+
+    
+    const seller = data.salesman.salesmen.find(sale => {
+  
+        return sale.id === saleId;
+    });
 
     async function handleFormSubmit({ employeename, assigment }, { setSubmitting, resetForm }) {
         setSubmitting(true);

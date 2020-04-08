@@ -8,9 +8,16 @@ import { DataContext } from "../Context/DataContext";
 import { UserContext } from "../Context/UserContext";
 
 function DeliveryPrflView(props) {
-    const delivery = props.location.state.row;
+    const deliid = props.location.state.row.id;
     const [data] = useContext(DataContext);
     const [user] = useContext(UserContext);
+
+    
+
+    const delivery = data.deliveries.find(delivery => {
+  
+        return delivery.id === deliid;
+    });
 
     
 

@@ -8,9 +8,14 @@ import { DataContext } from "../Context/DataContext";
 function CustomerPrflView(props) {
     const [data] = useContext(DataContext);
 
-    const customer = props.location.state.row;
+    const custId = props.location.state.row.id;
 
-    const paquetes = data.packages.filter(pack => pack.customer.id === customer.id);
+    const customer = data.customers.find(customer => {
+  
+        return customer.id === custId;
+    });
+
+    const paquetes = data.packages.filter(pack => pack.customer.id === custId);
 
     return (
         <Container>
